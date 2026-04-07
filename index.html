@@ -200,6 +200,8 @@
         .jp-fc-back{background:linear-gradient(135deg,#0c1a30,#1a2d50);border:2px solid #6366f1;transform:rotateY(180deg);box-shadow:0 4px 16px rgba(99,102,241,0.15);overflow-y:auto}
         .jp-kanji{font-size:2.4rem;font-weight:900;color:#fbbf24;text-shadow:0 2px 10px rgba(251,191,36,0.3);margin:4px 0;font-family:'Noto Sans JP',serif}
         .mode-tab.nihongo{background:linear-gradient(135deg,#dc2626,#f97316);color:#fff}
+        .mode-tab.nailab{background:linear-gradient(135deg,#ff69b4,#ff1493);color:#fff}
+        .mode-tab.aisetup{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff}
         #voiceRecBtn.recording{background:#ef4444!important;border-color:#dc2626!important;animation:voicePulse 1.5s infinite}
         @keyframes voicePulse{0%,100%{box-shadow:0 0 10px rgba(239,68,68,0.3)}50%{box-shadow:0 0 30px rgba(239,68,68,0.5)}}
         .rcontent{padding:4px;white-space:pre-wrap;font-family:Consolas,monospace;font-size:0.5rem;line-height:1.3;max-height:120px;overflow-y:auto;color:#a5f3fc;background:#0d1117}
@@ -219,10 +221,12 @@
 <div class="container" style="padding-top:2px">
     <div class="mode-tabs" style="margin-top:0">
         <div class="mode-tab image active" onclick="setMode('image')">🎨 Image</div>
-        <div class="mode-tab story" onclick="setMode('story')">🤖 Bot Chat</div>
+        <div class="mode-tab story" onclick="setMode('story')">🤖 Chat</div>
         <div class="mode-tab song" onclick="setMode('song')">🎵 Song</div>
         <div class="mode-tab dream" onclick="setMode('dream')">🌙 Dream</div>
         <div class="mode-tab nihongo" onclick="setMode('nihongo')" style="background:linear-gradient(135deg,#dc2626,#f97316);color:#fff">📖 日本語</div>
+        <div class="mode-tab nailab" onclick="setMode('nailab')" style="background:linear-gradient(135deg,#ff69b4,#ff1493);color:#fff">🧪 NAI Lab</div>
+        <div class="mode-tab aisetup" onclick="setMode('aisetup')" style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff">⚙️ AI설정</div>
         <div class="mode-tab" onclick="showFavorites()" style="background:linear-gradient(135deg,#eab308,#f59e0b);margin-left:auto">⭐ <span id="favBadge" style="font-size:0.55rem"></span></div>
     </div>
     
@@ -461,6 +465,146 @@
                         <button onclick="voiceToField('dwInput')" style="padding:11px 10px;background:#22c55e;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:0.75rem;flex-shrink:0" title="🎤 음성입력">🎤</button>
                         <button onclick="dwNewStory()" title="새 주제 시작 (이전 맥락 무시)" style="padding:11px 12px;background:#1e293b;color:#fbbf24;border:1px solid #fbbf24;border-radius:8px;cursor:pointer;font-size:0.65rem;font-weight:700;flex-shrink:0">🆕새글</button>
                         <button id="dwSendBtn" onclick="dwSend()" style="padding:11px 20px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:0.85rem;font-weight:700;flex-shrink:0">🌙</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ ⚙️ AI 설정 (공유) ═══ -->
+    <div id="aisetupPanel" style="display:none;padding:8px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <!-- Text AI -->
+            <div class="card">
+                <h2 style="color:#a78bfa">📝 Text AI (전 모드 공유)</h2>
+                <div class="sel-bar"><span class="info">Selected:</span><span class="count" id="tcnt2">0</span></div>
+                <div class="qsel">
+                    <button class="qbtn" onclick="selTextProvider('cerebras')">⚡Cerebras</button>
+                    <button class="qbtn" onclick="selTextProvider('gemini')">💎Gemini</button>
+                    <button class="qbtn" onclick="selTextProvider('groq')">🚀Groq</button>
+                    <button class="qbtn" onclick="selTextProvider('openai')">🤖OpenAI</button>
+                    <button class="qbtn" onclick="selTextProvider('anthropic')">🧠Claude</button>
+                    <button class="qbtn" onclick="selTextProvider('or')">🌐OR</button>
+                    <button class="qbtn" onclick="selTextProvider('zai')">🧠Z.ai</button>
+                    <button class="qbtn" onclick="selTextAll()">All</button>
+                    <button class="qbtn" onclick="clrText()">Clear</button>
+                </div>
+                <div style="font-size:0.38rem;color:#64748b;margin-bottom:3px">↓ 여기서 체크한 모델이 Image/Dream/Song/日本語 전 모드에서 사용됩니다</div>
+                <div id="tgrid2"></div>
+            </div>
+            <!-- Image AI -->
+            <div class="card">
+                <h2 style="color:#ec4899">🖼️ Image AI (전 모드 공유)</h2>
+                <div class="sel-bar"><span class="info">Selected:</span><span class="count" id="icnt2">0</span></div>
+                <div class="qsel">
+                    <button class="qbtn" onclick="selImgProvider('nai')">🎨NAI</button>
+                    <button class="qbtn" onclick="selImgProvider('gemini')">💎Gemini</button>
+                    <button class="qbtn" onclick="selImgProvider('poe')">🐦Poe</button>
+                    <button class="qbtn" onclick="selImgProvider('krea')">✨Krea</button>
+                    <button class="qbtn" onclick="selImgProvider('grok')">🚀Grok</button>
+                    <button class="qbtn" onclick="selImgProvider('zai')">🧠Z.ai</button>
+                    <button class="qbtn" onclick="selImgAll()">All</button>
+                    <button class="qbtn" onclick="clrImg()">Clear</button>
+                </div>
+                <div style="font-size:0.38rem;color:#64748b;margin-bottom:3px">↓ 여기서 체크한 모델이 전 모드 이미지 생성에 사용됩니다</div>
+                <div id="igrid2"></div>
+            </div>
+        </div>
+        <!-- 하단: STT + 지침 + API Keys -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px">
+            <div class="card">
+                <h2 style="color:#22c55e">🎤 음성인식 (STT)</h2>
+                <select id="sttProvider" style="width:100%;padding:4px;background:#1e293b;border:1px solid #22c55e;border-radius:4px;color:#f1f5f9;font-size:0.5rem">
+                    <option value="groq" selected>🚀 Groq Whisper (기본·무료)</option>
+                    <option value="openai">🤖 OpenAI Whisper</option>
+                    <option value="cerebras">⚡ Cerebras Whisper</option>
+                </select>
+            </div>
+            <div class="card">
+                <h2 style="color:#a78bfa">📝 공통 시스템 지침</h2>
+                <textarea id="globalInstruction" placeholder="(선택) 모든 AI 출력에 적용할 지침..." style="width:100%;padding:4px;background:#1e293b;border:1px solid #a78bfa;border-radius:4px;color:#f1f5f9;font-size:0.45rem;min-height:40px;resize:vertical"></textarea>
+            </div>
+            <div class="card">
+                <h2 onclick="toggleSettings()">🔑 API Keys <span style="font-size:0.35rem;color:#64748b">(click)</span></h2>
+                <div style="font-size:0.4rem;color:#64748b">← Image 모드 좌측 패널의 ⚙️ API Keys와 동일</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ 🧪 NAI 작가연구 Lab ═══ -->
+    <div id="nailabPanel" style="display:none">
+        <div style="display:grid;grid-template-columns:380px 1fr;gap:8px">
+            <!-- 왼쪽: 설정 -->
+            <div style="display:flex;flex-direction:column;gap:6px">
+                <div class="card">
+                    <h2 style="color:#ff69b4">🧪 NAI 작가 조합 실험</h2>
+                    <!-- 작가 입력 -->
+                    <div style="margin-bottom:6px">
+                        <label style="font-size:0.45rem;color:#ec4899;font-weight:700">🎨 작가 1 (필수)</label>
+                        <input type="text" id="naiLabArtist1" placeholder="예: cutesexyrobutts, wlop, sakimichan..." style="width:100%;padding:4px 6px;background:#1e293b;border:1px solid #ec4899;border-radius:4px;color:#f1f5f9;font-size:0.5rem">
+                    </div>
+                    <div style="margin-bottom:6px">
+                        <label style="font-size:0.45rem;color:#f9a8d4">🎨 작가 2 (선택)</label>
+                        <input type="text" id="naiLabArtist2" placeholder="조합할 두 번째 작가..." style="width:100%;padding:4px 6px;background:#1e293b;border:1px solid #f9a8d4;border-radius:4px;color:#f1f5f9;font-size:0.5rem">
+                    </div>
+                    <div style="margin-bottom:6px">
+                        <label style="font-size:0.45rem;color:#c084fc">🎨 작가 3 (선택)</label>
+                        <input type="text" id="naiLabArtist3" placeholder="세 번째 작가..." style="width:100%;padding:4px 6px;background:#1e293b;border:1px solid #c084fc;border-radius:4px;color:#f1f5f9;font-size:0.5rem">
+                    </div>
+                    <div style="display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap">
+                        <label style="font-size:0.42rem;color:#94a3b8">가중치:</label>
+                        <input type="number" id="naiLabW1" value="0.8" step="0.1" min="0" max="1.5" style="width:40px;padding:2px;background:#1e293b;border:1px solid #475569;border-radius:3px;color:#f1f5f9;font-size:0.45rem">
+                        <input type="number" id="naiLabW2" value="0.6" step="0.1" min="0" max="1.5" style="width:40px;padding:2px;background:#1e293b;border:1px solid #475569;border-radius:3px;color:#f1f5f9;font-size:0.45rem">
+                        <input type="number" id="naiLabW3" value="0.4" step="0.1" min="0" max="1.5" style="width:40px;padding:2px;background:#1e293b;border:1px solid #475569;border-radius:3px;color:#f1f5f9;font-size:0.45rem">
+                    </div>
+                    <!-- 프롬프트 -->
+                    <div style="margin-bottom:6px">
+                        <label style="font-size:0.45rem;color:#fbbf24;font-weight:700">✍️ 테스트 프롬프트</label>
+                        <textarea id="naiLabPrompt" placeholder="예: 1girl, long hair, blue eyes, school uniform, sitting on bench, cherry blossoms" style="width:100%;padding:4px 6px;background:#1e293b;border:1px solid #fbbf24;border-radius:4px;color:#f1f5f9;font-size:0.45rem;min-height:50px;resize:vertical"></textarea>
+                    </div>
+                    <div style="display:flex;gap:4px;margin-bottom:6px">
+                        <label style="display:flex;align-items:center;gap:3px;font-size:0.42rem;color:#06b6d4;cursor:pointer"><input type="checkbox" id="naiLabRandom" checked> 🎲 AI 랜덤 프롬프트</label>
+                        <label style="display:flex;align-items:center;gap:3px;font-size:0.42rem;color:#f59e0b;cursor:pointer"><input type="checkbox" id="naiLabFixPrompt"> 🔒 프롬프트 고정</label>
+                    </div>
+                    <div style="display:flex;gap:4px;margin-bottom:6px">
+                        <select id="naiLabSize" style="flex:1;padding:3px;background:#1e293b;border:1px solid #475569;border-radius:3px;color:#f1f5f9;font-size:0.45rem">
+                            <option value="832x1216">832×1216 세로</option>
+                            <option value="1216x832" selected>1216×832 가로</option>
+                            <option value="1024x1024">1024×1024 정사각</option>
+                        </select>
+                        <input type="number" id="naiLabCount" value="3" min="1" max="10" style="width:35px;padding:3px;background:#1e293b;border:1px solid #475569;border-radius:3px;color:#f1f5f9;font-size:0.45rem">
+                        <span style="font-size:0.42rem;color:#64748b;align-self:center">장</span>
+                    </div>
+                    <button class="btn" id="naiLabGenBtn" onclick="naiLabGenerate()" style="background:linear-gradient(135deg,#ff69b4,#ff1493);color:#fff;width:100%">🧪 작가 조합 테스트</button>
+                </div>
+                <!-- 저장된 조합 -->
+                <div class="card">
+                    <h2 style="color:#22c55e">⭐ 저장된 조합</h2>
+                    <div id="naiLabSaved" style="max-height:200px;overflow-y:auto;font-size:0.45rem;color:#94a3b8">아직 저장된 조합이 없습니다</div>
+                    <button class="qbtn" onclick="naiLabSaveCurrent()" style="margin-top:4px;width:100%">💾 현재 조합 저장</button>
+                </div>
+                <!-- AI 작가 찾기 -->
+                <div class="card">
+                    <h2 style="color:#06b6d4">🤖 AI 작가 추천</h2>
+                    <div style="font-size:0.4rem;color:#64748b;margin-bottom:4px">원하는 스타일을 설명하면 AI가 NAI 작가를 추천합니다</div>
+                    <div style="display:flex;gap:4px">
+                        <input type="text" id="naiLabAIQuery" placeholder="예: 글래머 스타일, 수채화풍, 리얼리스틱..." style="flex:1;padding:4px 6px;background:#1e293b;border:1px solid #06b6d4;border-radius:4px;color:#f1f5f9;font-size:0.45rem">
+                        <button onclick="voiceToField('naiLabAIQuery')" style="padding:4px 6px;background:#22c55e;border:none;border-radius:4px;cursor:pointer;font-size:0.5rem;color:#fff">🎤</button>
+                    </div>
+                    <button class="btn" onclick="naiLabAIFind()" style="background:linear-gradient(135deg,#06b6d4,#0891b2);color:#fff;width:100%;margin-top:4px;font-size:0.5rem">🔍 AI에게 작가 추천 요청</button>
+                    <div id="naiLabAIResult" style="margin-top:4px;padding:6px;background:rgba(0,0,0,0.3);border-radius:4px;font-size:0.45rem;color:#e2e8f0;line-height:1.5;max-height:250px;overflow-y:auto;display:none"></div>
+                </div>
+            </div>
+            <!-- 오른쪽: 결과 갤러리 -->
+            <div>
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+                    <span style="font-size:0.7rem;font-weight:700;color:#ff69b4">🧪 테스트 결과</span>
+                    <span id="naiLabInfo" style="font-size:0.45rem;color:#94a3b8">작가를 입력하고 테스트 버튼을 누르세요</span>
+                </div>
+                <div id="naiLabGallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px">
+                    <div style="text-align:center;padding:80px;color:#475569;font-size:0.55rem;grid-column:1/-1">
+                        🎨 작가를 입력하고 🧪 테스트 버튼을 누르세요!<br><br>
+                        <span style="font-size:0.42rem">팁: 작가 이름은 Danbooru 태그 형식 (예: cutesexyrobutts, wlop, sakimichan)</span>
                     </div>
                 </div>
             </div>
@@ -1081,20 +1225,7 @@
                 <h2 onclick="toggleSettings()">⚙️ API Keys <span style="font-size:0.4rem;color:var(--tm)">(click)</span></h2>
                 <div style="margin-bottom:4px"><button class="qbtn" onclick="showPricing()" style="background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000;font-weight:bold;padding:3px 8px">💰 모델 가격표 보기</button></div>
                 <div class="settings-panel" id="settingsPanel">
-                    <!-- 🎤 STT 음성인식 엔진 -->
-                    <div style="padding:4px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:4px;margin-bottom:4px">
-                        <label style="font-size:0.45rem;color:#22c55e;font-weight:700">🎤 음성인식 (STT) 엔진</label>
-                        <select id="sttProvider" style="width:100%;padding:3px;background:#1e293b;border:1px solid #22c55e;border-radius:3px;color:#f1f5f9;font-size:0.45rem;margin-top:2px">
-                            <option value="groq" selected>🚀 Groq Whisper (기본·빠름·무료)</option>
-                            <option value="openai">🤖 OpenAI Whisper</option>
-                            <option value="cerebras">⚡ Cerebras Whisper</option>
-                        </select>
-                    </div>
-                    <!-- 📝 시스템 지침 (모든 모드 공통) -->
-                    <div style="padding:4px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.3);border-radius:4px;margin-bottom:4px">
-                        <label style="font-size:0.45rem;color:#a78bfa;font-weight:700">📝 공통 시스템 지침 (모든 AI 출력에 적용)</label>
-                        <textarea id="globalInstruction" placeholder="(선택사항) 예: 한국어로 답해줘, 결과를 표로 정리해줘, 의학 용어는 영어로..." style="width:100%;padding:4px 6px;background:#1e293b;border:1px solid #a78bfa;border-radius:4px;color:#f1f5f9;font-size:0.42rem;min-height:35px;resize:vertical;margin-top:2px"></textarea>
-                    </div>
+                    <div style="font-size:0.42rem;color:#64748b;margin-bottom:4px">💡 STT·시스템지침은 ⚙️ AI설정 탭에서 설정하세요</div>
                     <div class="api-row"><label>⚡Cerebras</label><input type="text" id="key-cerebras"></div>
                     <div class="api-row"><label style="color:var(--gem)">💎Gemini</label><input type="text" id="key-gemini"></div>
                     <div class="api-row"><label>🌐OR</label><input type="text" id="key-openrouter"></div>
@@ -4291,28 +4422,27 @@ function setMode(mode) {
     document.getElementById('imageBtns').classList.toggle('hidden', mode !== 'image');
     document.getElementById('storyBtns').classList.add('hidden');
     document.getElementById('songBtns').classList.toggle('hidden', mode !== 'song');
+    const fullPanelModes = ['story','dream','nihongo','aisetup','nailab'];
     // 패널 토글
     document.getElementById('botPanel').style.display = mode === 'story' ? 'block' : 'none';
     document.getElementById('dwPanel').style.display = mode === 'dream' ? 'block' : 'none';
     document.getElementById('nihongoPanel').style.display = mode === 'nihongo' ? 'block' : 'none';
-    document.getElementById('mainGrid').style.display = (mode === 'story' || mode === 'dream' || mode === 'nihongo') ? 'none' : '';
-    document.getElementById('topicSection').style.display = (mode === 'story' || mode === 'dream' || mode === 'nihongo') ? 'none' : 'block';
+    document.getElementById('aisetupPanel').style.display = mode === 'aisetup' ? 'block' : 'none';
+    document.getElementById('nailabPanel').style.display = mode === 'nailab' ? 'block' : 'none';
+    document.getElementById('mainGrid').style.display = fullPanelModes.includes(mode) ? 'none' : '';
+    document.getElementById('topicSection').style.display = fullPanelModes.includes(mode) ? 'none' : 'block';
     if (mode === 'song') {
         document.getElementById('topicLabel').textContent = '🎵 Song Topic';
     } else if (mode === 'image') {
         document.getElementById('topicLabel').textContent = 'Topic / Description';
     }
-    document.getElementById('res').innerHTML = '';
-    results.length = 0; generatedImages.length = 0; selectedResult = null;
-    // Dream Weaver 초기화
-    if (mode === 'dream') {
-        dwInitAIGrids();
-        dreamWeaverEnabled = true;
+    if (!['aisetup','nailab'].includes(mode)) {
+        document.getElementById('res').innerHTML = '';
+        results.length = 0; generatedImages.length = 0; selectedResult = null;
     }
-    // Nihongo 초기화
-    if (mode === 'nihongo') {
-        initJPPanel();
-    }
+    if (mode === 'dream') { dwInitAIGrids(); dreamWeaverEnabled = true; }
+    if (mode === 'nihongo') { initJPPanel(); }
+    if (mode === 'aisetup') { initAISetupPanel(); }
 }
 
 // 거절 체크
@@ -8929,7 +9059,223 @@ function loadJPStats() {
 }
 
 // ══════════════════════════════════════════════════════════════
-// ★★★ 🎤 VOICE INPUT (Whisper STT → 입력창) ★★★
+// ★★★ ⚙️ AI SETUP PANEL (공유 설정) ★★★
+// ══════════════════════════════════════════════════════════════
+let aiSetupInit = false;
+function initAISetupPanel() {
+    if (aiSetupInit) return;
+    aiSetupInit = true;
+    // Text AI grid 미러링
+    const tg = document.getElementById('tgrid2');
+    tg.innerHTML = Object.entries(TEXT_PROVIDERS).map(([k,p]) => `
+        <div class="provider-section provider-${p.color}">
+            <div class="provider-header" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'"><span>${p.name}</span><span class="count">${p.models.length}</span></div>
+            <div class="provider-content"><div class="provider-models">
+                ${p.models.map(m => `<label class="ai-cb" data-id="${m.id}" data-p="${k}"><input type="checkbox" onchange="syncAISetup('text')">${m.name}${m.tag?`<span class="tag tag-${m.tag}">${m.tag==='hot'?'🔥':m.tag==='new'?'NEW':'⚡'}</span>`:''}</label>`).join('')}
+            </div></div>
+        </div>`).join('');
+    // Image AI grid 미러링
+    const ig = document.getElementById('igrid2');
+    ig.innerHTML = Object.entries(IMG_PROVIDERS).map(([k,p]) => `
+        <div class="provider-section provider-${p.color}">
+            <div class="provider-header" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'"><span>${p.name}</span><span class="count">${p.models.length}</span></div>
+            <div class="provider-content"><div class="provider-models">
+                ${p.models.map(m => `<label class="ai-cb" data-id="${m.id}" data-p="${k}"><input type="checkbox" onchange="syncAISetup('img')">${m.name}${m.tag?`<span class="tag tag-${m.tag}">${m.tag==='hot'?'🔥':'⚡'}</span>`:''}</label>`).join('')}
+            </div></div>
+        </div>`).join('');
+    // 메인 tgrid/igrid 체크 상태 복사
+    syncFromMain();
+}
+
+function syncAISetup(type) {
+    // AI설정 패널 → 메인 패널 동기화
+    const src = type === 'text' ? '#tgrid2' : '#igrid2';
+    const dst = type === 'text' ? '#tgrid' : '#igrid';
+    document.querySelectorAll(`${src} .ai-cb`).forEach(s => {
+        const id = s.dataset.id;
+        const checked = s.querySelector('input').checked;
+        s.classList.toggle('sel', checked);
+        const d = document.querySelector(`${dst} .ai-cb[data-id="${id}"]`);
+        if (d) { d.querySelector('input').checked = checked; d.classList.toggle('sel', checked); }
+    });
+    if (type === 'text') updT(); else updI();
+    const cnt = document.querySelectorAll(`${src} input:checked`).length;
+    document.getElementById(type === 'text' ? 'tcnt2' : 'icnt2').textContent = cnt;
+}
+
+function syncFromMain() {
+    // 메인 → AI설정 패널 체크 상태 복사
+    ['tgrid','igrid'].forEach(grid => {
+        const dst = grid + '2';
+        document.querySelectorAll(`#${grid} .ai-cb`).forEach(s => {
+            const d = document.querySelector(`#${dst} .ai-cb[data-id="${s.dataset.id}"]`);
+            if (d) { const c = s.querySelector('input').checked; d.querySelector('input').checked = c; d.classList.toggle('sel', c); }
+        });
+    });
+    document.getElementById('tcnt2').textContent = document.querySelectorAll('#tgrid input:checked').length;
+    document.getElementById('icnt2').textContent = document.querySelectorAll('#igrid input:checked').length;
+}
+
+// ══════════════════════════════════════════════════════════════
+// ★★★ 🧪 NAI 작가연구 Lab ★★★
+// ══════════════════════════════════════════════════════════════
+let naiLabCombos = JSON.parse(localStorage.getItem('nailab_combos') || '[]');
+
+function buildNaiLabArtistTag() {
+    const a1 = document.getElementById('naiLabArtist1').value.trim();
+    const a2 = document.getElementById('naiLabArtist2').value.trim();
+    const a3 = document.getElementById('naiLabArtist3').value.trim();
+    const w1 = document.getElementById('naiLabW1').value || '0.8';
+    const w2 = document.getElementById('naiLabW2').value || '0.6';
+    const w3 = document.getElementById('naiLabW3').value || '0.4';
+    let tag = '';
+    if (a1) tag += `${w1}::artist:${a1}::`;
+    if (a2) tag += `, ${w2}::artist:${a2}::`;
+    if (a3) tag += `, ${w3}::artist:${a3}::`;
+    return tag;
+}
+
+async function naiLabGenerate() {
+    const btn = document.getElementById('naiLabGenBtn');
+    const a1 = document.getElementById('naiLabArtist1').value.trim();
+    if (!a1) { alert('작가 1을 입력하세요!'); return; }
+    if (!getKey('novelai')) { alert('NovelAI API 키를 입력하세요!'); return; }
+    btn.disabled = true; btn.textContent = '⏳ 생성중...';
+    const artistTag = buildNaiLabArtistTag();
+    const count = parseInt(document.getElementById('naiLabCount').value) || 3;
+    const [w, h] = document.getElementById('naiLabSize').value.split('x').map(Number);
+    const useRandom = document.getElementById('naiLabRandom').checked;
+    const fixPrompt = document.getElementById('naiLabFixPrompt').checked;
+    let basePrompt = document.getElementById('naiLabPrompt').value.trim();
+
+    const gallery = document.getElementById('naiLabGallery');
+    gallery.innerHTML = '';
+
+    const randomPrompts = [
+        '1girl, long hair, blue eyes, school uniform, cherry blossoms, wind',
+        '1girl, silver hair, red eyes, gothic dress, dark castle, moonlight',
+        '1boy, muscular, short black hair, leather jacket, neon city, rain',
+        '1girl, elf ears, green eyes, forest, magical particles, sunset',
+        '1girl, swimsuit, beach, ocean waves, summer, golden hour',
+        '1girl, kimono, japanese garden, koi pond, autumn leaves',
+        '1boy, white hair, blue coat, snow, ice crystals, dramatic pose',
+        '1girl, witch hat, magic circle, floating books, library',
+        '1girl, maid outfit, cafe interior, warm lighting, cozy',
+        '1girl, cyberpunk, neon lights, hologram, futuristic city night',
+    ];
+
+    for (let i = 0; i < count; i++) {
+        let prompt;
+        if (basePrompt && (!useRandom || fixPrompt)) {
+            prompt = basePrompt;
+        } else if (useRandom) {
+            prompt = randomPrompts[Math.floor(Math.random() * randomPrompts.length)];
+        } else {
+            prompt = basePrompt || '1girl, portrait, detailed face, beautiful';
+        }
+
+        const fullPrompt = `{{very aesthetic}}, {{{ultra detailed}}}, ${artistTag}, ${prompt}, year 2024`;
+        const neg = document.getElementById('naiNegative')?.value || 'worst quality, bad quality, lowres, text, watermark';
+
+        // 로딩 카드 추가
+        const card = document.createElement('div');
+        card.style.cssText = 'background:rgba(0,0,0,0.3);border-radius:8px;border:2px solid #ff69b4;overflow:hidden';
+        card.innerHTML = `<div style="aspect-ratio:${w}/${h};display:flex;align-items:center;justify-content:center;flex-direction:column"><div style="width:20px;height:20px;border:2px solid #475569;border-top-color:#ff69b4;border-radius:50%;animation:pulse 1.5s infinite"></div><div style="font-size:0.4rem;color:#ff69b4;margin-top:4px">#${i+1} 생성중...</div></div>`;
+        gallery.appendChild(card);
+
+        try {
+            const url = await genNovelAI(fullPrompt);
+            card.innerHTML = `<img src="${url}" style="width:100%;cursor:pointer" onclick="openModal(generatedImages.length-1)">
+                <div style="padding:6px;background:rgba(0,0,0,0.5)">
+                    <div style="font-size:0.42rem;color:#ff69b4;font-weight:700">${escHtml(artistTag)}</div>
+                    <div style="font-size:0.38rem;color:#94a3b8;margin-top:2px">${escHtml(prompt).substring(0,80)}</div>
+                </div>`;
+            generatedImages.push({url, prompt: fullPrompt, artist: artistTag, imgAi: 'NAI Lab'});
+            log(`🧪 NAI Lab #${i+1} 완료: ${artistTag}`, 'ok');
+        } catch(e) {
+            card.innerHTML = `<div style="padding:15px;color:#ef4444;font-size:0.45rem">❌ ${e.message}</div>`;
+            log(`❌ NAI Lab #${i+1}: ${e.message}`, 'err');
+        }
+    }
+    btn.disabled = false; btn.textContent = '🧪 작가 조합 테스트';
+    document.getElementById('naiLabInfo').textContent = `${count}장 생성 완료 · ${artistTag}`;
+}
+
+function naiLabSaveCurrent() {
+    const a1 = document.getElementById('naiLabArtist1').value.trim();
+    if (!a1) return;
+    const combo = {
+        artists: [a1, document.getElementById('naiLabArtist2').value.trim(), document.getElementById('naiLabArtist3').value.trim()].filter(Boolean),
+        weights: [document.getElementById('naiLabW1').value, document.getElementById('naiLabW2').value, document.getElementById('naiLabW3').value],
+        tag: buildNaiLabArtistTag(),
+        name: prompt('조합 이름 (예: 글래머+리얼)') || a1,
+        date: new Date().toLocaleDateString('ko-KR')
+    };
+    naiLabCombos.unshift(combo);
+    localStorage.setItem('nailab_combos', JSON.stringify(naiLabCombos));
+    renderNaiLabSaved();
+    log(`⭐ 작가 조합 저장: ${combo.name}`, 'ok');
+}
+
+function renderNaiLabSaved() {
+    const el = document.getElementById('naiLabSaved');
+    if (!naiLabCombos.length) { el.innerHTML = '아직 저장된 조합이 없습니다'; return; }
+    el.innerHTML = naiLabCombos.map((c, i) => `
+        <div style="padding:4px;background:rgba(255,255,255,0.05);border-radius:4px;margin-bottom:3px;display:flex;justify-content:space-between;align-items:center">
+            <div>
+                <span style="color:#ff69b4;font-weight:700">${escHtml(c.name)}</span>
+                <span style="color:#64748b"> · ${c.artists.join(' + ')}</span>
+            </div>
+            <div style="display:flex;gap:3px">
+                <button onclick="naiLabLoadCombo(${i})" style="padding:1px 4px;background:#6366f1;border:none;border-radius:2px;color:#fff;font-size:0.38rem;cursor:pointer">적용</button>
+                <button onclick="naiLabCombos.splice(${i},1);localStorage.setItem('nailab_combos',JSON.stringify(naiLabCombos));renderNaiLabSaved()" style="padding:1px 4px;background:#ef4444;border:none;border-radius:2px;color:#fff;font-size:0.38rem;cursor:pointer">✕</button>
+            </div>
+        </div>`).join('');
+}
+
+function naiLabLoadCombo(idx) {
+    const c = naiLabCombos[idx]; if (!c) return;
+    if (c.artists[0]) document.getElementById('naiLabArtist1').value = c.artists[0];
+    if (c.artists[1]) document.getElementById('naiLabArtist2').value = c.artists[1];
+    if (c.artists[2]) document.getElementById('naiLabArtist3').value = c.artists[2];
+    log(`📌 작가 조합 로드: ${c.name}`, 'info');
+}
+
+async function naiLabAIFind() {
+    const query = document.getElementById('naiLabAIQuery').value.trim();
+    if (!query) { alert('원하는 스타일을 입력하세요!'); return; }
+    const resultEl = document.getElementById('naiLabAIResult');
+    resultEl.style.display = 'block';
+    resultEl.innerHTML = '<div style="color:#06b6d4">🔍 AI가 작가를 검색하고 있습니다...</div>';
+
+    const sysPrompt = `You are a NovelAI V4.5 art expert. The user wants artist recommendations for NAI image generation.
+
+Known NAI-compatible Danbooru artist tags (partial list):
+cutesexyrobutts, ratatatat74, incase, fellatrix, sciamano240, guweiz, wlop, sakimichan, personal_ami, bosshi, asanagi, shindol, tony_taka, okama, kagami, tarakanovich, blushyspicy, speedl00ver, aroma_sensei, kinkymation, luminyu, raichiyo33, kuvshinov_ilya, gerph, nyantcha, homare, fuzichoco, kase_daiki, mignon, noise, tsuaii, kekemotsu, ciloranko, yohan1754, as109, mumumu, fishine, ke-ta, terasu_mc, yom, gin00, ooyari_ashito, oda_non, kashima_masato, mogudan
+
+Categories: 글래머(cutesexyrobutts,sakimichan), 극사실(ratatatat74,sciamano240), 리얼(guweiz,wlop,kuvshinov_ilya), 애니(okama,kagami,luminyu), 동인(personal_ami,nyantcha), 하드코어(asanagi,fellatrix), 우아(tony_taka,fuzichoco), 컬러풀(blushyspicy,speedl00ver)
+
+Based on the user's request, suggest:
+1. 2-3 individual artists that match
+2. 2-3 combo suggestions (2-3 artists with weights)
+3. Explain why each suggestion fits
+4. Include the exact NAI artist tag format: "0.8::artist:name::"
+
+Respond in Korean (한국어 반말).`;
+
+    try {
+        const textAIs = getSelectedTextAIs();
+        if (!textAIs.length) throw new Error('Text AI를 선택하세요 (⚙️ AI설정)');
+        const ai = textAIs[0];
+        const result = await callText(ai, sysPrompt + '\n\n유저 요청: ' + query);
+        resultEl.innerHTML = result.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<b style="color:#fbbf24">$1</b>');
+    } catch(e) {
+        resultEl.innerHTML = `<div style="color:#ef4444">❌ ${e.message}</div>`;
+    }
+}
+
+// Init saved combos on load
+setTimeout(() => renderNaiLabSaved(), 1000);
 // 각 모드의 🎤 버튼 → 녹음 → STT → 해당 입력창에 텍스트 삽입
 // Groq(기본) / OpenAI Whisper 선택 가능
 // ══════════════════════════════════════════════════════════════
