@@ -549,7 +549,6 @@
                     <button class="qbtn" onclick="selTextProvider('openai')">🤖OpenAI</button>
                     <button class="qbtn" onclick="selTextProvider('anthropic')">🧠Claude</button>
                     <button class="qbtn" onclick="selTextProvider('zai')">🧠Z.ai</button>
-                    <button class="qbtn" onclick="selTextProvider('venice')">🌊Venice</button>
                     <button class="qbtn" onclick="selTextAll()">All</button>
                     <button class="qbtn" onclick="clrText()">Clear</button>
                 </div>
@@ -566,7 +565,6 @@
                     <button class="qbtn" onclick="selImgProvider('krea')">✨Krea</button>
                     <button class="qbtn" onclick="selImgProvider('zai')">🧠Z.ai</button>
                     <button class="qbtn" onclick="selImgProvider('grok')">🚀Grok</button>
-                    <button class="qbtn" onclick="selImgProvider('venice')">🌊Venice</button>
                     <button class="qbtn" onclick="selImgAll()">All</button>
                     <button class="qbtn" onclick="clrImg()">Clear</button>
                 </div>
@@ -1114,7 +1112,6 @@
                     <div class="api-row"><label style="color:#a78bfa">🐉Qwen(DashScope)</label><input type="text" id="key-dashscope" placeholder="sk-xxx (alibabacloud.com)"></div>
                     <div class="api-row"><label style="color:#ff4500">🔥SambaN</label><input type="text" id="key-sambanova"></div>
                     <div class="api-row"><label style="color:#8b5cf6">🧠Z.ai</label><input type="text" id="key-zai" placeholder="z.ai API key"></div>
-                    <div class="api-row"><label style="color:#22d3ee">🌊Venice</label><input type="text" id="key-venice" placeholder="Venice API key"></div>
                 </div>
             </div>
             
@@ -4462,74 +4459,6 @@ const TEXT_PROVIDERS = {
         {id:'zai-glm45f',name:'GLM-4.5 Flash',m:'glm-4.5-flash',tag:'free',nsfw:true},
         {id:'zai-glm32b',name:'GLM-4 32B',m:'glm-4-32b-0414-128k',tag:'fast',nsfw:true},
     ]},
-    venice: { name:'🌊 Venice [검열없음]', color:'venice', nsfw:'yes', models:[
-        // ═══ 🔓 Venice Native (검열없음!) ═══
-        {id:'ven-unce',name:'Uncensored 1.1 🔓',m:'venice-uncensored',tag:'hot',nsfw:true},
-        {id:'ven-rp',name:'RP Uncensored 🔓🎭',m:'venice-uncensored-role-play',tag:'hot',nsfw:true},
-        {id:'ven-unce-e2ee',name:'Uncensored E2EE 🔒',m:'e2ee-venice-uncensored-24b-p',tag:'new',nsfw:true},
-        // ═══ GLM 시리즈 ═══
-        {id:'ven-glm5',name:'GLM 5',m:'zai-org-glm-5',tag:'best',nsfw:true},
-        {id:'ven-glm5e',name:'GLM 5 E2EE 🔒',m:'e2ee-glm-5',tag:'new',nsfw:true},
-        {id:'ven-glm47',name:'GLM 4.7',m:'zai-org-glm-4.7',tag:'hot',nsfw:true},
-        {id:'ven-glm47e',name:'GLM 4.7 E2EE 🔒',m:'e2ee-glm-4-7-p',tag:'new',nsfw:true},
-        {id:'ven-glm47f',name:'GLM 4.7 Flash',m:'zai-org-glm-4.7-flash',tag:'fast',nsfw:true},
-        {id:'ven-glm47fe',name:'GLM 4.7 Flash E2EE 🔒',m:'e2ee-glm-4-7-flash-p',tag:'new',nsfw:true},
-        {id:'ven-glm47h',name:'GLM 4.7 Flash Heretic 🔓',m:'olafangensan-glm-4.7-flash-heretic',tag:'hot',nsfw:true},
-        {id:'ven-glm46',name:'GLM 4.6',m:'zai-org-glm-4.6',nsfw:true},
-        // ═══ Qwen 시리즈 ═══
-        {id:'ven-qw3-235',name:'Qwen3 235B',m:'qwen3-235b-a22b-instruct-2507',tag:'best',nsfw:true},
-        {id:'ven-qw3-235t',name:'Qwen3 235B Thinking',m:'qwen3-235b-a22b-thinking-2507',tag:'best',nsfw:true},
-        {id:'ven-qw3c480',name:'Qwen3 Coder 480B',m:'qwen3-coder-480b-a35b-instruct',tag:'best',nsfw:true},
-        {id:'ven-qw3c480t',name:'Qwen3 Coder 480B Turbo',m:'qwen3-coder-480b-a35b-instruct-turbo',tag:'hot',nsfw:true},
-        {id:'ven-qw3n80',name:'Qwen3 Next 80B',m:'qwen3-next-80b',tag:'hot',nsfw:true},
-        {id:'ven-qw35-35',name:'Qwen3.5 35B',m:'qwen3-5-35b-a3b',tag:'new',nsfw:true},
-        {id:'ven-qw35-122e',name:'Qwen3.5 122B E2EE 🔒',m:'e2ee-qwen3-5-122b-a10b',tag:'new',nsfw:true},
-        {id:'ven-qw35-9',name:'Qwen3.5 9B ⚡',m:'qwen3-5-9b',tag:'fast',nsfw:true},
-        {id:'ven-qw3-30e',name:'Qwen3 30B E2EE 🔒',m:'e2ee-qwen3-30b-a3b-p',tag:'new',nsfw:true},
-        {id:'ven-qw3vl',name:'Qwen3 VL 235B 👁',m:'qwen3-vl-235b-a22b',tag:'best',nsfw:true},
-        {id:'ven-qw3vle',name:'Qwen3 VL 30B E2EE 🔒👁',m:'e2ee-qwen3-vl-30b-a3b-p',tag:'new',nsfw:true},
-        {id:'ven-qw25-7e',name:'Qwen 2.5 7B E2EE 🔒',m:'e2ee-qwen-2-5-7b-p',tag:'fast',nsfw:true},
-        // ═══ DeepSeek ═══
-        {id:'ven-dsv32',name:'DeepSeek V3.2',m:'deepseek-v3.2',tag:'hot',nsfw:true},
-        // ═══ Kimi ═══
-        {id:'ven-kimi2t',name:'Kimi K2 Thinking',m:'kimi-k2-thinking',tag:'best',nsfw:true},
-        {id:'ven-kimi25',name:'Kimi K2.5',m:'kimi-k2-5',tag:'hot',nsfw:true},
-        // ═══ MiniMax ═══
-        {id:'ven-mm27',name:'MiniMax M2.7',m:'minimax-m27',tag:'new',nsfw:true},
-        {id:'ven-mm25',name:'MiniMax M2.5',m:'minimax-m25',tag:'hot',nsfw:true},
-        {id:'ven-mm21',name:'MiniMax M2.1',m:'minimax-m21',nsfw:true},
-        // ═══ Llama / Hermes ═══
-        {id:'ven-hermes405',name:'Hermes 3 405B 🔓',m:'hermes-3-llama-3.1-405b',tag:'best',nsfw:true},
-        {id:'ven-llama33',name:'Llama 3.3 70B',m:'llama-3.3-70b',tag:'hot',nsfw:true},
-        {id:'ven-llama32',name:'Llama 3.2 3B ⚡',m:'llama-3.2-3b',tag:'fast',nsfw:true},
-        // ═══ Mistral / Gemma / Nemotron ═══
-        {id:'ven-mistral',name:'Mistral Small 3.2 24B',m:'mistral-small-3-2-24b-instruct',tag:'hot',nsfw:true},
-        {id:'ven-gemma27',name:'Gemma 3 27B',m:'google-gemma-3-27b-it',tag:'fast',nsfw:true},
-        {id:'ven-gemma27e',name:'Gemma 3 27B E2EE 🔒',m:'e2ee-gemma-3-27b-p',tag:'new',nsfw:true},
-        {id:'ven-nemo30',name:'Nemotron 3 Nano 30B',m:'nvidia-nemotron-3-nano-30b-a3b',tag:'new',nsfw:true},
-        {id:'ven-gptoss',name:'GPT-OSS 120B',m:'openai-gpt-oss-120b',tag:'hot',nsfw:true},
-        {id:'ven-gptoss-e',name:'GPT-OSS 120B E2EE 🔒',m:'e2ee-gpt-oss-120b-p',tag:'new',nsfw:true},
-        {id:'ven-gptoss20e',name:'GPT-OSS 20B E2EE 🔒',m:'e2ee-gpt-oss-20b-p',tag:'fast',nsfw:true},
-        // ═══ 💸 프리미엄 (OpenAI/Claude/Gemini/Grok via Venice) ═══
-        {id:'ven-gpt54p',name:'GPT-5.4 Pro 💸💸',m:'openai-gpt-54-pro',tag:'best',nsfw:false},
-        {id:'ven-gpt54',name:'GPT-5.4 💸',m:'openai-gpt-54',tag:'hot',nsfw:false},
-        {id:'ven-gpt53c',name:'GPT-5.3 Codex 💸',m:'openai-gpt-53-codex',tag:'new',nsfw:false},
-        {id:'ven-gpt52',name:'GPT-5.2',m:'openai-gpt-52',tag:'hot',nsfw:false},
-        {id:'ven-gpt52c',name:'GPT-5.2 Codex',m:'openai-gpt-52-codex',nsfw:false},
-        {id:'ven-gpt4o',name:'GPT-4o 💸',m:'openai-gpt-4o-2024-11-20',nsfw:false},
-        {id:'ven-gpt4om',name:'GPT-4o Mini',m:'openai-gpt-4o-mini-2024-07-18',tag:'fast',nsfw:false},
-        {id:'ven-c46',name:'Claude Opus 4.6 💸💸',m:'claude-opus-4-6',tag:'best',nsfw:false},
-        {id:'ven-c45o',name:'Claude Opus 4.5 💸💸',m:'claude-opus-4-5',tag:'hot',nsfw:false},
-        {id:'ven-c46s',name:'Claude Sonnet 4.6 💸',m:'claude-sonnet-4-6',tag:'new',nsfw:false},
-        {id:'ven-c45s',name:'Claude Sonnet 4.5 💸',m:'claude-sonnet-4-5',nsfw:false},
-        {id:'ven-gem31p',name:'Gemini 3.1 Pro 💸',m:'gemini-3-1-pro-preview',tag:'best',nsfw:false},
-        {id:'ven-gem3p',name:'Gemini 3 Pro 💸',m:'gemini-3-pro-preview',tag:'hot',nsfw:false},
-        {id:'ven-gem3f',name:'Gemini 3 Flash',m:'gemini-3-flash-preview',tag:'fast',nsfw:false},
-        {id:'ven-grk420',name:'Grok 4.20 💸',m:'grok-4-20-beta',tag:'best',nsfw:true},
-        {id:'ven-grk420ma',name:'Grok 4.20 Multi-Agent 💸',m:'grok-4-20-multi-agent-beta',tag:'new',nsfw:true},
-        {id:'ven-grk41f',name:'Grok 4.1 Fast',m:'grok-41-fast',tag:'fast',nsfw:true},
-        {id:'ven-grkcode',name:'Grok Code Fast',m:'grok-code-fast-1',tag:'fast',nsfw:true},
-    ]}
 };
 
 // ★ 실시간 환율 시스템 (매일 자동 업데이트)
@@ -4582,11 +4511,6 @@ const IMG_PRICE_USD = {
     // Grok
     'grok-imagine': 0.07,
     // Venice (USD per image)
-    'ven-wai': 0.01, 'ven-chroma': 0.01, 'ven-hidream': 0.01, 'ven-lustsdxl': 0.01, 'ven-lustv7': 0.01,
-    'ven-qwimg': 0.01, 'ven-sd35': 0.01, 'ven-zimg': 0.01,
-    'ven-flx2p': 0.04, 'ven-grokimg': 0.04, 'ven-qwimg2': 0.05, 'ven-rcv4': 0.05, 'ven-sd4': 0.05, 'ven-sd5l': 0.05,
-    'ven-imart': 0.06, 'ven-flx2m': 0.09, 'ven-hunyuan': 0.09, 'ven-qwimg2p': 0.10, 'ven-nb2': 0.10,
-    'ven-nbp': 0.18, 'ven-gptimg': 0.26, 'ven-rcv4p': 0.29,
 };
 
 function priceTag(modelId) {
@@ -4639,34 +4563,6 @@ const IMG_PROVIDERS = {
     zai: { name:'🧠 Z.ai [무료!]', color:'zai', models:[
         {id:'zai-cogview4',name:'CogView-4',m:'cogView-4-250304',tag:'hot'},
         {id:'zai-glmimg',name:'GLM-Image',m:'glm-image'},
-    ]},
-    venice: { name:'🌊 Venice [검열없음]', color:'venice', models:[
-        // ═══ 🔓 ₩15 (Private, 검열없음!) ═══
-        {id:'ven-wai',name:'Anime WAI 🔓 🆕',m:'wai-Illustrious',tag:'hot'},
-        {id:'ven-chroma',name:'Chroma 🔓',m:'chroma',tag:'hot'},
-        {id:'ven-hidream',name:'HiDream 🔓',m:'hidream',tag:'hot'},
-        {id:'ven-lustsdxl',name:'Lustify SDXL 🔓🔞',m:'lustify-sdxl',tag:'hot'},
-        {id:'ven-lustv7',name:'Lustify v7 🔓🔞',m:'lustify-v7',tag:'hot'},
-        {id:'ven-qwimg',name:'Qwen Image',m:'qwen-image',tag:'fast'},
-        {id:'ven-sd35',name:'Venice SD3.5 🔓',m:'venice-sd35',tag:'hot'},
-        {id:'ven-zimg',name:'Z-Image Turbo ⚡',m:'z-image-turbo',tag:'fast'},
-        // ═══ 💰 ₩44~74 ═══
-        {id:'ven-flx2p',name:'Flux 2 Pro',m:'flux-2-pro',tag:'hot'},
-        {id:'ven-grokimg',name:'Grok Imagine',m:'grok-imagine'},
-        {id:'ven-qwimg2',name:'Qwen Image 2',m:'qwen-image-2'},
-        {id:'ven-rcv4',name:'Recraft V4',m:'recraft-v4',tag:'new'},
-        {id:'ven-sd4',name:'Seedream V4.5',m:'seedream-v4'},
-        {id:'ven-sd5l',name:'Seedream V5 Lite',m:'seedream-v5-lite',tag:'new'},
-        // ═══ 💰 ₩74~148 ═══
-        {id:'ven-imart',name:'ImagineArt 1.5 Pro',m:'imagineart-1.5-pro',tag:'new'},
-        {id:'ven-flx2m',name:'Flux 2 Max',m:'flux-2-max',tag:'best'},
-        {id:'ven-hunyuan',name:'Hunyuan Image 3.0',m:'hunyuan-image-v3',tag:'new'},
-        {id:'ven-qwimg2p',name:'Qwen Image 2 Pro',m:'qwen-image-2-pro',tag:'hot'},
-        {id:'ven-nb2',name:'NanoBanana 2',m:'nano-banana-2',tag:'hot'},
-        // ═══ 💸 ₩200+ 프리미엄 ═══
-        {id:'ven-nbp',name:'NanoBanana Pro 💸',m:'nano-banana-pro',tag:'best'},
-        {id:'ven-gptimg',name:'GPT Image 1.5 💸💸',m:'gpt-image-1-5',tag:'best'},
-        {id:'ven-rcv4p',name:'Recraft V4 Pro 💸💸',m:'recraft-v4-pro',tag:'new'},
     ]},
     // ═══ 💰 저렴 ═══
     poe: { name:'🐦 Poe [포인트]', color:'poe', models:[
@@ -5729,7 +5625,7 @@ function generateTopicFromFiles() {
 
 function init() {
     // ★ API 키 자동 로드 (localStorage → input 필드)
-    const keyIds = ['cerebras','gemini','openrouter','groq','deepseek','xai','openai','anthropic','novelai','poe','krea','civitai','dashscope','sambanova','zai','venice'];
+    const keyIds = ['cerebras','gemini','openrouter','groq','deepseek','xai','openai','anthropic','novelai','poe','krea','civitai','dashscope','sambanova','zai'];
     keyIds.forEach(id => {
         const saved = localStorage.getItem('aias_key_'+id);
         const el = document.getElementById('key-'+id);
@@ -5966,7 +5862,6 @@ async function callText(ai, p) {
             case 'or': result = await callOR(p,ai.m); break;
             case 'sambanova': result = await callSambaNova(p,ai.m); break;
             case 'zai': result = await callZAI(p,ai.m); break;
-            case 'venice': result = await callVenice(p,ai.m); break;
             default: throw new Error(`알 수 없는 프로바이더: ${ai.p}`);
         }
         clearTimeout(timer);
@@ -6840,7 +6735,6 @@ async function callImg(ai, prompt) {
             case 'civitai': return await genCivitai(prompt);
             case 'zai': return await genZAI(prompt, ai.m);
             case 'grok': return await genGrokImagine(prompt, ai.m);
-            case 'venice': return await genVenice(prompt, ai.m);
             case 'dashscope': return await genDashScope(prompt, ai.m);
             default: throw new Error(`알 수 없는 이미지 AI: ${ai.p}`);
         }
