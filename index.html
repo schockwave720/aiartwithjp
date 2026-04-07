@@ -223,7 +223,6 @@
         <div class="mode-tab song" onclick="setMode('song')">🎵 Song</div>
         <div class="mode-tab dream" onclick="setMode('dream')">🌙 Dream</div>
         <div class="mode-tab nihongo" onclick="setMode('nihongo')" style="background:linear-gradient(135deg,#dc2626,#f97316);color:#fff">📖 日本語</div>
-        <div class="mode-tab" onclick="toggleVoiceCmd()" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff" id="voiceTab">🎤</div>
         <div class="mode-tab" onclick="showFavorites()" style="background:linear-gradient(135deg,#eab308,#f59e0b);margin-left:auto">⭐ <span id="favBadge" style="font-size:0.55rem"></span></div>
     </div>
     
@@ -307,6 +306,7 @@
                 <div style="padding:10px 16px;border-top:1px solid #1e293b;background:#0f172a;flex-shrink:0">
                     <div style="display:flex;gap:8px;align-items:flex-end">
                         <textarea id="chatInput" placeholder="메시지 입력... (Enter 전송 / Shift+Enter 줄바꿈)" style="flex:1;background:#1e293b;border:1px solid #334155;color:#f1f5f9;border-radius:8px;padding:10px 14px;font-size:0.7rem;resize:none;min-height:42px;max-height:120px;line-height:1.5" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}" oninput="this.style.height='42px';this.style.height=Math.min(this.scrollHeight,120)+'px'"></textarea>
+                        <button onclick="voiceToField('chatInput')" style="padding:11px 10px;background:#22c55e;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:0.75rem;flex-shrink:0" title="🎤 음성입력">🎤</button>
                         <button id="chatSendBtn" onclick="sendChat()" style="padding:11px 20px;background:linear-gradient(135deg,#06b6d4,#0891b2);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:0.85rem;font-weight:700;flex-shrink:0">📨</button>
                     </div>
                 </div>
@@ -458,30 +458,13 @@
                 <div style="padding:10px 16px;border-top:1px solid #2d1b69;background:#0f0820;flex-shrink:0">
                     <div style="display:flex;gap:8px;align-items:flex-end">
                         <textarea id="dwInput" placeholder="🌙 감정, 테마, 판타지를 입력... | &quot;다시 그려줘&quot; = 재생성 | &quot;강렬하게&quot; = Intense" style="flex:1;background:#1a1040;border:1px solid #6366f1;color:#f1f5f9;border-radius:8px;padding:10px 14px;font-size:0.7rem;resize:none;min-height:42px;max-height:120px;line-height:1.5" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();dwSend()}" oninput="this.style.height='42px';this.style.height=Math.min(this.scrollHeight,120)+'px'"></textarea>
+                        <button onclick="voiceToField('dwInput')" style="padding:11px 10px;background:#22c55e;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:0.75rem;flex-shrink:0" title="🎤 음성입력">🎤</button>
                         <button onclick="dwNewStory()" title="새 주제 시작 (이전 맥락 무시)" style="padding:11px 12px;background:#1e293b;color:#fbbf24;border:1px solid #fbbf24;border-radius:8px;cursor:pointer;font-size:0.65rem;font-weight:700;flex-shrink:0">🆕새글</button>
                         <button id="dwSendBtn" onclick="dwSend()" style="padding:11px 20px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:0.85rem;font-weight:700;flex-shrink:0">🌙</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- ═══ 🎤 Voice Command Bar ═══ -->
-    <div id="voiceCmdBar" style="display:none;padding:10px;margin-bottom:6px;background:linear-gradient(135deg,rgba(34,197,94,0.1),rgba(6,182,212,0.05));border:2px solid #22c55e;border-radius:12px">
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-            <div id="voiceRecBtn" onclick="toggleVoiceRec()" style="width:50px;height:50px;border-radius:50%;background:#22c55e;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.3rem;transition:all .3s;border:3px solid #16a34a;flex-shrink:0">🎤</div>
-            <div style="flex:1;min-width:200px">
-                <div style="font-size:0.6rem;color:#22c55e;font-weight:700;margin-bottom:3px">🎤 음성 명령 (OpenAI Whisper)</div>
-                <div style="font-size:0.42rem;color:#94a3b8;line-height:1.5">
-                    "이자카야 일본어 카드 만들어줘" → 📖 플래시카드 자동 생성<br>
-                    "벚꽃 배경 소녀 그림 그려줘" → 🎨 이미지 자동 생성<br>
-                    "요한복음 3장 16절 일본어로" → 📖 성경 카드 생성
-                </div>
-            </div>
-            <div id="voiceStatus" style="font-size:0.5rem;color:#64748b">대기 중</div>
-            <div id="voiceTimer" style="font-family:monospace;font-size:0.7rem;color:#ef4444;display:none">00:00</div>
-        </div>
-        <div id="voiceResult" style="display:none;margin-top:6px;padding:6px 10px;background:rgba(0,0,0,0.3);border-radius:6px;font-size:0.6rem;color:#e2e8f0"></div>
     </div>
 
     <!-- ═══ 📖 日本語 학습 패널 ═══ -->
@@ -506,6 +489,7 @@
                     <div style="margin-bottom:4px">
                         <label style="font-size:0.42rem;color:#94a3b8">커스텀 주제 (직접 입력)</label>
                         <input type="text" id="jpCustomTopic" placeholder="예: 온천 에티켓, 스시 종류, 사무라이..." style="width:100%;padding:4px 6px;background:#1e293b;border:1px solid #6366f1;border-radius:4px;color:#f1f5f9;font-size:0.5rem">
+                        <button onclick="voiceToField('jpCustomTopic')" style="margin-top:2px;padding:3px 8px;background:#22c55e;border:none;border-radius:4px;cursor:pointer;font-size:0.45rem;color:#fff">🎤 음성입력</button>
                     </div>
                     <div style="display:flex;gap:4px;margin-bottom:4px">
                         <div style="flex:1"><label style="font-size:0.42rem;color:#94a3b8">카드 수</label><input type="number" id="jpCount" value="6" min="1" max="20" style="width:100%;padding:3px;background:#1e293b;border:1px solid #334155;border-radius:3px;color:#f1f5f9;font-size:0.5rem"></div>
@@ -616,7 +600,7 @@
                 <!-- 등장인물 선택 UI는 제거되었습니다. 기본적으로 등장인물 없음으로 설정합니다. -->
                 <input type="hidden" id="charType" value="none">
                 <div id="topicSection">
-                <div class="igrp"><label id="topicLabel">Topic / Description</label><textarea id="topic" placeholder="Enter description or upload files..."></textarea></div>
+                <div class="igrp"><label id="topicLabel">Topic / Description</label><div style="position:relative"><textarea id="topic" placeholder="Enter description or upload files..."></textarea><button onclick="voiceToField('topic')" style="position:absolute;bottom:4px;right:4px;width:28px;height:28px;border-radius:50%;background:#22c55e;border:none;cursor:pointer;font-size:0.7rem;opacity:0.7" title="🎤 음성입력 (OpenAI Whisper)">🎤</button></div></div>
                 <div class="igrp"><label id="extraLabel">Additional Requirements</label><input type="text" id="extra" placeholder="Style, mood, specific requests..."></div>
                 </div>
                 
@@ -8912,115 +8896,56 @@ function loadJPStats() {
 }
 
 // ══════════════════════════════════════════════════════════════
-// ★★★ 🎤 VOICE COMMAND MODULE (Whisper STT) ★★★
+// ★★★ 🎤 VOICE INPUT (Whisper STT → 입력창) ★★★
+// 각 모드의 🎤 버튼 → 녹음 → Whisper → 해당 입력창에 텍스트 삽입
 // ══════════════════════════════════════════════════════════════
-let voiceRecorder = null, voiceChunks = [], isVoiceRec = false, voiceInterval = null, voiceSec = 0;
+let _vRec = null, _vChunks = [], _vActive = false, _vTarget = null, _vBtn = null;
 
-function toggleVoiceCmd() {
-    const bar = document.getElementById('voiceCmdBar');
-    bar.style.display = bar.style.display === 'none' ? 'block' : 'none';
-}
-
-function toggleVoiceRec() {
-    if (isVoiceRec) stopVoiceRec(); else startVoiceRec();
-}
-
-async function startVoiceRec() {
+async function voiceToField(targetId) {
+    if (_vActive) { stopVTF(); return; }
     const key = getKey('openai');
-    if (!key) { log('⚠️ 음성인식에 OpenAI 키 필요!', 'warn'); return; }
+    if (!key) { log('⚠️ 음성입력에 OpenAI 키 필요 (Whisper)', 'warn'); alert('OpenAI API 키를 입력하세요!'); return; }
+    _vTarget = targetId;
     try {
         const stream = await navigator.mediaDevices.getUserMedia({audio:{sampleRate:16000,channelCount:1,echoCancellation:true,noiseSuppression:true}});
         const mimes = ['audio/webm;codecs=opus','audio/webm','audio/ogg;codecs=opus','audio/mp4'];
         let mime = ''; for (const m of mimes) if (MediaRecorder.isTypeSupported(m)) { mime = m; break; }
-        voiceRecorder = new MediaRecorder(stream, mime ? {mimeType:mime} : {});
-        voiceChunks = [];
-        voiceRecorder.ondataavailable = e => { if(e.data.size>0) voiceChunks.push(e.data); };
-        voiceRecorder.onstop = async () => {
+        _vRec = new MediaRecorder(stream, mime ? {mimeType:mime} : {});
+        _vChunks = [];
+        _vRec.ondataavailable = e => { if(e.data.size>0) _vChunks.push(e.data); };
+        _vRec.onstop = async () => {
             stream.getTracks().forEach(t => t.stop());
-            const blob = new Blob(voiceChunks, {type: voiceRecorder.mimeType || 'audio/webm'});
-            document.getElementById('voiceStatus').textContent = '🔄 Whisper 변환중...';
-            await processVoiceBlob(blob);
+            const blob = new Blob(_vChunks, {type: _vRec.mimeType || 'audio/webm'});
+            if (_vBtn) { _vBtn.textContent = '⏳'; _vBtn.style.background = '#eab308'; }
+            log('🎤 Whisper 변환중...', 'info');
+            try {
+                const fd = new FormData();
+                fd.append('file', blob, 'voice.webm');
+                fd.append('model', 'whisper-1');
+                fd.append('language', 'ko');
+                fd.append('response_format', 'text');
+                const r = await fetch('https://api.openai.com/v1/audio/transcriptions', {method:'POST', headers:{'Authorization':'Bearer '+key}, body:fd});
+                if (!r.ok) throw new Error('Whisper ' + r.statusText);
+                const text = (await r.text()).trim();
+                const el = document.getElementById(_vTarget);
+                if (el) { el.value = (el.value ? el.value + ' ' : '') + text; el.focus(); }
+                log('🎤 음성인식: ' + text, 'ok');
+            } catch(e) { log('❌ Whisper: ' + e.message, 'err'); }
+            if (_vBtn) { _vBtn.textContent = '🎤'; _vBtn.style.background = '#22c55e'; }
+            _vBtn = null;
         };
-        voiceRecorder.start(1000);
-        isVoiceRec = true; voiceSec = 0;
-        document.getElementById('voiceRecBtn').classList.add('recording');
-        document.getElementById('voiceRecBtn').textContent = '⏹';
-        document.getElementById('voiceStatus').textContent = '🔴 녹음중...';
-        document.getElementById('voiceTimer').style.display = 'block';
-        voiceInterval = setInterval(() => {
-            voiceSec++;
-            document.getElementById('voiceTimer').textContent = String(Math.floor(voiceSec/60)).padStart(2,'0')+':'+String(voiceSec%60).padStart(2,'0');
-        }, 1000);
-    } catch(e) { log('⚠️ 마이크 접근 실패 (HTTPS 필요)', 'warn'); }
+        _vRec.start(1000);
+        _vActive = true;
+        // 버튼 시각 피드백
+        _vBtn = event?.target || document.activeElement;
+        if (_vBtn) { _vBtn.textContent = '⏹'; _vBtn.style.background = '#ef4444'; }
+        log('🎤 녹음 시작! 다시 누르면 중지', 'info');
+    } catch(e) { log('⚠️ 마이크 접근 실패 (HTTPS 필요)', 'warn'); alert('마이크 접근 실패! HTTPS 환경에서만 작동합니다.'); }
 }
 
-function stopVoiceRec() {
-    if (voiceRecorder && voiceRecorder.state !== 'inactive') voiceRecorder.stop();
-    isVoiceRec = false; clearInterval(voiceInterval);
-    document.getElementById('voiceRecBtn').classList.remove('recording');
-    document.getElementById('voiceRecBtn').textContent = '🎤';
-    document.getElementById('voiceTimer').style.display = 'none';
-}
-
-async function processVoiceBlob(blob) {
-    const key = getKey('openai');
-    try {
-        const fd = new FormData();
-        fd.append('file', blob, 'voice.webm');
-        fd.append('model', 'whisper-1');
-        fd.append('language', 'ko');
-        fd.append('response_format', 'text');
-        const r = await fetch('https://api.openai.com/v1/audio/transcriptions', {method:'POST', headers:{'Authorization':'Bearer '+key}, body:fd});
-        if (!r.ok) throw new Error('Whisper: ' + r.statusText);
-        const text = await r.text();
-        document.getElementById('voiceResult').style.display = 'block';
-        document.getElementById('voiceResult').innerHTML = `🗣️ <b>"${text.trim()}"</b>`;
-        document.getElementById('voiceStatus').textContent = '✅ 인식 완료!';
-        log('🎤 음성: ' + text.trim(), 'ok');
-        // Smart routing
-        routeVoiceCommand(text.trim());
-    } catch(e) {
-        document.getElementById('voiceStatus').textContent = '❌ ' + e.message;
-        log('❌ Whisper: ' + e.message, 'err');
-    }
-}
-
-function routeVoiceCommand(text) {
-    const t = text.toLowerCase();
-    // JP keywords
-    const jpKeys = ['일본어','카드','플래시','이자카야','식당','교통','호텔','숙소','관광','카페','성경','한자','にほんご','일본','여행 일본'];
-    const imgKeys = ['그림','이미지','그려','만들어','image','draw','paint','picture','일러스트'];
-    const isJP = jpKeys.some(k => t.includes(k));
-    const isImg = imgKeys.some(k => t.includes(k));
-
-    if (isJP) {
-        // Auto-detect category
-        if(t.includes('이자카야')||t.includes('술')||t.includes('바')) setJPCat('izakaya');
-        else if(t.includes('식당')||t.includes('주문')||t.includes('음식')) setJPCat('restaurant');
-        else if(t.includes('카페')||t.includes('커피')) setJPCat('cafe');
-        else if(t.includes('교통')||t.includes('전철')||t.includes('택시')) setJPCat('transport');
-        else if(t.includes('호텔')||t.includes('숙소')||t.includes('예약')) setJPCat('hotel');
-        else if(t.includes('관광')||t.includes('구경')) setJPCat('sightseeing');
-        else if(t.includes('성경')||t.includes('bible')||t.includes('요한')||t.includes('시편')) setJPCat('bible');
-        else if(t.includes('한자')||t.includes('kanji')) setJPCat('kanji');
-        else if(t.includes('음악')||t.includes('기타')||t.includes('악기')) setJPCat('music');
-        else document.getElementById('jpCustomTopic').value = text;
-
-        setMode('nihongo');
-        setTimeout(() => generateJPCards(), 300);
-    } else if (isImg) {
-        // Route to image mode
-        setMode('image');
-        document.getElementById('topic').value = text;
-        log('🎤→🎨 이미지 모드로 라우팅: ' + text, 'info');
-    } else {
-        // Route to Dream Weaver chat
-        setMode('dream');
-        setTimeout(() => {
-            const inp = document.getElementById('dwInput');
-            if (inp) { inp.value = text; dwSend(); }
-        }, 300);
-    }
+function stopVTF() {
+    if (_vRec && _vRec.state !== 'inactive') _vRec.stop();
+    _vActive = false;
 }
 
 init();
