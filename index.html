@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0409-14 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0409-15 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -223,7 +223,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0409-14</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0409-15</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -1246,7 +1246,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0409-14 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0409-15 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
             </div>
         </div>
         
@@ -3676,7 +3676,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0409-14 모델 가격표</h1>
+<h1>💰 AIARTstudio v0409-15 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.02.12 기준</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -3725,7 +3725,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 이미지: <strong style="color:#a78bfa">Z.ai CogView-4</strong> (장당 14원, SFW) + <strong style="color:#ff69b4">NovelAI $25/월</strong> (NSFW OK)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0409-14 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0409-15 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -9685,39 +9685,105 @@ async function nlAIFind() {
     if (!query) { alert('원하는 스타일을 입력!'); return; }
     const el = document.getElementById('nlAIResult');
     el.style.display = 'block';
-    el.innerHTML = '<div style="color:#06b6d4">🔍 AI가 작가를 검색중...</div>';
     const textAIs = getSelectedTextAIs();
     if (!textAIs.length) { el.innerHTML = '<div style="color:#ef4444">Text AI를 선택하세요 (⚙️ AI설정)</div>'; return; }
-    try {
-        const ai = textAIs[0];
-        const result = await callText(ai, `You are a NovelAI V4.5 art expert. Known NAI artists: cutesexyrobutts, ratatatat74, incase, fellatrix, sciamano240, guweiz, wlop, sakimichan, personal_ami, bosshi, asanagi, tony_taka, okama, kagami, tarakanovich, blushyspicy, speedl00ver, aroma_sensei, kinkymation, luminyu, raichiyo33, kuvshinov_ilya, gerph, nyantcha, homare, fuzichoco, kase_daiki, mignon, noise, tsuaii, kekemotsu, ciloranko, yohan1754, as109, mumumu, fishine, ke-ta, terasu_mc, yom, gin00.
 
-User wants: "${query}"
+    // ★ 선택된 ALL Text AI가 각각 발굴
+    el.innerHTML = `<div style="color:#06b6d4">🔍 ${textAIs.length}개 AI가 각각 작가 발굴중...</div>`;
+    const allResults = [];
 
-Respond in Korean 반말. Suggest:
-1. 추천 작가 3명 (이유 포함)
-2. 추천 조합 2개 (2~3명 + 가중치, NAI 형식: "0.5::artist:name::")
-3. 각 조합의 예상 결과 스타일 설명
+    for (const ai of textAIs) {
+        el.innerHTML += `<div style="color:#94a3b8;font-size:0.38rem">⏳ ${ai.name} 검색중...</div>`;
+        try {
+            const result = await callText(ai, `You are a NovelAI V4.5 Danbooru artist expert. 작가 발굴 전문가.
 
-마지막에 "자동입력:" 줄에 추천 조합 1번의 작가 이름만 쉼표로 나열 (예: "자동입력: wlop, guweiz, sakimichan")`);
-        
-        el.innerHTML = result.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<b style="color:#fbbf24">$1</b>');
-        
-        // 자동 입력 파싱
-        const autoMatch = result.match(/자동입력[:\s]*([^\n]+)/);
-        if (autoMatch) {
-            const names = autoMatch[1].split(',').map(s => s.trim()).filter(Boolean);
-            for (let i = 0; i < Math.min(names.length, 4); i++) {
-                const el2 = document.getElementById('nlA'+(i+1));
-                if (el2) el2.value = names[i];
-            }
-            if (names.length > 0) {
-                document.getElementById('nlArtistCount').value = Math.min(names.length, 4);
-                nlUpdateArtistFields();
-                log(`🤖 작가 자동입력: ${names.join(', ')}`, 'ok');
-            }
+사용자 요청 스타일: "${query}"
+
+=== 발굴 프로세스 (3단계) ===
+
+[1단계] 후보 발굴 12명
+- "${query}" 스타일에 맞는 Danbooru 아티스트 태그 12명을 찾아라
+- NovelAI V4에서 실제 작동하는 작가 태그만 사용
+- 참고 DB: cutesexyrobutts, ratatatat74, incase, fellatrix, sciamano240, guweiz, wlop, sakimichan, personal_ami, bosshi, asanagi, tony_taka, okama, kagami, tarakanovich, blushyspicy, speedl00ver, aroma_sensei, kinkymation, luminyu, raichiyo33, kuvshinov_ilya, gerph, nyantcha, homare, fuzichoco, kase_daiki, mignon, noise, tsuaii, kekemotsu, ciloranko, yohan1754, as109, mumumu, fishine, ke-ta, terasu_mc, yom, gin00, ooyari_ashito, oda_non, mogudan, navel, rella, ask, artgerm, alphonse_mucha, peter_mohrbacher
+
+[2단계] 상위 6명 압축
+- 12명 중 요청 스타일에 가장 적합한 6명만 남겨라
+- 각 작가의 핵심 강점 1줄 요약
+
+[3단계] 최종 6개 조합 제안
+아래 형식으로 정확히 6개 조합을 출력:
+
+### 조합A (3인): 작가1 + 작가2 + 작가3
+- 가중치: 0.5, 0.5, 0.5
+- 표현 강점: (예: 피부 질감, 조명, 포즈)
+- 적합 장르: (예: 예술 누드, 로맨틱, 판타지)
+- 테스트 프롬프트: 1girl, ... (Danbooru tags, 20-30개)
+- 주의사항: (예: 배경 약함, 얼굴 스타일 충돌 가능)
+자동입력: 작가1, 작가2, 작가3
+
+### 조합B (3인): ...
+자동입력: ...
+
+### 조합C (3인): ...
+자동입력: ...
+
+### 조합D (2인): 작가1 + 작가2
+자동입력: ...
+
+### 조합E (2인): ...
+자동입력: ...
+
+### 조합F (4인): 작가1 + 작가2 + 작가3 + 작가4
+자동입력: ...
+
+RULES:
+- 한국어 반말로 답해
+- NSFW, 관능, 예술 누드, 다크, 애니, 반실사 중 사용자 의도에 맞는 축 우선
+- "자동입력:" 줄은 반드시 각 조합마다 포함 (프로그램 파싱용)
+- 작가 이름은 Danbooru 태그 형식 (언더스코어, 소문자)`);
+
+            allResults.push({ai: ai.name, result});
+            log(`🔍 ${ai.name} 작가 발굴 완료`, 'ok');
+        } catch(e) {
+            log(`❌ ${ai.name} 발굴 실패: ${e.message}`, 'err');
         }
-    } catch(e) { el.innerHTML = `<div style="color:#ef4444">❌ ${e.message}</div>`; }
+    }
+
+    // 결과 렌더링 — AI별 탭 형식
+    if (!allResults.length) { el.innerHTML = '<div style="color:#ef4444">모든 AI 실패</div>'; return; }
+
+    let html = '<div style="display:flex;gap:3px;margin-bottom:6px;flex-wrap:wrap">';
+    allResults.forEach((r, i) => {
+        html += `<button onclick="document.querySelectorAll('.nl-ai-result').forEach(e=>e.style.display='none');document.getElementById('nlRes${i}').style.display='block';this.parentElement.querySelectorAll('button').forEach(b=>b.style.background='');this.style.background='#6366f1'" style="padding:2px 6px;border:1px solid #6366f1;border-radius:4px;color:#fff;font-size:0.38rem;cursor:pointer;background:${i===0?'#6366f1':''}">${r.ai}</button>`;
+    });
+    html += '</div>';
+    allResults.forEach((r, i) => {
+        const formatted = r.result.replace(/\n/g,'<br>')
+            .replace(/###\s*(.*?)(<br>)/g,'<div style="color:#ff69b4;font-weight:700;font-size:0.48rem;margin-top:6px;padding:3px 6px;background:rgba(255,105,180,0.1);border-radius:4px">$1</div>')
+            .replace(/\*\*(.*?)\*\*/g,'<b style="color:#fbbf24">$1</b>')
+            .replace(/(자동입력[:\s]*[^\n<]+)/g,'<span style="color:#22c55e;cursor:pointer;text-decoration:underline" onclick="nlApplyAutoInput(this.textContent)">$1</span>');
+        html += `<div id="nlRes${i}" class="nl-ai-result" style="display:${i===0?'block':'none'};max-height:500px;overflow-y:auto;line-height:1.6">${formatted}</div>`;
+    });
+    el.innerHTML = html;
+
+    // 첫 번째 AI 첫 번째 조합 자동입력
+    const firstAuto = allResults[0]?.result.match(/자동입력[:\s]*([^\n]+)/);
+    if (firstAuto) nlApplyAutoInput(firstAuto[0]);
+}
+
+// 자동입력 파싱 (클릭 또는 자동)
+function nlApplyAutoInput(text) {
+    const match = text.match(/자동입력[:\s]*(.+)/);
+    if (!match) return;
+    const names = match[1].split(',').map(s => s.trim().replace(/[^a-zA-Z0-9_\-]/g,'')).filter(Boolean);
+    for (let i = 0; i < Math.min(names.length, 4); i++) {
+        const el = document.getElementById('nlA'+(i+1));
+        if (el) el.value = names[i];
+    }
+    if (names.length >= 4) nlSetCount(4);
+    else if (names.length === 2) nlSetCount(2);
+    else nlSetCount(3);
+    log(`🤖 자동입력: ${names.join(' + ')}`, 'ok');
 }
 
 // 저장/로드
@@ -9811,7 +9877,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0409-14 (20260409) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0409-15 (20260409) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
