@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0409-11 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0409-13 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -223,7 +223,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0409-11</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0409-13</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -535,6 +535,50 @@
             <div class="card">
                 <h2 style="color:#a78bfa">📝 공통 시스템 지침</h2>
                 <textarea id="globalInstruction" placeholder="(선택) 모든 AI 출력에 적용할 지침..." style="width:100%;padding:4px;background:#1e293b;border:1px solid #a78bfa;border-radius:4px;color:#f1f5f9;font-size:0.45rem;min-height:40px;resize:vertical"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ 🎵 Song (Suno 최적화) ═══ -->
+    <div id="songPanel" style="display:none">
+        <div style="display:grid;grid-template-columns:360px 1fr;gap:8px">
+            <div style="display:flex;flex-direction:column;gap:6px">
+                <div class="card">
+                    <h2 style="color:#f59e0b">🎵 Suno 음악 생성기</h2>
+                    <div style="font-size:0.4rem;color:#64748b;margin-bottom:4px;line-height:1.5">주제만 입력하면 AI가 Suno에 바로 붙여넣을 수 있는<br>🎤 가사 + 🎶 스타일 + 📋 곡 구성 + 🖼️ 앨범 커버를 생성합니다</div>
+                    <div style="margin-bottom:4px">
+                        <label style="font-size:0.42rem;color:#fbbf24;font-weight:700">🎤 주제 / 감정 / 스토리</label>
+                        <textarea id="songTopic" placeholder="예: 이별 후 혼자 걷는 밤거리&#10;예: 첫사랑의 설렘&#10;예: 금요일 밤 클럽에서&#10;예: 하나님의 은혜" style="width:100%;padding:5px 7px;background:#1e293b;border:1px solid #f59e0b;border-radius:4px;color:#f1f5f9;font-size:0.5rem;min-height:60px;resize:vertical"></textarea>
+                        <button onclick="voiceToField('songTopic')" style="margin-top:2px;padding:3px 8px;background:#22c55e;border:none;border-radius:4px;cursor:pointer;font-size:0.42rem;color:#fff">🎤 음성입력</button>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:4px">
+                        <div><label style="font-size:0.42rem;color:#94a3b8">장르</label><select id="songGenre" style="width:100%;padding:3px;background:#1e293b;border:1px solid #475569;border-radius:3px;color:#f1f5f9;font-size:0.45rem">
+                            <option value="auto">🤖 AI 자동</option><option value="kpop">K-Pop</option><option value="ballad">발라드</option><option value="rock">Rock</option><option value="hiphop">Hip-Hop/Rap</option><option value="rnb">R&B/Soul</option><option value="edm">EDM/Electronic</option><option value="jazz">Jazz</option><option value="folk">Folk/Acoustic</option><option value="gospel">Gospel/CCM</option><option value="indie">Indie</option><option value="city-pop">City Pop</option><option value="lo-fi">Lo-Fi</option><option value="metal">Metal</option><option value="classical">Classical</option><option value="jpop">J-Pop</option>
+                        </select></div>
+                        <div><label style="font-size:0.42rem;color:#94a3b8">언어</label><select id="songLang" style="width:100%;padding:3px;background:#1e293b;border:1px solid #475569;border-radius:3px;color:#f1f5f9;font-size:0.45rem">
+                            <option value="korean">한국어</option><option value="english">English</option><option value="japanese">日本語</option><option value="bilingual">한+영 Mix</option>
+                        </select></div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:6px">
+                        <div><label style="font-size:0.42rem;color:#94a3b8">분위기</label><select id="songMood" style="width:100%;padding:3px;background:#1e293b;border:1px solid #475569;border-radius:3px;color:#f1f5f9;font-size:0.45rem">
+                            <option value="auto">🤖 자동</option><option value="sad">😢 슬픔</option><option value="happy">😄 기쁨</option><option value="dark">🌑 어둠</option><option value="romantic">💕 로맨틱</option><option value="energetic">⚡ 에너지</option><option value="chill">😌 Chill</option><option value="epic">🎬 Epic</option><option value="nostalgic">🌅 향수</option>
+                        </select></div>
+                        <div><label style="font-size:0.42rem;color:#94a3b8">AI 수</label><input type="number" id="songAICount" value="3" min="1" max="10" style="width:100%;padding:3px;background:#1e293b;border:1px solid #475569;border-radius:3px;color:#f1f5f9;font-size:0.45rem"></div>
+                    </div>
+                    <label style="display:flex;align-items:center;gap:4px;font-size:0.42rem;color:#ec4899;margin-bottom:4px;cursor:pointer"><input type="checkbox" id="songCover" checked> 🖼️ 앨범 커버 이미지 생성</label>
+                    <button class="btn" id="songGenBtn" onclick="generateSunoSong()" style="background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;width:100%">🎵 Suno 곡 생성!</button>
+                </div>
+                <div class="card" onclick="setMode('aisetup')" style="cursor:pointer">
+                    <h2 style="color:#6366f1">⚙️ AI 모델 설정 →</h2>
+                    <div style="font-size:0.4rem;color:#64748b">📝 Text AI로 가사 생성, 🖼️ Image AI로 앨범 커버</div>
+                </div>
+            </div>
+            <div>
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+                    <span style="font-size:0.7rem;font-weight:700;color:#f59e0b">🎵 생성된 곡</span>
+                    <span id="songInfo" style="font-size:0.42rem;color:#94a3b8">주제를 입력하고 생성 버튼을 누르세요</span>
+                </div>
+                <div id="songResults" style="display:flex;flex-direction:column;gap:10px"></div>
             </div>
         </div>
     </div>
@@ -1202,7 +1246,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0409-11 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0409-13 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
             </div>
         </div>
         
@@ -3632,7 +3676,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0409-11 모델 가격표</h1>
+<h1>💰 AIARTstudio v0409-13 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.02.12 기준</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -3681,7 +3725,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 이미지: <strong style="color:#a78bfa">Z.ai CogView-4</strong> (장당 14원, SFW) + <strong style="color:#ff69b4">NovelAI $25/월</strong> (NSFW OK)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0409-11 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0409-13 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -4355,14 +4399,15 @@ function setMode(mode) {
     document.querySelector(`.mode-tab.${mode}`)?.classList.add('active');
     document.getElementById('imageBtns').classList.toggle('hidden', mode !== 'image');
     document.getElementById('storyBtns').classList.add('hidden');
-    document.getElementById('songBtns').classList.toggle('hidden', mode !== 'song');
-    const fullPanelModes = ['story','dream','nihongo','aisetup','nailab'];
+    document.getElementById('songBtns').classList.add('hidden');
+    const fullPanelModes = ['story','dream','nihongo','aisetup','nailab','song'];
     // 패널 토글
     document.getElementById('botPanel').style.display = mode === 'story' ? 'block' : 'none';
     document.getElementById('dwPanel').style.display = mode === 'dream' ? 'block' : 'none';
     document.getElementById('nihongoPanel').style.display = mode === 'nihongo' ? 'block' : 'none';
     document.getElementById('aisetupPanel').style.display = mode === 'aisetup' ? 'block' : 'none';
     document.getElementById('nailabPanel').style.display = mode === 'nailab' ? 'block' : 'none';
+    document.getElementById('songPanel').style.display = mode === 'song' ? 'block' : 'none';
     document.getElementById('mainGrid').style.display = fullPanelModes.includes(mode) ? 'none' : '';
     document.getElementById('topicSection').style.display = fullPanelModes.includes(mode) ? 'none' : 'block';
     if (mode === 'song') {
@@ -8850,6 +8895,154 @@ const JP_CAT_DESC = {
     music:'음악 관련 일본어: 악기, 라이브, 음악감상 표현, 기타/우쿨렐레 관련',
 };
 
+// ══════════════════════════════════════════════════════════════
+// ★★★ 🎵 SUNO SONG GENERATOR ★★★
+// ══════════════════════════════════════════════════════════════
+async function generateSunoSong() {
+    const btn = document.getElementById('songGenBtn');
+    const topic = document.getElementById('songTopic').value.trim();
+    if (!topic) { alert('주제를 입력하세요!'); return; }
+    const textAIs = getSelectedTextAIs();
+    if (!textAIs.length) { alert('Text AI를 선택하세요! (⚙️ AI설정)'); return; }
+    btn.disabled = true; btn.textContent = '⏳ 생성중...';
+    
+    const genre = document.getElementById('songGenre').value;
+    const lang = document.getElementById('songLang').value;
+    const mood = document.getElementById('songMood').value;
+    const aiCount = parseInt(document.getElementById('songAICount').value) || 3;
+    const wantCover = document.getElementById('songCover').checked;
+    const langMap = {korean:'한국어',english:'English',japanese:'日本語',bilingual:'한국어+English Mix'};
+
+    const prompt = `You are a professional songwriter creating a song for Suno AI music generator.
+
+THEME: "${topic}"
+GENRE: ${genre === 'auto' ? 'Choose the best genre that fits the theme' : genre}
+LANGUAGE: ${langMap[lang] || '한국어'}
+MOOD: ${mood === 'auto' ? 'Choose the best mood for this theme' : mood}
+
+Create a COMPLETE song with Suno-compatible formatting. Output EXACTLY this structure:
+
+🎵 TITLE: [곡 제목]
+
+🎶 STYLE OF MUSIC: [Suno style tag - 예: emotional ballad, female vocal, piano, strings, 120bpm]
+
+📋 SONG STRUCTURE:
+[Intro]
+(instrumental description)
+
+[Verse 1]
+(가사 4-6줄)
+
+[Pre-Chorus]
+(가사 2줄)
+
+[Chorus]
+(가사 4-6줄, 후렴 - 가장 강렬하고 기억에 남는 부분)
+
+[Verse 2]
+(가사 4-6줄)
+
+[Pre-Chorus]
+(가사 2줄)
+
+[Chorus]
+(반복)
+
+[Bridge]
+(가사 2-4줄, 감정 전환)
+
+[Final Chorus]
+(변주 후렴)
+
+[Outro]
+(instrumental fade)
+
+RULES:
+- [Section] tags are REQUIRED for Suno
+- Lyrics must be emotionally resonant and poetic
+- Style tag should be specific: include vocal type, instruments, tempo, mood keywords
+- Make it a REAL song someone would want to listen to
+- Each AI must create a COMPLETELY DIFFERENT song (different melody concept, different lyrics)
+
+🖼️ ALBUM COVER PROMPT: [English Danbooru-style tags for album cover art, 15-20 tags, aesthetic and matching the song mood]`;
+
+    const results = document.getElementById('songResults');
+    const shuffled = [...textAIs].sort(() => Math.random() - 0.5).slice(0, aiCount);
+    
+    for (let i = 0; i < shuffled.length; i++) {
+        const ai = shuffled[i];
+        const cardId = 'song' + Date.now() + i;
+        const card = document.createElement('div');
+        card.id = cardId;
+        card.style.cssText = 'background:rgba(0,0,0,0.3);border:2px solid #f59e0b;border-radius:10px;overflow:hidden;padding:12px';
+        card.innerHTML = `<div style="color:#f59e0b;font-size:0.5rem">⏳ ${ai.name} 작곡중... (#${i+1}/${shuffled.length})</div>`;
+        results.prepend(card);
+
+        try {
+            const result = await callText(ai, prompt);
+            
+            // 파싱
+            const titleMatch = result.match(/TITLE[:\s]*(.+)/i);
+            const styleMatch = result.match(/STYLE OF MUSIC[:\s]*(.+)/i);
+            const coverMatch = result.match(/ALBUM COVER PROMPT[:\s]*(.+)/i);
+            const title = titleMatch?.[1]?.trim() || '무제';
+            const style = styleMatch?.[1]?.trim() || '';
+            const coverPrompt = coverMatch?.[1]?.trim() || '';
+            
+            // Suno용 가사 추출 (STRUCTURE 이후부터 ALBUM COVER 전까지)
+            let lyrics = result;
+            const structStart = result.indexOf('[Intro]') !== -1 ? result.indexOf('[Intro]') : result.indexOf('[Verse');
+            const structEnd = result.indexOf('ALBUM COVER') !== -1 ? result.indexOf('ALBUM COVER') : result.length;
+            if (structStart > 0) lyrics = result.substring(structStart, structEnd).trim();
+
+            card.innerHTML = `
+                <div style="display:flex;gap:10px;align-items:flex-start">
+                    <div id="${cardId}-cover" style="width:150px;height:150px;flex-shrink:0;border-radius:8px;overflow:hidden;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;font-size:2rem">🎵</div>
+                    <div style="flex:1;min-width:0">
+                        <div style="font-size:0.75rem;color:#fbbf24;font-weight:800">${escHtml(title)}</div>
+                        <div style="font-size:0.42rem;color:#94a3b8;margin:2px 0">by ${escHtml(ai.name)}</div>
+                        <div style="display:flex;gap:4px;margin:4px 0;flex-wrap:wrap">
+                            <span style="padding:2px 6px;background:rgba(245,158,11,0.2);border:1px solid #f59e0b;border-radius:10px;font-size:0.38rem;color:#fbbf24">🎶 ${escHtml(style).substring(0,60)}</span>
+                        </div>
+                        <div style="display:flex;gap:3px;margin-top:4px">
+                            <button onclick="navigator.clipboard.writeText(document.getElementById('${cardId}-lyrics').textContent);this.textContent='✅ 복사됨!';setTimeout(()=>this.textContent='📋 가사 복사',1500)" style="padding:3px 8px;background:#6366f1;border:none;border-radius:4px;color:#fff;font-size:0.4rem;cursor:pointer;font-weight:600">📋 가사 복사</button>
+                            <button onclick="navigator.clipboard.writeText('${escHtml(style).replace(/'/g,"\\'")}');this.textContent='✅';setTimeout(()=>this.textContent='🎶 스타일 복사',1500)" style="padding:3px 8px;background:#ec4899;border:none;border-radius:4px;color:#fff;font-size:0.4rem;cursor:pointer">🎶 스타일 복사</button>
+                            <button onclick="navigator.clipboard.writeText('${escHtml(title).replace(/'/g,"\\'")}');this.textContent='✅';setTimeout(()=>this.textContent='🎵 제목 복사',1500)" style="padding:3px 8px;background:#22c55e;border:none;border-radius:4px;color:#fff;font-size:0.4rem;cursor:pointer">🎵 제목 복사</button>
+                        </div>
+                    </div>
+                </div>
+                <details open style="margin-top:8px">
+                    <summary style="font-size:0.45rem;color:#f59e0b;cursor:pointer;font-weight:700">📜 가사 (Suno에 붙여넣기)</summary>
+                    <pre id="${cardId}-lyrics" style="margin-top:4px;padding:8px;background:rgba(0,0,0,0.4);border-radius:6px;font-size:0.45rem;color:#e2e8f0;line-height:1.6;white-space:pre-wrap;max-height:400px;overflow-y:auto;font-family:'Noto Sans KR',sans-serif">${escHtml(lyrics)}</pre>
+                </details>`;
+            
+            log(`🎵 ${ai.name}: "${title}" 작곡 완료!`, 'ok');
+            
+            // 앨범 커버 생성
+            if (wantCover && coverPrompt) {
+                const coverEl = document.getElementById(cardId + '-cover');
+                coverEl.innerHTML = '<div style="width:16px;height:16px;border:2px solid #f59e0b;border-top-color:transparent;border-radius:50%;animation:pulse 1.5s infinite"></div>';
+                try {
+                    const imgAIs = getSelectedImageAIs();
+                    if (imgAIs.length) {
+                        const imgAi = imgAIs[Math.floor(Math.random() * imgAIs.length)];
+                        const url = await callImg(imgAi, coverPrompt + ', album cover art, music, aesthetic');
+                        coverEl.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover">`;
+                    } else {
+                        const url = await genGeminiFlash(coverPrompt + ', album cover art');
+                        coverEl.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover">`;
+                    }
+                } catch(e) { coverEl.innerHTML = '<div style="font-size:2rem">🎵</div>'; }
+            }
+        } catch(e) {
+            card.innerHTML = `<div style="color:#ef4444;font-size:0.45rem;padding:8px">❌ ${ai.name}: ${e.message}</div>`;
+            log(`❌ Song ${ai.name}: ${e.message}`, 'err');
+        }
+    }
+    btn.disabled = false; btn.textContent = '🎵 Suno 곡 생성!';
+    document.getElementById('songInfo').textContent = `${shuffled.length}개 AI 작곡 완료!`;
+}
+
 // ★ 추천 AI 자동 선택 (일본어 플래시카드 최적)
 function jpAutoSelectAI() {
     // Text: Gemini 2.5 Flash (JSON 잘함, 무료, 빠름)
@@ -9130,14 +9323,140 @@ function syncFromMain() {
 // ★★★ 🧪 NAI 작가연구 Lab ★★★
 // ══════════════════════════════════════════════════════════════
 let nlCombos = JSON.parse(localStorage.getItem('nailab_combos') || '[]');
+let nlArtistCount = 3;
 
-function nlUpdateArtistFields() {
-    const n = parseInt(document.getElementById('nlArtistCount').value) || 3;
-    document.getElementById('nlA4Row').style.display = n >= 4 ? 'flex' : 'none';
+// ★ ARTIST DATABASE (NAI 검증)
+const NL_ARTIST_DB = {
+    '🔥 관능/핀업': [
+        {name:'cutesexyrobutts',s:'글래머 핀업, 바디 디테일'},
+        {name:'sakimichan',s:'반사실 판타지, 화려 채색'},
+        {name:'incase',s:'서양 관능, 유려한 선'},
+        {name:'ratatatat74',s:'극사실, 피부 질감'},
+        {name:'fellatrix',s:'매혹적, 디테일'},
+        {name:'sciamano240',s:'사실적 핀업, 극세밀'},
+        {name:'aroma_sensei',s:'애니 핀업, 밝은 톤'},
+        {name:'kinkymation',s:'3D풍 애니, 볼륨감'},
+    ],
+    '🎨 사실/일러스트': [
+        {name:'wlop',s:'판타지 리얼, 드라마틱 조명'},
+        {name:'guweiz',s:'디지털 리얼, 시네마틱'},
+        {name:'kuvshinov_ilya',s:'소프트 리얼, 파스텔'},
+        {name:'artgerm',s:'코믹 핀업, 세밀 표정'},
+        {name:'alphonse_mucha',s:'아르누보, 꽃 장식'},
+    ],
+    '✨ 애니/미소녀': [
+        {name:'tony_taka',s:'갈게, 부드러운 피부'},
+        {name:'okama',s:'클린 라인, 비비드 컬러'},
+        {name:'kagami',s:'미형, 한국웹툰풍'},
+        {name:'luminyu',s:'파스텔 애니, 청순'},
+        {name:'fuzichoco',s:'우아, 섬세한 채색'},
+        {name:'rella',s:'클린, 밝은 모에'},
+        {name:'ciloranko',s:'독특 채색, 몽환적'},
+    ],
+    '🌑 다크/고딕': [
+        {name:'gerald_brom',s:'다크 판타지, 공포'},
+        {name:'hr_giger',s:'바이오메카닉, 초현실'},
+        {name:'zdzislaw_beksinski',s:'묵시록적, 황폐'},
+        {name:'peter_mohrbacher',s:'천사/악마, 빛어둠'},
+    ],
+    '💕 동인/성인': [
+        {name:'personal_ami',s:'동인지, 사실적 바디'},
+        {name:'nyantcha',s:'서양 동인, 대담'},
+        {name:'asanagi',s:'하드코어, 극세밀'},
+        {name:'bosshi',s:'성인 일러, 풍만'},
+        {name:'as109',s:'동인지, 매니악'},
+        {name:'mumumu',s:'부드러운 선, 에로'},
+    ],
+};
+const NL_ALL_ARTISTS = Object.values(NL_ARTIST_DB).flat();
+
+const NL_NSFW_TEMPLATES = [
+    '1girl, beautiful face, detailed eyes, long hair, slender figure, nude, artistic, masterpiece, best quality, detailed skin, soft lighting, bokeh',
+    '1girl, alluring pose, elegant curves, tasteful nudity, fine art, perfect anatomy, warm lighting, cinematic',
+    '1woman, mature, revealing outfit, seductive expression, detailed fabric, studio lighting, ultra-detailed',
+    '1girl, fantasy warrior, armor partially removed, battle aftermath, dramatic lighting, fierce expression',
+    '1girl, wet skin, rain, transparent clothing, city night, neon reflections, detailed background',
+    '2girls, yuri, intimate, warm colors, romantic atmosphere, soft focus, detailed expressions',
+];
+const NL_SFW_TEMPLATES = [
+    '1girl, long hair, beautiful eyes, cherry blossoms, school uniform, sunlit path, spring, detailed background',
+    '1girl, elegant dress, garden setting, golden hour, soft light, artistic, fine detail',
+    'fantasy character, magical atmosphere, cinematic lighting, floating particles, castle, ultra-detailed',
+    '1girl, kimono, japanese garden, autumn leaves, koi pond, peaceful, warm tones',
+    '1girl, witch hat, floating books, magical library, warm candlelight, mysterious atmosphere',
+];
+
+// 카테고리 버튼 초기화
+function nlInitCatBtns() {
+    const el = document.getElementById('nlCatBtns');
+    if (!el || el.dataset.init) return;
+    el.dataset.init = '1';
+    el.innerHTML = Object.keys(NL_ARTIST_DB).map(cat =>
+        `<button onclick="nlFillFromCat('${cat}')" style="padding:1px 5px;background:rgba(196,113,237,0.15);border:1px solid rgba(196,113,237,0.3);border-radius:10px;color:#c471ed;font-size:0.35rem;cursor:pointer;white-space:nowrap">${cat}</button>`
+    ).join('');
 }
 
+function nlFillFromCat(cat) {
+    const artists = NL_ARTIST_DB[cat]; if (!artists) return;
+    const shuffled = [...artists].sort(() => Math.random() - 0.5);
+    for (let i = 0; i < Math.min(nlArtistCount, shuffled.length); i++) {
+        const el = document.getElementById('nlA'+(i+1));
+        if (el) el.value = shuffled[i].name;
+    }
+    log(`🎨 ${cat} 카테고리에서 작가 ${Math.min(nlArtistCount, shuffled.length)}명 자동입력`, 'info');
+}
+
+// 작가 수 선택
+function nlSetCount(n) {
+    nlArtistCount = n;
+    document.getElementById('nlA4Row').style.display = n >= 4 ? 'flex' : 'none';
+    ['nlCnt2','nlCnt3','nlCnt4'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.style.background = ''; el.style.color = ''; }
+    });
+    const active = document.getElementById('nlCnt'+n);
+    if (active) { active.style.background = '#6366f1'; active.style.color = '#fff'; }
+}
+
+// 자동완성
+function nlOnInput(idx) {
+    const input = document.getElementById('nlA'+idx);
+    const val = (input?.value || '').toLowerCase().trim();
+    const suggest = document.getElementById('nlSuggest');
+    if (!val || val.length < 1) { suggest.style.display = 'none'; return; }
+    const matches = NL_ALL_ARTISTS.filter(a => a.name.toLowerCase().includes(val)).slice(0, 8);
+    if (!matches.length) { suggest.style.display = 'none'; return; }
+    suggest.style.display = 'block';
+    const rect = input.getBoundingClientRect();
+    const parent = document.getElementById('nlArtistFields').getBoundingClientRect();
+    suggest.style.top = (rect.bottom - parent.top + 2) + 'px';
+    suggest.style.left = '20px';
+    suggest.innerHTML = matches.map(a =>
+        `<div style="padding:4px 8px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.42rem" onmousedown="nlSelectArtist(${idx},'${a.name}')" onmouseover="this.style.background='rgba(196,113,237,0.2)'" onmouseout="this.style.background=''">
+            <div style="color:#e8e4f5;font-weight:600">${a.name}</div>
+            <div style="color:#9490b0;font-size:0.35rem">${a.s}</div>
+        </div>`
+    ).join('');
+}
+function nlSelectArtist(idx, name) {
+    document.getElementById('nlA'+idx).value = name;
+    document.getElementById('nlSuggest').style.display = 'none';
+}
+document.addEventListener('click', e => {
+    if (!e.target.closest('#nlArtistFields')) document.getElementById('nlSuggest')?.style && (document.getElementById('nlSuggest').style.display = 'none');
+});
+
+// 프롬프트 템플릿
+function nlRandomPrompt(type) {
+    const templates = type === 'nsfw' ? NL_NSFW_TEMPLATES : NL_SFW_TEMPLATES;
+    document.getElementById('nlPrompt').value = templates[Math.floor(Math.random() * templates.length)];
+}
+
+// NAI Lab 진입 시 카테고리 버튼 초기화
+setTimeout(() => nlInitCatBtns(), 500);
+
 function nlBuildArtistTag() {
-    const n = parseInt(document.getElementById('nlArtistCount').value) || 3;
+    const n = nlArtistCount;
     const parts = [];
     for (let i = 1; i <= n; i++) {
         const a = document.getElementById('nlA'+i)?.value?.trim();
@@ -9148,7 +9467,7 @@ function nlBuildArtistTag() {
 }
 
 function nlGetArtists() {
-    const n = parseInt(document.getElementById('nlArtistCount').value) || 3;
+    const n = nlArtistCount;
     const arr = [];
     for (let i = 1; i <= n; i++) {
         const a = document.getElementById('nlA'+i)?.value?.trim();
@@ -9467,7 +9786,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0409-11 (20260409) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0409-13 (20260409) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
