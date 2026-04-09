@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0409-5 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0409-6 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -223,7 +223,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0409-5</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0409-6</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -610,9 +610,15 @@
                         <div style="flex:1"><label style="font-size:0.42rem;color:#94a3b8">카드 수</label><input type="number" id="jpCount" value="6" min="1" max="20" style="width:100%;padding:3px;background:#1e293b;border:1px solid #334155;border-radius:3px;color:#f1f5f9;font-size:0.5rem"></div>
                         <div style="flex:1"><label style="font-size:0.42rem;color:#94a3b8">JLPT</label><select id="jpLevel" style="width:100%;padding:3px;background:#1e293b;border:1px solid #334155;border-radius:3px;color:#f1f5f9;font-size:0.5rem"><option value="N5">N5</option><option value="N4">N4</option><option value="N3" selected>N3</option><option value="N2">N2</option><option value="N1">N1</option></select></div>
                     </div>
-                    <div onclick="setMode('aisetup')" style="padding:4px 6px;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.3);border-radius:4px;margin-bottom:4px;cursor:pointer">
-                        <span style="font-size:0.42rem;color:#a78bfa;font-weight:700">⚙️ AI: 공유 설정 사용중</span>
-                        <span style="font-size:0.38rem;color:#64748b"> → 클릭하여 변경</span>
+                    <!-- AI 상태 + 추천 -->
+                    <div id="jpAIStatus" style="padding:5px 7px;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.3);border-radius:4px;margin-bottom:4px;font-size:0.42rem;line-height:1.6">
+                        <div style="color:#a78bfa;font-weight:700">⚙️ AI 모델 상태</div>
+                        <div id="jpAIInfo" style="color:#94a3b8">확인중...</div>
+                        <div style="margin-top:3px;color:#fbbf24;font-weight:600">💡 추천 조합:</div>
+                        <div style="color:#94a3b8">📝 Text: <b style="color:#22c55e">Gemini 2.5 Flash</b> (무료·빠름·JSON잘함)</div>
+                        <div style="color:#94a3b8">🖼️ Image: <b style="color:#ec4899">Gemini Flash</b> (무료) 또는 <b style="color:#22c55e">Z.ai CogView</b> (무료)</div>
+                        <button onclick="jpAutoSelectAI()" style="margin-top:3px;padding:3px 8px;background:#6366f1;border:none;border-radius:3px;color:#fff;font-size:0.4rem;cursor:pointer;font-weight:600">⚡ 추천 AI 자동 선택</button>
+                        <button onclick="setMode('aisetup')" style="margin-top:3px;margin-left:3px;padding:3px 8px;background:#334155;border:none;border-radius:3px;color:#a78bfa;font-size:0.4rem;cursor:pointer">⚙️ 직접 선택</button>
                     </div>
                     <button class="btn" id="jpGenBtn" onclick="generateJPCards()" style="background:linear-gradient(135deg,#dc2626,#f97316);color:#fff;margin-top:4px">🎴 플래시카드 생성</button>
                 </div>
@@ -1197,7 +1203,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0409-5 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0409-6 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
             </div>
         </div>
         
@@ -3627,7 +3633,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0409-5 모델 가격표</h1>
+<h1>💰 AIARTstudio v0409-6 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.02.12 기준</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -3676,7 +3682,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 이미지: <strong style="color:#a78bfa">Z.ai CogView-4</strong> (장당 14원, SFW) + <strong style="color:#ff69b4">NovelAI $25/월</strong> (NSFW OK)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0409-5 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0409-6 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -8812,8 +8818,13 @@ function setJPCat(cat) { jpCurrentCat = cat; document.getElementById('jpCustomTo
 function initJPPanel() {
     if (jpPanelInit) return;
     jpPanelInit = true;
-    // ★ AI 모델 = ⚙️ AI설정 공유 (별도 init 불필요)
     loadJPStats();
+    jpUpdateAIStatus();
+    // AI 없으면 자동 추천
+    if (!getSelectedTextAIs().length) {
+        log('📖 일본어: Text AI 미선택 → 추천 AI 자동 선택', 'info');
+        jpAutoSelectAI();
+    }
 }
 
 const JP_CAT_DESC = {
@@ -8829,50 +8840,132 @@ const JP_CAT_DESC = {
     music:'음악 관련 일본어: 악기, 라이브, 음악감상 표현, 기타/우쿨렐레 관련',
 };
 
+// ★ 추천 AI 자동 선택 (일본어 플래시카드 최적)
+function jpAutoSelectAI() {
+    // Text: Gemini 2.5 Flash (JSON 잘함, 무료, 빠름)
+    const textTargets = ['gem25f','gem3f','gem25p','grq-llama33','cb-qw3','grq-gptoss'];
+    textTargets.forEach(id => {
+        const cb = document.querySelector(`#tgrid .ai-cb[data-id="${id}"] input`);
+        if (cb) { cb.checked = true; cb.closest('.ai-cb').classList.add('sel'); }
+    });
+    // Image: Gemini Flash (무료), Z.ai CogView (무료)
+    const imgTargets = ['gem-flash','gem-3-pro','zai-cogview4'];
+    imgTargets.forEach(id => {
+        const cb = document.querySelector(`#igrid .ai-cb[data-id="${id}"] input`);
+        if (cb) { cb.checked = true; cb.closest('.ai-cb').classList.add('sel'); }
+    });
+    updT(); updI();
+    // AI설정 패널도 동기화
+    if (aiSetupInit) syncFromMain();
+    jpUpdateAIStatus();
+    log('⚡ 일본어 추천 AI 자동 선택 완료!', 'ok');
+}
+
+function jpUpdateAIStatus() {
+    const txt = getSelectedTextAIs();
+    const img = getSelectedImageAIs();
+    const el = document.getElementById('jpAIInfo');
+    if (!el) return;
+    if (txt.length && img.length) {
+        el.innerHTML = `✅ 📝 Text: <b style="color:#22c55e">${txt.length}개</b> (${txt.map(a=>a.name).slice(0,3).join(', ')}${txt.length>3?'...':''}) · 🖼️ Image: <b style="color:#ec4899">${img.length}개</b>`;
+    } else if (!txt.length && !img.length) {
+        el.innerHTML = `❌ <b style="color:#ef4444">AI 미선택!</b> 아래 ⚡추천 자동선택 또는 ⚙️AI설정에서 선택하세요`;
+    } else if (!txt.length) {
+        el.innerHTML = `⚠️ <b style="color:#f59e0b">Text AI 미선택!</b> 카드 텍스트 생성 불가`;
+    } else {
+        el.innerHTML = `⚠️ 📝 Text: ✅ ${txt.length}개 · 🖼️ <b style="color:#f59e0b">Image AI 미선택</b> (이모지 fallback 사용)`;
+    }
+}
+
 async function generateJPCards() {
     const btn = document.getElementById('jpGenBtn');
     btn.disabled = true; btn.textContent = '⏳ 생성중...';
+    jpUpdateAIStatus();
+    
     const cnt = parseInt(document.getElementById('jpCount').value) || 6;
     const lv = document.getElementById('jpLevel').value;
     const custom = document.getElementById('jpCustomTopic').value.trim();
     const catDesc = custom || JP_CAT_DESC[jpCurrentCat] || jpCurrentCat;
 
-    const fullPrompt = `You are a Japanese language teaching expert. Create EXACTLY ${cnt} flashcards for a Korean learner (JLPT ${lv}).
-The learner is a neurosurgeon who loves music, guitar, ukulele, is a devout Christian, travels to Japan.
+    // ★ Text AI 확인 — 없으면 자동 선택 시도
+    let textAIs = getSelectedTextAIs();
+    if (!textAIs.length) {
+        jpAutoSelectAI();
+        textAIs = getSelectedTextAIs();
+        if (!textAIs.length) {
+            document.getElementById('jpDeck').innerHTML = `<div style="text-align:center;padding:30px;color:#ef4444;grid-column:1/-1;line-height:1.8">
+                ❌ Text AI가 선택되지 않았습니다!<br><br>
+                <b>해결 방법:</b><br>
+                1. 아래 <b style="color:#6366f1">⚡ 추천 AI 자동 선택</b> 버튼 클릭<br>
+                2. 또는 <b style="color:#6366f1">⚙️ AI설정</b> 탭에서 Gemini/Groq 등 선택<br>
+                3. 해당 AI의 API 키도 입력 필요
+            </div>`;
+            btn.disabled = false; btn.textContent = '🎴 플래시카드 생성';
+            return;
+        }
+    }
 
-CATEGORY: ${catDesc}
+    // ★ JSON 출력에 강한 AI 우선 선택 (Gemini > Groq > 나머지)
+    const preferred = ['gemini','groq','cerebras','openai','anthropic'];
+    textAIs.sort((a,b) => {
+        const ai = preferred.indexOf(a.p), bi = preferred.indexOf(b.p);
+        return (ai===-1?99:ai) - (bi===-1?99:bi);
+    });
+    const ai = textAIs[0];
+    log(`📖 일본어 카드 생성: ${ai.name} (${ai.p})`, 'info');
 
-CRITICAL RULES:
-1. "reading" = ひらがな ONLY. NEVER English romanization. ありがとう (NOT arigatou)
-2. "reading_kr" = 한글 발음. 아리가또우
-3. "comment" = AI 재밌는 한마디 (Korean 반말)
-4. "image_prompt" = vivid English scene (10-15 words)
-5. For Bible: include 「新改訳2017」 verse reference
-6. Make genuinely useful for real travel
+    const fullPrompt = `You are a Japanese language flashcard generator. Output ONLY a JSON array, no other text.
 
-RESPOND ONLY IN JSON ARRAY:
-[{"japanese":"日本語","reading":"ひらがな","reading_kr":"한글발음","korean":"번역","example_jp":"例文","example_reading":"れいぶん","example_kr":"예문번역","image_prompt":"scene description","comment":"AI팁","cultural_note":"문화팁"}]
+Create ${cnt} flashcards. Category: ${catDesc}. Level: JLPT ${lv}.
+User: Korean neurosurgeon, loves music/guitar/ukulele, Christian, frequent Japan traveler.
 
-Generate now:`;
+RULES:
+- "reading": hiragana ONLY (ひらがな). NEVER romanization (NO "arigatou")
+- "reading_kr": Korean phonetic (한글). Example: 아리가또우
+- "comment": fun Korean tip (반말, 1-2 sentences)
+- "image_prompt": English scene description for illustration (8-12 words, vivid & specific)
+- For Bible category: include「新改訳2017」verse reference
+
+Output format (ONLY this JSON array, nothing else):
+[{"japanese":"生ビールください","reading":"なまびーるください","reading_kr":"나마비-루 쿠다사이","korean":"생맥주 주세요","example_jp":"すみません、生ビール二つください","example_reading":"すみません、なまびーるふたつください","example_kr":"저기요, 생맥주 두 잔 주세요","image_prompt":"person ordering draft beer at cozy Japanese izakaya counter","comment":"이자카야 들어가면 일단 이거부터 외쳐! とりあえずビール!","cultural_note":"일본 이자카야에서는 첫 주문은 거의 무조건 맥주"}]`;
 
     try {
-        // ★ ⚙️ AI설정의 공유 Text AI 사용
-        const textAIs = getSelectedTextAIs();
-        if (!textAIs.length) throw new Error('Text AI를 선택하세요! (⚙️ AI설정 탭)');
-        const ai = textAIs[Math.floor(Math.random() * textAIs.length)];
-
         const result = await callText(ai, fullPrompt);
-
+        
+        // ★ 강화된 JSON 파싱 (여러 패턴 시도)
         let cards;
-        try { cards = JSON.parse(result.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim()); }
-        catch(e) { const m = result.match(/\[[\s\S]*\]/); if(m) cards = JSON.parse(m[0]); else throw new Error('JSON 파싱 실패'); }
-
+        const cleaned = result.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim();
+        
+        try { cards = JSON.parse(cleaned); } catch(e1) {
+            // 배열 추출
+            const arrMatch = cleaned.match(/\[[\s\S]*\]/);
+            if (arrMatch) {
+                try { cards = JSON.parse(arrMatch[0]); } catch(e2) {
+                    // 깨진 JSON 복구 시도
+                    let fixed = arrMatch[0].replace(/,\s*\]/g,']').replace(/,\s*,/g,',');
+                    try { cards = JSON.parse(fixed); } catch(e3) {
+                        throw new Error('JSON 파싱 실패. AI 응답:\n' + result.substring(0, 200));
+                    }
+                }
+            } else {
+                throw new Error('JSON 배열을 찾을 수 없음. AI 응답:\n' + result.substring(0, 200));
+            }
+        }
+        
+        if (!Array.isArray(cards) || !cards.length) throw new Error('빈 배열 또는 잘못된 형식');
+        
         renderJPCards(cards);
         updateJPStats(cards.length);
-        log('🎴 일본어 카드 ' + cards.length + '장 생성!', 'ok');
+        log(`🎴 일본어 카드 ${cards.length}장 생성! (${ai.name})`, 'ok');
     } catch(e) {
         log('❌ JP: ' + e.message, 'err');
-        document.getElementById('jpDeck').innerHTML = `<div style="text-align:center;padding:30px;color:#ef4444;grid-column:1/-1">❌ ${e.message}</div>`;
+        document.getElementById('jpDeck').innerHTML = `<div style="text-align:center;padding:20px;color:#ef4444;grid-column:1/-1;font-size:0.5rem;line-height:1.7">
+            ❌ ${escHtml(e.message)}<br><br>
+            <b>💡 해결 팁:</b><br>
+            • <b style="color:#22c55e">Gemini 2.5 Flash</b> 추천 (JSON 출력 안정적)<br>
+            • <b style="color:#06b6d4">Groq Llama 3.3</b> 도 잘 됨 (무료·빠름)<br>
+            • API 키가 유효한지 확인
+        </div>`;
     } finally {
         btn.disabled = false; btn.textContent = '🎴 플래시카드 생성';
     }
@@ -9320,11 +9413,9 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0409-5 (20260409) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0409-6 (20260409) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
 </body>
 </html>
-
-    
