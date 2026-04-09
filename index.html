@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0409-8 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0409-11 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -223,7 +223,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0409-8</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0409-11</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -502,8 +502,28 @@
                 <div id="igrid2"></div>
             </div>
         </div>
-        <!-- 하단: STT + 지침 + API Keys -->
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px">
+        <!-- 하단: API Keys + STT + 지침 -->
+        <div class="card" style="margin-top:8px">
+            <h2 style="color:#fbbf24">🔑 API Keys (한번 입력 → 자동 저장)</h2>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:4px;margin-bottom:8px">
+                <div class="api-row"><label>⚡Cerebras</label><input type="text" id="key-cerebras"></div>
+                <div class="api-row"><label style="color:var(--gem)">💎Gemini</label><input type="text" id="key-gemini"></div>
+                <div class="api-row"><label>🌐OpenRouter</label><input type="text" id="key-openrouter"></div>
+                <div class="api-row"><label>🚀Groq</label><input type="text" id="key-groq"></div>
+                <div class="api-row"><label>💰DeepSeek</label><input type="text" id="key-deepseek"></div>
+                <div class="api-row"><label>🤖xAI (Grok)</label><input type="text" id="key-xai"></div>
+                <div class="api-row"><label style="color:#10a37f">OpenAI</label><input type="text" id="key-openai" placeholder="sk-..."></div>
+                <div class="api-row"><label style="color:#d97706">Claude</label><input type="text" id="key-anthropic" placeholder="sk-ant-..."></div>
+                <div class="api-row"><label>🎨NovelAI</label><input type="text" id="key-novelai"></div>
+                <div class="api-row"><label style="color:var(--poe)">🐦Poe</label><input type="text" id="key-poe"></div>
+                <div class="api-row"><label style="color:var(--krea)">✨Krea</label><input type="text" id="key-krea"></div>
+                <div class="api-row"><label>🎭Civitai</label><input type="text" id="key-civitai"></div>
+                <div class="api-row"><label style="color:#a78bfa">🐉DashScope</label><input type="text" id="key-dashscope"></div>
+                <div class="api-row"><label style="color:#ff4500">🔥SambaNova</label><input type="text" id="key-sambanova"></div>
+                <div class="api-row"><label style="color:#8b5cf6">🧠Z.ai</label><input type="text" id="key-zai"></div>
+            </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
             <div class="card">
                 <h2 style="color:#22c55e">🎤 음성인식 (STT)</h2>
                 <select id="sttProvider" style="width:100%;padding:4px;background:#1e293b;border:1px solid #22c55e;border-radius:4px;color:#f1f5f9;font-size:0.5rem">
@@ -515,10 +535,6 @@
             <div class="card">
                 <h2 style="color:#a78bfa">📝 공통 시스템 지침</h2>
                 <textarea id="globalInstruction" placeholder="(선택) 모든 AI 출력에 적용할 지침..." style="width:100%;padding:4px;background:#1e293b;border:1px solid #a78bfa;border-radius:4px;color:#f1f5f9;font-size:0.45rem;min-height:40px;resize:vertical"></textarea>
-            </div>
-            <div class="card">
-                <h2 onclick="toggleSettings()">🔑 API Keys <span style="font-size:0.35rem;color:#64748b">(click)</span></h2>
-                <div style="font-size:0.4rem;color:#64748b">← Image 모드 좌측 패널의 ⚙️ API Keys와 동일</div>
             </div>
         </div>
     </div>
@@ -1177,33 +1193,16 @@
                 </div>
             </div>
             
-            <div class="card">
-                <h2 onclick="toggleSettings()">⚙️ API Keys <span style="font-size:0.4rem;color:var(--tm)">(click)</span></h2>
-                <div style="margin-bottom:4px"><button class="qbtn" onclick="showPricing()" style="background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000;font-weight:bold;padding:3px 8px">💰 모델 가격표 보기</button></div>
-                <div class="settings-panel" id="settingsPanel">
-                    <div style="font-size:0.42rem;color:#64748b;margin-bottom:4px">💡 STT·시스템지침은 ⚙️ AI설정 탭에서 설정하세요</div>
-                    <div class="api-row"><label>⚡Cerebras</label><input type="text" id="key-cerebras"></div>
-                    <div class="api-row"><label style="color:var(--gem)">💎Gemini</label><input type="text" id="key-gemini"></div>
-                    <div class="api-row"><label>🌐OR</label><input type="text" id="key-openrouter"></div>
-                    <div class="api-row"><label>🚀Groq</label><input type="text" id="key-groq"></div>
-                    <div class="api-row"><label>💰DS</label><input type="text" id="key-deepseek"></div>
-                    <div class="api-row"><label>🤖xAI</label><input type="text" id="key-xai"></div>
-                    <div class="api-row"><label style="color:#10a37f">OpenAI</label><input type="text" id="key-openai" placeholder="sk-..."></div>
-                    <div class="api-row"><label style="color:#d97706">Claude</label><input type="text" id="key-anthropic" placeholder="sk-ant-..."></div>
-                    <div class="api-row"><label>🎨NAI</label><input type="text" id="key-novelai"></div>
-                    <div class="api-row"><label style="color:var(--poe)">🐦Poe</label><input type="text" id="key-poe" placeholder="poe.com/api_key"></div>
-                    <div class="api-row"><label style="color:var(--krea)">✨Krea</label><input type="text" id="key-krea"></div>
-                    <div class="api-row"><label>🎭Civitai</label><input type="text" id="key-civitai"></div>
-                    <div class="api-row"><label style="color:#a78bfa">🐉Qwen(DashScope)</label><input type="text" id="key-dashscope" placeholder="sk-xxx (alibabacloud.com)"></div>
-                    <div class="api-row"><label style="color:#ff4500">🔥SambaN</label><input type="text" id="key-sambanova"></div>
-                    <div class="api-row"><label style="color:#8b5cf6">🧠Z.ai</label><input type="text" id="key-zai" placeholder="z.ai API key"></div>
-                </div>
+            <div class="card" onclick="setMode('aisetup')" style="cursor:pointer">
+                <h2 style="color:#6366f1">⚙️ AI설정 · API Keys →</h2>
+                <div style="font-size:0.42rem;color:#64748b">클릭하여 AI설정 탭에서 모델 선택 · API 키 입력</div>
+                <div style="margin-top:3px"><button class="qbtn" onclick="event.stopPropagation();showPricing()" style="background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000;font-weight:bold;padding:3px 8px">💰 모델 가격표</button></div>
             </div>
             
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0409-8 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0409-11 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
             </div>
         </div>
         
@@ -3633,7 +3632,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0409-8 모델 가격표</h1>
+<h1>💰 AIARTstudio v0409-11 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.02.12 기준</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -3682,7 +3681,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 이미지: <strong style="color:#a78bfa">Z.ai CogView-4</strong> (장당 14원, SFW) + <strong style="color:#ff69b4">NovelAI $25/월</strong> (NSFW OK)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0409-8 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0409-11 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -4484,31 +4483,42 @@ const TEXT_PROVIDERS = {
         {id:'ant-haiku',name:'Haiku 3.5',m:'claude-3-5-haiku-20241022',tag:'fast',nsfw:false},
     ]},
     or: { name:'🌐 OpenRouter', color:'openrouter', nsfw:'partial', models:[
-        {id:'or-hunter',name:'Hunter Alpha 1T 🆓',m:'openrouter/hunter-alpha',tag:'best',nsfw:true},
-        {id:'or-healer',name:'Healer Alpha 🆓',m:'openrouter/healer-alpha',tag:'hot',nsfw:true},
-        {id:'or-dsv32s',name:'DS V3.2 Speciale',m:'deepseek/deepseek-v3.2-speciale',tag:'best',nsfw:true},
-        {id:'or-dsv32',name:'DS V3.2',m:'deepseek/deepseek-v3.2',tag:'hot',nsfw:true},
-        {id:'or-dsr1',name:'DeepSeek R1',m:'deepseek/deepseek-r1',tag:'hot',nsfw:true},
-        {id:'or-mm25f',name:'MiniMax M2.5 🆓',m:'minimax/minimax-m2.5:free',tag:'new',nsfw:true},
-        {id:'or-mm25',name:'MiniMax M2.5',m:'minimax/minimax-m2.5',tag:'hot',nsfw:true},
-        {id:'or-mmher',name:'MiniMax M2-her 🎭',m:'minimax/minimax-m2-her',tag:'new',nsfw:true},
-        {id:'or-venice',name:'Venice Uncensored 🔓🆓',m:'cognitivecomputations/dolphin-mistral-24b-venice-edition:free',tag:'hot',nsfw:true},
-        {id:'or-arc-lgf',name:'Arcee Trinity 400B 🆓',m:'arcee-ai/trinity-large-preview:free',tag:'best',nsfw:true},
-        {id:'or-arc-lg',name:'Arcee Trinity 400B',m:'arcee-ai/trinity-large-preview',tag:'hot',nsfw:true},
-        {id:'or-arc-virt',name:'Arcee Virtuoso 72B',m:'arcee-ai/virtuoso-large',tag:'best',nsfw:true},
-        {id:'or-arc-maes',name:'Arcee Maestro 32B',m:'arcee-ai/maestro-reasoning',tag:'hot',nsfw:true},
-        {id:'or-arc-code',name:'Arcee Coder 32B',m:'arcee-ai/coder-large',tag:'hot',nsfw:true},
-        {id:'or-arc-blitz',name:'Arcee Blitz 24B',m:'arcee-ai/arcee-blitz',tag:'fast',nsfw:true},
-        {id:'or-arc-spot',name:'Arcee Spotlight 7B 👁',m:'arcee-ai/spotlight',tag:'fast',nsfw:true},
+        // ★★ 무료 — 가성비 甲
+        {id:'or-free',name:'🎰 Free Router (자동)',m:'openrouter/free',tag:'free',nsfw:true},
+        {id:'or-mimo-pro',name:'MiMo-V2-Pro 🆓🔥',m:'xiaomi/mimo-v2-pro',tag:'best',nsfw:true},
+        {id:'or-mimo-flash',name:'MiMo-V2-Flash 🆓',m:'xiaomi/mimo-v2-flash',tag:'fast',nsfw:true},
+        {id:'or-qw36f',name:'Qwen 3.6 Plus 🆓',m:'qwen/qwen3.6-plus:free',tag:'best',nsfw:true},
+        {id:'or-dsv32f',name:'DS V3.2 🆓',m:'deepseek/deepseek-v3.2:free',tag:'best',nsfw:true},
+        {id:'or-dsr1f',name:'DeepSeek R1 🆓',m:'deepseek/deepseek-r1:free',tag:'hot',nsfw:true},
+        {id:'or-arc-lgf',name:'Arcee Trinity 400B 🆓',m:'arcee-ai/trinity-large-preview:free',tag:'hot',nsfw:true},
         {id:'or-arc-minif',name:'Arcee Trinity Mini 🆓',m:'arcee-ai/trinity-mini:free',tag:'fast',nsfw:true},
-        {id:'or-arc-mini',name:'Arcee Trinity Mini',m:'arcee-ai/trinity-mini',tag:'fast',nsfw:true},
-        {id:'or-c45s',name:'Claude Sonnet 4.5',m:'anthropic/claude-sonnet-4-5-20250929',tag:'best',nsfw:false},
-        {id:'or-g54',name:'GPT-5.4',m:'openai/gpt-5.4',tag:'best',nsfw:false},
-        {id:'or-grok3',name:'Grok 3',m:'x-ai/grok-3-beta',tag:'hot',nsfw:true},
-        {id:'or-gemini25f',name:'Gemini 2.5 Flash',m:'google/gemini-2.5-flash',tag:'fast',nsfw:false},
-        {id:'or-mistral',name:'Mistral Large 3',m:'mistralai/mistral-large-2512',nsfw:true},
-        {id:'or-perplx',name:'Perplexity Sonar',m:'perplexity/sonar-pro',tag:'hot',nsfw:false},
-        {id:'or-llama33',name:'Llama 3.3 70B',m:'meta-llama/llama-3.3-70b-instruct',tag:'fast',nsfw:true},
+        {id:'or-nemo3sf',name:'Nemotron 3 Super 🆓',m:'nvidia/nemotron-3-super-49b-v1:free',tag:'hot',nsfw:true},
+        {id:'or-step35f',name:'Step 3.5 Flash 🆓',m:'stepfun/step-3-5-flash:free',tag:'fast',nsfw:true},
+        {id:'or-llama33f',name:'Llama 3.3 70B 🆓',m:'meta-llama/llama-3.3-70b-instruct:free',tag:'fast',nsfw:true},
+        {id:'or-gptoss120f',name:'GPT-OSS 120B 🆓',m:'openai/gpt-oss-120b:free',tag:'hot',nsfw:true},
+        {id:'or-mm25f',name:'MiniMax M2.5 🆓',m:'minimax/minimax-m2.5:free',tag:'fast',nsfw:true},
+        // ★★ 저렴 ($0.05~$2) — 검열 적고 가성비 좋은 순
+        {id:'or-dsv32',name:'DS V3.2 $0.14',m:'deepseek/deepseek-v3.2',tag:'best',nsfw:true},
+        {id:'or-dsv32s',name:'DS V3.2 Speciale $0.14',m:'deepseek/deepseek-v3.2-speciale',tag:'hot',nsfw:true},
+        {id:'or-dsr1',name:'DeepSeek R1 $0.55',m:'deepseek/deepseek-r1',tag:'hot',nsfw:true},
+        {id:'or-seed16f',name:'Seed 1.6 Flash $0.05',m:'bytedance/seed-1.6-flash',tag:'fast',nsfw:true},
+        {id:'or-seed16',name:'Seed 1.6 $0.5',m:'bytedance/seed-1.6',tag:'hot',nsfw:true},
+        {id:'or-kimi',name:'Kimi K2.5 $0.38',m:'moonshotai/kimi-k2.5',tag:'hot',nsfw:true},
+        {id:'or-qw36',name:'Qwen 3.6 Plus $0.5',m:'qwen/qwen3.6-plus',tag:'best',nsfw:true},
+        {id:'or-mm27',name:'MiniMax M2.7 $0.5',m:'minimax/minimax-m2.7',tag:'hot',nsfw:true},
+        {id:'or-mm25',name:'MiniMax M2.5 $0.5',m:'minimax/minimax-m2.5',tag:'hot',nsfw:true},
+        {id:'or-mmher',name:'MiniMax M2-her 🎭 $0.5',m:'minimax/minimax-m2-her',nsfw:true},
+        {id:'or-llama33',name:'Llama 3.3 70B $0.06',m:'meta-llama/llama-3.3-70b-instruct',tag:'fast',nsfw:true},
+        {id:'or-gemini25f',name:'Gemini 2.5 Flash $0.15',m:'google/gemini-2.5-flash-preview-04-17',tag:'fast',nsfw:false},
+        {id:'or-gemini31fl',name:'Gemini 3.1 Flash Lite $0.25',m:'google/gemini-3.1-flash-lite',tag:'fast',nsfw:false},
+        {id:'or-mistral',name:'Mistral Large 3 $2',m:'mistralai/mistral-large-2512',nsfw:true},
+        {id:'or-devstral',name:'Devstral (코딩) $1',m:'mistralai/devstral-2507',tag:'hot',nsfw:false},
+        // ★★ 프리미엄 ($2.5+) — 최고 성능
+        {id:'or-g54',name:'GPT-5.4 $2.5',m:'openai/gpt-5.4',tag:'best',nsfw:false},
+        {id:'or-c46s',name:'Claude Sonnet 4.6 $3',m:'anthropic/claude-sonnet-4-6-20250514',tag:'best',nsfw:false},
+        {id:'or-grok3',name:'Grok 3 $3',m:'x-ai/grok-3-beta',tag:'hot',nsfw:true},
+        {id:'or-gemini31p',name:'Gemini 3.1 Pro $2.5',m:'google/gemini-3.1-pro',tag:'best',nsfw:false},
+        {id:'or-perplx',name:'Perplexity Sonar $1',m:'perplexity/sonar-pro',tag:'hot',nsfw:false},
     ]},
     zai: { name:'🧠 Z.ai', color:'zai', nsfw:'partial', models:[
         {id:'zai-glm5',name:'GLM-5',m:'glm-5',tag:'best',nsfw:true},
@@ -9457,7 +9467,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0409-8 (20260409) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0409-11 (20260409) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
