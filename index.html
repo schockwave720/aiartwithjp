@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0409-17 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0409-19 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -223,7 +223,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0409-17</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0409-19</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -1258,7 +1258,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0409-17 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0409-19 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
             </div>
         </div>
         
@@ -3688,7 +3688,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0409-17 모델 가격표</h1>
+<h1>💰 AIARTstudio v0409-19 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.02.12 기준</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -3737,7 +3737,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 이미지: <strong style="color:#a78bfa">Z.ai CogView-4</strong> (장당 14원, SFW) + <strong style="color:#ff69b4">NovelAI $25/월</strong> (NSFW OK)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0409-17 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0409-19 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -9385,19 +9385,26 @@ const NL_ARTIST_DB = {
 const NL_ALL_ARTISTS = Object.values(NL_ARTIST_DB).flat();
 
 const NL_NSFW_TEMPLATES = [
-    '1girl, beautiful face, detailed eyes, long hair, slender figure, nude, artistic, masterpiece, best quality, detailed skin, soft lighting, bokeh',
-    '1girl, alluring pose, elegant curves, tasteful nudity, fine art, perfect anatomy, warm lighting, cinematic',
-    '1woman, mature, revealing outfit, seductive expression, detailed fabric, studio lighting, ultra-detailed',
-    '1girl, fantasy warrior, armor partially removed, battle aftermath, dramatic lighting, fierce expression',
-    '1girl, wet skin, rain, transparent clothing, city night, neon reflections, detailed background',
-    '2girls, yuri, intimate, warm colors, romantic atmosphere, soft focus, detailed expressions',
+    '1girl, beautiful face, detailed eyes, long flowing hair, slender figure, nude, artistic, masterpiece, detailed skin texture, soft studio lighting, bokeh, looking at viewer, elegant pose',
+    '1girl, alluring pose, elegant curves, tasteful nudity, fine art, perfect anatomy, warm golden lighting, cinematic, from below, confident expression',
+    '1woman, mature, revealing lingerie, seductive smile, detailed lace fabric, bedroom, warm lamp light, silk sheets, intimate atmosphere',
+    '1girl, wet skin, rain, see-through white shirt, city night, neon reflections, leaning against wall, hair stuck to face, dramatic lighting',
+    '1girl, onsen, hot spring, towel, steam, wet hair, relaxed expression, traditional japanese inn, evening, warm tones',
+    '1girl, black dress, slit dress, high heels, cocktail bar, dim lighting, sophisticated, wine glass, looking over shoulder',
+    '1girl, beach sunset, bikini, walking in shallow water, golden hour, wind in hair, carefree smile, wide shot',
+    '1girl, fantasy elf, pointed ears, sheer fabric, forest clearing, magical particles, moonlight, ethereal beauty, full body',
+    '2girls, yuri, intimate embrace, beautiful expressions, warm colors, soft focus, romantic atmosphere, detailed hands',
+    '1girl, office lady, unbuttoned blouse, sitting on desk, stockings, pencil skirt, after hours, city view window',
 ];
 const NL_SFW_TEMPLATES = [
-    '1girl, long hair, beautiful eyes, cherry blossoms, school uniform, sunlit path, spring, detailed background',
-    '1girl, elegant dress, garden setting, golden hour, soft light, artistic, fine detail',
-    'fantasy character, magical atmosphere, cinematic lighting, floating particles, castle, ultra-detailed',
-    '1girl, kimono, japanese garden, autumn leaves, koi pond, peaceful, warm tones',
-    '1girl, witch hat, floating books, magical library, warm candlelight, mysterious atmosphere',
+    '1girl, long silver hair, blue eyes, elegant white dress, flower garden, golden hour, butterflies, dreamy atmosphere, full body',
+    '1girl, cherry blossoms, school uniform, spring breeze, petals flying, shy smile, bridge, river, warm sunlight',
+    '1girl, witch hat, purple cloak, magical library, floating books, warm candlelight, cat familiar, mysterious smile',
+    '1girl, kimono, japanese festival, lanterns, fireworks, night sky, holding cotton candy, excited expression, crowd background',
+    '1girl, cyberpunk, neon city, holographic jacket, rain, reflections, futuristic motorcycle, confident pose, night',
+    '1girl, warrior princess, ornate armor, castle throne room, dramatic cape, sword, stained glass window, regal pose',
+    '1girl, café, autumn, cozy sweater, reading book, coffee cup, window seat, rain outside, warm interior lighting',
+    '1girl, mermaid, underwater, coral reef, flowing hair, bioluminescence, tropical fish, beautiful tail, serene expression',
 ];
 
 // 카테고리 버튼 초기화
@@ -9490,14 +9497,15 @@ function nlGetArtists() {
     return arr;
 }
 
-// ★ NAI Lab 전용 호출 (메인 NAI Quality/Negative 자동 사용)
-async function nlCallNAI(artistTag, scenePrompt, w, h, steps, scale) {
+// ★ NAI Lab 전용 호출 (시드 추적 + Quality/Negative 자동)
+async function nlCallNAI(artistTag, scenePrompt, w, h, steps, scale, fixedSeed) {
     const key = getKey('novelai');
     if (!key) throw new Error('NovelAI API 키를 입력하세요!');
     const quality = document.getElementById('naiQuality')?.value || '{{very aesthetic}}, {{{ultra detailed}}}, best quality, very aesthetic';
     const negative = document.getElementById('naiNegative')?.value || 'blank page, text, logo, watermark, mutation, deformed, bad anatomy, bad face, bad eyes, bad proportions, bad hands, blurry, lowres, worst quality, bad quality, displeasing, very displeasing, incomplete';
     const fullPrompt = [quality, artistTag, scenePrompt, 'year 2024'].filter(Boolean).join(', ');
-    log(`🧪 NAI: ${w}x${h}, ${steps}steps, scale${scale}`, 'img');
+    const seed = fixedSeed || Math.floor(Math.random() * 4294967295);
+    log(`🧪 NAI: ${w}x${h}, ${steps}st, sc${scale}, seed:${seed}`, 'img');
     const body = {
         input: fullPrompt, model: 'nai-diffusion-4-5-full', action: 'generate',
         parameters: {
@@ -9506,7 +9514,7 @@ async function nlCallNAI(artistTag, scenePrompt, w, h, steps, scale) {
             noise_schedule: 'karras', autoSmea: true, qualityToggle: true, ucPreset: 0,
             legacy: false, legacy_v3_extend: false, add_original_image: true, prefer_brownian: true,
             deliberate_euler_ancestral_bug: false, v4_model_preset: 'Artistic',
-            negative_prompt: negative, seed: Math.floor(Math.random() * 4294967295),
+            negative_prompt: negative, seed: seed,
             v4_prompt: { caption: { base_caption: fullPrompt, char_captions: [] }, use_coords: false, use_order: true },
             v4_negative_prompt: { caption: { base_caption: negative, char_captions: [] }, use_coords: false, use_order: false, legacy_uc: false },
             characterPrompts: [], reference_image_multiple: [], reference_information_extracted_multiple: [], reference_strength_multiple: []
@@ -9519,7 +9527,7 @@ async function nlCallNAI(artistTag, scenePrompt, w, h, steps, scale) {
     if (!r.ok) { const e = await r.text().catch(()=>''); throw new Error('NAI ' + r.status + ': ' + e.substring(0,100)); }
     const zip = await JSZip.loadAsync(await r.arrayBuffer());
     const fn = Object.keys(zip.files);
-    if (fn.length > 0) { const bl = await zip.files[fn[0]].async('blob'); return URL.createObjectURL(new Blob([bl], {type:'image/png'})); }
+    if (fn.length > 0) { const bl = await zip.files[fn[0]].async('blob'); return {url: URL.createObjectURL(new Blob([bl], {type:'image/png'})), seed}; }
     throw new Error('NAI: 이미지 없음');
 }
 
@@ -9552,21 +9560,53 @@ async function nlGenerate() {
     document.getElementById('nlInfo').textContent = `${textAIs.length}T × ${allImgAIs.length}I = ${totalImages}장 생성중...`;
 
     let imgNum = 0;
+    // ★ 작가 스타일 DB 조회
+    const artistStyles = artists.map(a => {
+        const found = NL_ALL_ARTISTS.find(x => x.name === a);
+        return found ? `${a}: ${found.s}` : a;
+    }).join(', ');
+    
+    // ★ 다양성을 위한 랜덤 요소
+    const VIBES = ['sensual elegance','dark romantic','dreamy ethereal','bold provocative','soft intimate','fierce warrior','playful cute','melancholic beauty','luxurious glamour','mysterious gothic','tropical paradise','cyberpunk neon','classical renaissance','bedroom intimate','bath/onsen scene','rain soaked','golden sunset','moonlit night','cherry blossom spring','autumn warmth'];
+    const POSES = ['looking over shoulder','lying on bed','sitting cross-legged','leaning against wall','stretching arms up','hand on hip','playing with hair','from behind looking back','close-up portrait','full body standing','kneeling','reclining','walking towards viewer','dance pose','reading a book'];
+    const OUTFITS = ['elegant dress','lingerie','swimsuit','school uniform','kimono','off-shoulder sweater','leather jacket','fantasy armor','maid outfit','casual tank top and shorts','wedding dress','chinese dress','nurse uniform','witch costume','naked towel'];
+
     for (const txtAI of textAIs) {
-        // ★ 각 Text AI가 프롬프트 생성 (빈 입력 → 작가 특성 최적 자동 생성)
         let scenePrompt;
+        const randVibe = VIBES[Math.floor(Math.random() * VIBES.length)];
+        const randPose = POSES[Math.floor(Math.random() * POSES.length)];
+        const randOutfit = OUTFITS[Math.floor(Math.random() * OUTFITS.length)];
+        
         try {
             const req = userTopic
-                ? `Generate Danbooru tags for: "${userTopic}". Showcase artists: ${artists.join(', ')}. Output ONLY comma-separated tags, 30-50 tags. Include: character with attractive appearance, pose, expression, detailed background, lighting.`
-                : `You must create a scene that BEST showcases these NAI artists' signature style: ${artists.join(', ')}.
-Generate Danbooru-style tags. Output ONLY comma-separated tags, 30-50 tags.
-Include: 1girl or 1boy (whichever fits artists' specialty), attractive appearance, dynamic or alluring pose, expressive face, detailed background, cinematic lighting.
-Make it visually stunning - this is to TEST these artists' strengths. Be creative, DIFFERENT each time.`;
+                ? `You are a NovelAI prompt expert. Create Danbooru tags for: "${userTopic}"
+Artists being tested: ${artistStyles}
+Output ONLY comma-separated Danbooru tags (30-40 tags). NO sentences.
+Focus on what makes these artists special. Include character, pose, expression, clothing details, background, lighting.`
+                : `You are a NovelAI prompt expert creating a scene to SHOWCASE these artists' signature strengths.
+
+Artists: ${artistStyles}
+
+VIBE for this image: ${randVibe}
+SUGGESTED POSE: ${randPose}
+SUGGESTED OUTFIT: ${randOutfit}
+
+Create Danbooru tags that:
+- Feature an attractive character (1girl unless artists specialize otherwise)
+- Show off what these artists are FAMOUS for (body detail? lighting? expressions? color?)
+- Include specific clothing/outfit details (not just "dress" but fabric, color, style)
+- Include a fitting background (not generic - specific place with details)
+- Include mood/atmosphere tags that match the vibe
+
+Output ONLY comma-separated Danbooru tags (30-40 tags). NO sentences, NO explanations.
+Each generation must be COMPLETELY DIFFERENT. Be creative and surprising.`;
             scenePrompt = await callText(txtAI, req);
-            scenePrompt = scenePrompt.replace(/```/g,'').replace(/\n/g,', ').replace(/^[^a-zA-Z{(1]*/,'').trim();
+            scenePrompt = scenePrompt.replace(/```/g,'').replace(/\n/g,', ').replace(/^[^a-zA-Z0-9{(1]*/,'').trim();
+            // 문장 제거
+            scenePrompt = scenePrompt.replace(/[.!?]\s+[A-Z][a-z]/g,',').replace(/Here are.*?:/gi,'').replace(/Tags?:/gi,'').replace(/Output:/gi,'').trim();
             if (scenePrompt.length < 20) throw new Error('short');
         } catch(e) {
-            scenePrompt = NL_NSFW_TEMPLATES[Math.floor(Math.random() * NL_NSFW_TEMPLATES.length)];
+            scenePrompt = `1girl, ${randPose}, ${randOutfit}, beautiful detailed face, ${randVibe}, detailed background, cinematic lighting, masterpiece`;
         }
         log(`📝 ${txtAI.name}: ${scenePrompt.substring(0,70)}...`, 'info');
 
@@ -9581,11 +9621,11 @@ Make it visually stunning - this is to TEST these artists' strengths. Be creativ
             gallery.prepend(card);
 
             try {
-                let url;
+                let url, cardSeed = 0;
                 if (imgAI.type === 'nai') {
-                    url = await nlCallNAI(artistTag, scenePrompt, w, h, steps, scale);
+                    const naiResult = await nlCallNAI(artistTag, scenePrompt, w, h, steps, scale);
+                    url = naiResult.url; cardSeed = naiResult.seed;
                 } else {
-                    // 다른 Image AI: artistTag를 프롬프트에 포함
                     const fullP = `${artistTag}, ${scenePrompt}, masterpiece, best quality`;
                     url = await callImg(imgAI.ai, fullP);
                 }
@@ -9600,10 +9640,13 @@ Make it visually stunning - this is to TEST these artists' strengths. Be creativ
                             </div>
                         </div>
                         <div style="font-size:0.3rem;color:#67e8f9;margin-top:2px;max-height:2em;overflow:hidden;cursor:pointer" onclick="this.style.maxHeight=this.style.maxHeight==='none'?'2em':'none'">${escHtml(scenePrompt).substring(0,120)}</div>
-                        <div style="display:flex;gap:2px;margin-top:3px">
+                        ${cardSeed ? `<div style="font-size:0.28rem;color:#475569;margin-top:1px;cursor:pointer" onclick="navigator.clipboard.writeText('${cardSeed}');this.textContent='✅ seed copied!';setTimeout(()=>this.textContent='🌱 seed:${cardSeed}',1500)" title="클릭→시드 복사">🌱 seed:${cardSeed}</div>` : ''}
+                        <div style="display:flex;gap:2px;margin-top:3px;align-items:center">
                             <button onclick="nlRegenCard('${cardId}','${artistTag.replace(/'/g,"\\'")}','${scenePrompt.replace(/'/g,"\\'")}',${w},${h},${steps},${scale})" style="padding:2px 5px;background:#8b5cf6;border:none;border-radius:3px;color:#fff;font-size:0.33rem;cursor:pointer">🔄</button>
                             <button onclick="nlEditCard('${cardId}')" style="padding:2px 5px;background:#06b6d4;border:none;border-radius:3px;color:#fff;font-size:0.33rem;cursor:pointer">✏️</button>
                             <button onclick="let a=document.createElement('a');a.href=this.closest('div').parentElement.querySelector('img').src;a.download='nailab.png';a.click()" style="padding:2px 5px;background:#22c55e;border:none;border-radius:3px;color:#fff;font-size:0.33rem;cursor:pointer">💾</button>
+                            <button onclick="addThumbToCombo(this.closest('.img-wrap')?.querySelector('img')?.src||this.closest('div').parentElement.querySelector('img')?.src)" style="padding:2px 5px;background:#f59e0b;border:none;border-radius:3px;color:#fff;font-size:0.33rem;cursor:pointer" title="조합 대표 이미지로 지정">📸</button>
+                            <span style="margin-left:auto;display:flex;gap:1px">${[1,2,3,4,5].map(s=>`<span onclick="this.parentElement.querySelectorAll('span').forEach((e,i)=>e.style.color=i<${s}?'#fbbf24':'#475569');log('⭐ ${s}점 평가','ok')" style="cursor:pointer;font-size:0.4rem;color:#475569">★</span>`).join('')}</span>
                         </div>
                     </div>`;
                 card.dataset.artistTag = artistTag; card.dataset.prompt = scenePrompt;
@@ -9623,9 +9666,9 @@ async function nlRegenCard(cardId, artistTag, prompt, w, h, steps, scale) {
     const card = document.getElementById(cardId); if (!card) return;
     const img = card.querySelector('img'); if(img) img.style.opacity = '0.3';
     try {
-        const url = await nlCallNAI(artistTag, prompt, w, h, steps, scale);
-        if(img) { img.src = url; img.style.opacity = '1'; }
-        log('🔄 NAI Lab 재생성 완료', 'ok');
+        const result = await nlCallNAI(artistTag, prompt, w, h, steps, scale);
+        if(img) { img.src = result.url; img.style.opacity = '1'; }
+        log(`🔄 재생성 완료 (seed:${result.seed})`, 'ok');
     } catch(e) { log('❌ 재생성: ' + e.message, 'err'); if(img) img.style.opacity = '1'; }
 }
 
@@ -10000,7 +10043,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0409-17 (20260409) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0409-19 (20260409) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
