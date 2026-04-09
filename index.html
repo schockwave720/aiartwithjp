@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0409-6 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0409-7 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -223,7 +223,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0409-6</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0409-7</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -1203,7 +1203,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0409-6 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0409-7 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
             </div>
         </div>
         
@@ -3633,7 +3633,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0409-6 모델 가격표</h1>
+<h1>💰 AIARTstudio v0409-7 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.02.12 기준</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -3682,7 +3682,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 이미지: <strong style="color:#a78bfa">Z.ai CogView-4</strong> (장당 14원, SFW) + <strong style="color:#ff69b4">NovelAI $25/월</strong> (NSFW OK)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0409-6 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0409-7 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -9147,10 +9147,14 @@ function nlGetArtists() {
     return arr;
 }
 
-// ★ NAI 직접 호출 (getNaiSettings 우회)
-async function nlCallNAI(fullPrompt, negPrompt, w, h, steps, scale) {
+// ★ NAI Lab 전용 호출 (메인 NAI Quality/Negative 자동 사용)
+async function nlCallNAI(artistTag, scenePrompt, w, h, steps, scale) {
     const key = getKey('novelai');
     if (!key) throw new Error('NovelAI API 키를 입력하세요!');
+    const quality = document.getElementById('naiQuality')?.value || '{{very aesthetic}}, {{{ultra detailed}}}, best quality, very aesthetic';
+    const negative = document.getElementById('naiNegative')?.value || 'blank page, text, logo, watermark, mutation, deformed, bad anatomy, bad face, bad eyes, bad proportions, bad hands, blurry, lowres, worst quality, bad quality, displeasing, very displeasing, incomplete';
+    const fullPrompt = [quality, artistTag, scenePrompt, 'year 2024'].filter(Boolean).join(', ');
+    log(`🧪 NAI: ${w}x${h}, ${steps}steps, scale${scale}`, 'img');
     const body = {
         input: fullPrompt, model: 'nai-diffusion-4-5-full', action: 'generate',
         parameters: {
@@ -9159,9 +9163,9 @@ async function nlCallNAI(fullPrompt, negPrompt, w, h, steps, scale) {
             noise_schedule: 'karras', autoSmea: true, qualityToggle: true, ucPreset: 0,
             legacy: false, legacy_v3_extend: false, add_original_image: true, prefer_brownian: true,
             deliberate_euler_ancestral_bug: false, v4_model_preset: 'Artistic',
-            negative_prompt: negPrompt, seed: Math.floor(Math.random() * 4294967295),
+            negative_prompt: negative, seed: Math.floor(Math.random() * 4294967295),
             v4_prompt: { caption: { base_caption: fullPrompt, char_captions: [] }, use_coords: false, use_order: true },
-            v4_negative_prompt: { caption: { base_caption: negPrompt, char_captions: [] }, use_coords: false, use_order: false, legacy_uc: false },
+            v4_negative_prompt: { caption: { base_caption: negative, char_captions: [] }, use_coords: false, use_order: false, legacy_uc: false },
             characterPrompts: [], reference_image_multiple: [], reference_information_extracted_multiple: [], reference_strength_multiple: []
         }
     };
@@ -9169,7 +9173,7 @@ async function nlCallNAI(fullPrompt, negPrompt, w, h, steps, scale) {
         method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key, 'Origin': 'https://novelai.net', 'Referer': 'https://novelai.net/' },
         body: JSON.stringify(body)
     });
-    if (!r.ok) throw new Error('NAI ' + r.status);
+    if (!r.ok) { const e = await r.text().catch(()=>''); throw new Error('NAI ' + r.status + ': ' + e.substring(0,100)); }
     const zip = await JSZip.loadAsync(await r.arrayBuffer());
     const fn = Object.keys(zip.files);
     if (fn.length > 0) { const bl = await zip.files[fn[0]].async('blob'); return URL.createObjectURL(new Blob([bl], {type:'image/png'})); }
@@ -9211,7 +9215,7 @@ async function nlGenerate() {
         gallery.prepend(card);
 
         try {
-            const url = await nlCallNAI(fullPrompt, neg, w, h, steps, scale);
+            const url = await nlCallNAI(artistTag, basePrompt, w, h, steps, scale);
             card.innerHTML = `
                 <img src="${url}" style="width:100%;cursor:pointer" onclick="document.getElementById('imgModal')?(document.getElementById('imgModal').style.display='flex',document.getElementById('modalImg').src=this.src):window.open(this.src)">
                 <div style="padding:6px;background:rgba(0,0,0,0.5)">
@@ -9219,13 +9223,13 @@ async function nlGenerate() {
                     <div style="font-size:0.35rem;color:#fbbf24">${escHtml(artistTag)}</div>
                     <div style="font-size:0.35rem;color:#94a3b8;margin-top:2px;max-height:2em;overflow:hidden">${escHtml(basePrompt).substring(0,100)}</div>
                     <div style="display:flex;gap:3px;margin-top:4px">
-                        <button onclick="nlRegenCard('${cardId}',\`${fullPrompt.replace(/`/g,'')}\`,\`${neg}\`,${w},${h},${steps},${scale})" style="padding:2px 6px;background:#8b5cf6;border:none;border-radius:3px;color:#fff;font-size:0.38rem;cursor:pointer">🔄 재생성</button>
+                        <button onclick="nlRegenCard('${cardId}','${artistTag.replace(/'/g,"\\'")}','${basePrompt.replace(/'/g,"\\'")}',${w},${h},${steps},${scale})" style="padding:2px 6px;background:#8b5cf6;border:none;border-radius:3px;color:#fff;font-size:0.38rem;cursor:pointer">🔄 재생성</button>
                         <button onclick="nlEditCard('${cardId}')" style="padding:2px 6px;background:#06b6d4;border:none;border-radius:3px;color:#fff;font-size:0.38rem;cursor:pointer">✏️ 수정</button>
                         <button onclick="let a=document.createElement('a');a.href=this.closest('div').parentElement.querySelector('img').src;a.download='nailab.png';a.click()" style="padding:2px 6px;background:#22c55e;border:none;border-radius:3px;color:#fff;font-size:0.38rem;cursor:pointer">💾</button>
                     </div>
                 </div>`;
-            card.dataset.prompt = fullPrompt;
-            card.dataset.neg = neg;
+            card.dataset.artistTag = artistTag;
+            card.dataset.prompt = basePrompt;
             card.dataset.w = w; card.dataset.h = h; card.dataset.steps = steps; card.dataset.scale = scale;
             log(`🧪 NAI Lab #${i+1}: ${artists.join('+')}`, 'ok');
         } catch(e) {
@@ -9237,15 +9241,14 @@ async function nlGenerate() {
     document.getElementById('nlInfo').textContent = `${artists.join(' + ')} · ${count}장`;
 }
 
-async function nlRegenCard(cardId, prompt, neg, w, h, steps, scale) {
+async function nlRegenCard(cardId, artistTag, prompt, w, h, steps, scale) {
     const card = document.getElementById(cardId); if (!card) return;
-    card.querySelector('img').style.opacity = '0.3';
+    const img = card.querySelector('img'); if(img) img.style.opacity = '0.3';
     try {
-        const url = await nlCallNAI(prompt, neg, w, h, steps, scale);
-        card.querySelector('img').src = url;
-        card.querySelector('img').style.opacity = '1';
+        const url = await nlCallNAI(artistTag, prompt, w, h, steps, scale);
+        if(img) { img.src = url; img.style.opacity = '1'; }
         log('🔄 NAI Lab 재생성 완료', 'ok');
-    } catch(e) { log('❌ 재생성: ' + e.message, 'err'); card.querySelector('img').style.opacity = '1'; }
+    } catch(e) { log('❌ 재생성: ' + e.message, 'err'); if(img) img.style.opacity = '1'; }
 }
 
 function nlEditCard(cardId) {
@@ -9253,9 +9256,9 @@ function nlEditCard(cardId) {
     const edit = prompt('프롬프트 수정 (추가/변경할 내용):');
     if (!edit) return;
     const oldPrompt = card.dataset.prompt || '';
-    const newPrompt = oldPrompt.replace(/year 2024/, edit + ', year 2024');
+    const newPrompt = oldPrompt + ', ' + edit;
     card.dataset.prompt = newPrompt;
-    nlRegenCard(cardId, newPrompt, card.dataset.neg, +card.dataset.w, +card.dataset.h, +card.dataset.steps, +card.dataset.scale);
+    nlRegenCard(cardId, card.dataset.artistTag||'', newPrompt, +card.dataset.w, +card.dataset.h, +card.dataset.steps, +card.dataset.scale);
 }
 
 // AI가 작가 특성에 맞는 프롬프트 생성
@@ -9413,7 +9416,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0409-6 (20260409) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0409-7 (20260409) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
