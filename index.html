@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0409-15 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0409-16 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -223,7 +223,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0409-15</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0409-16</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -603,7 +603,7 @@
                             <label style="font-size:0.42rem;color:#fbbf24;font-weight:700">✍️ 프롬프트</label>
                             <button onclick="nlAIPrompt()" style="padding:2px 6px;background:#06b6d4;border:none;border-radius:3px;color:#fff;font-size:0.38rem;cursor:pointer">🤖 AI 프롬프트 생성</button>
                         </div>
-                        <textarea id="nlPrompt" placeholder="예: 1girl, long hair, blue eyes, school uniform, cherry blossoms&#10;비우면 AI가 작가 특성에 맞는 프롬프트를 자동 생성" style="width:100%;padding:4px 6px;background:#1e293b;border:1px solid #fbbf24;border-radius:4px;color:#f1f5f9;font-size:0.45rem;min-height:45px;resize:vertical"></textarea>
+                        <textarea id="nlPrompt" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();nlGenerate()}" placeholder="비우면 작가 특성에 맞게 AI 자동 생성 / Enter=생성!, long hair, blue eyes, school uniform, cherry blossoms&#10;비우면 AI가 작가 특성에 맞는 프롬프트를 자동 생성" style="width:100%;padding:4px 6px;background:#1e293b;border:1px solid #fbbf24;border-radius:4px;color:#f1f5f9;font-size:0.45rem;min-height:45px;resize:vertical"></textarea>
                     </div>
                     <!-- 설정 -->
                     <div style="display:flex;gap:4px;margin-top:4px;flex-wrap:wrap;align-items:center">
@@ -1246,7 +1246,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0409-15 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0409-16 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
             </div>
         </div>
         
@@ -3676,7 +3676,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0409-15 모델 가격표</h1>
+<h1>💰 AIARTstudio v0409-16 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.02.12 기준</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -3725,7 +3725,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 이미지: <strong style="color:#a78bfa">Z.ai CogView-4</strong> (장당 14원, SFW) + <strong style="color:#ff69b4">NovelAI $25/월</strong> (NSFW OK)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0409-15 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0409-16 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -9515,78 +9515,96 @@ async function nlGenerate() {
     const btn = document.getElementById('nlGenBtn');
     const artists = nlGetArtists();
     if (!artists.length) { alert('작가를 1명 이상 입력하세요!'); return; }
-    if (!getKey('novelai')) { alert('NovelAI API 키를 입력하세요! (⚙️ AI설정)'); return; }
     const textAIs = getSelectedTextAIs();
     if (!textAIs.length) { alert('Text AI를 선택하세요! (⚙️ AI설정)'); return; }
+    const imgAIs = getSelectedImageAIs();
+    const hasNAI = getKey('novelai');
+    if (!imgAIs.length && !hasNAI) { alert('Image AI를 선택하거나 NAI 키를 입력하세요!'); return; }
     btn.disabled = true; btn.textContent = '⏳ 생성중...';
 
     const artistTag = nlBuildArtistTag();
-    const countPerAI = parseInt(document.getElementById('nlCount').value) || 2;
     const [w, h] = document.getElementById('nlSize').value.split('x').map(Number);
     const steps = parseInt(document.getElementById('nlSteps').value) || 28;
     const scale = parseFloat(document.getElementById('nlScale').value) || 5.5;
     const userTopic = document.getElementById('nlPrompt').value.trim();
     const gallery = document.getElementById('nlGallery');
-    const orient = w > h ? 'landscape' : 'portrait';
-    const totalImages = textAIs.length * countPerAI;
 
-    log(`🧪 NAI Lab: ${textAIs.length}개 AI × ${countPerAI}장 = 총 ${totalImages}장 생성`, 'info');
-    document.getElementById('nlInfo').textContent = `${textAIs.length}개 AI × ${countPerAI}장 = ${totalImages}장 생성중...`;
+    // 이미지 AI 목록: NAI + 선택된 다른 Image AI
+    const allImgAIs = [];
+    if (hasNAI) allImgAIs.push({type:'nai', name:'NAI V4.5', id:'nai'});
+    imgAIs.filter(m => m.id !== 'nai').forEach(m => allImgAIs.push({type:'other', name:m.name, ai:m}));
+    if (!allImgAIs.length) allImgAIs.push({type:'nai', name:'NAI V4.5', id:'nai'}); // fallback
+
+    const totalImages = textAIs.length * allImgAIs.length;
+    log(`🧪 NAI Lab: ${textAIs.length} Text AI × ${allImgAIs.length} Image AI = ${totalImages}장`, 'info');
+    document.getElementById('nlInfo').textContent = `${textAIs.length}T × ${allImgAIs.length}I = ${totalImages}장 생성중...`;
 
     let imgNum = 0;
-    for (const ai of textAIs) {
-        for (let j = 0; j < countPerAI; j++) {
+    for (const txtAI of textAIs) {
+        // ★ 각 Text AI가 프롬프트 생성 (빈 입력 → 작가 특성 최적 자동 생성)
+        let scenePrompt;
+        try {
+            const req = userTopic
+                ? `Generate Danbooru tags for: "${userTopic}". Showcase artists: ${artists.join(', ')}. Output ONLY comma-separated tags, 30-50 tags. Include: character with attractive appearance, pose, expression, detailed background, lighting.`
+                : `You must create a scene that BEST showcases these NAI artists' signature style: ${artists.join(', ')}.
+Generate Danbooru-style tags. Output ONLY comma-separated tags, 30-50 tags.
+Include: 1girl or 1boy (whichever fits artists' specialty), attractive appearance, dynamic or alluring pose, expressive face, detailed background, cinematic lighting.
+Make it visually stunning - this is to TEST these artists' strengths. Be creative, DIFFERENT each time.`;
+            scenePrompt = await callText(txtAI, req);
+            scenePrompt = scenePrompt.replace(/```/g,'').replace(/\n/g,', ').replace(/^[^a-zA-Z{(1]*/,'').trim();
+            if (scenePrompt.length < 20) throw new Error('short');
+        } catch(e) {
+            scenePrompt = NL_NSFW_TEMPLATES[Math.floor(Math.random() * NL_NSFW_TEMPLATES.length)];
+        }
+        log(`📝 ${txtAI.name}: ${scenePrompt.substring(0,70)}...`, 'info');
+
+        // ★ 각 Image AI가 이미지 생성
+        for (const imgAI of allImgAIs) {
             imgNum++;
             const cardId = 'nlCard' + Date.now() + imgNum;
             const card = document.createElement('div');
             card.id = cardId;
             card.style.cssText = 'background:rgba(0,0,0,0.3);border-radius:8px;border:2px solid #ff69b4;overflow:hidden';
-            card.innerHTML = `<div style="aspect-ratio:${w}/${h};display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px"><div style="width:20px;height:20px;border:2px solid #475569;border-top-color:#ff69b4;border-radius:50%;animation:pulse 1.5s infinite"></div><div style="font-size:0.4rem;color:#ff69b4">#${imgNum}/${totalImages}</div><div style="font-size:0.35rem;color:#a78bfa">${escHtml(ai.name)} 프롬프트 생성중...</div></div>`;
+            card.innerHTML = `<div style="aspect-ratio:${w}/${h};display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px"><div style="width:18px;height:18px;border:2px solid #475569;border-top-color:#ff69b4;border-radius:50%;animation:pulse 1.5s infinite"></div><div style="font-size:0.38rem;color:#ff69b4">#${imgNum}/${totalImages}</div><div style="font-size:0.33rem;color:#a78bfa">${escHtml(txtAI.name)} → ${escHtml(imgAI.name)}</div></div>`;
             gallery.prepend(card);
 
             try {
-                // ★ 각 AI가 자신만의 프롬프트 생성
-                let scenePrompt;
-                try {
-                    const promptReq = userTopic
-                        ? `Generate Danbooru tags for: "${userTopic}". Artists: ${artists.join(', ')}. Output ONLY tags, 30-50 tags.`
-                        : `Generate unique Danbooru tags showcasing ${artists.join(', ')} style. DIFFERENT each time. Output ONLY tags, 30-50 tags. Include shot type, background, character, pose, lighting.`;
-                    scenePrompt = await callText(ai, promptReq);
-                    scenePrompt = scenePrompt.replace(/```/g,'').replace(/\n/g,', ').replace(/^[^a-zA-Z{(1]*/,'').trim();
-                    if (scenePrompt.length < 20) throw new Error('too short');
-                } catch(pe) {
-                    scenePrompt = NL_SFW_TEMPLATES[Math.floor(Math.random() * NL_SFW_TEMPLATES.length)];
+                let url;
+                if (imgAI.type === 'nai') {
+                    url = await nlCallNAI(artistTag, scenePrompt, w, h, steps, scale);
+                } else {
+                    // 다른 Image AI: artistTag를 프롬프트에 포함
+                    const fullP = `${artistTag}, ${scenePrompt}, masterpiece, best quality`;
+                    url = await callImg(imgAI.ai, fullP);
                 }
-                
-                log(`🧪 #${imgNum} ${ai.name}: ${scenePrompt.substring(0,60)}...`, 'info');
-                const url = await nlCallNAI(artistTag, scenePrompt, w, h, steps, scale);
                 card.innerHTML = `
                     <img src="${url}" style="width:100%;cursor:pointer" onclick="document.getElementById('imgModal')?(document.getElementById('imgModal').style.display='flex',document.getElementById('modalImg').src=this.src):window.open(this.src)">
-                    <div style="padding:6px;background:rgba(0,0,0,0.5)">
-                        <div style="display:flex;justify-content:space-between;align-items:center">
-                            <div style="font-size:0.42rem;color:#ff69b4;font-weight:700">${escHtml(artists.join(' + '))}</div>
-                            <div style="font-size:0.35rem;color:#a78bfa;background:rgba(139,92,246,0.2);padding:1px 4px;border-radius:8px">${escHtml(ai.name)}</div>
+                    <div style="padding:5px;background:rgba(0,0,0,0.5)">
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2px">
+                            <div style="font-size:0.4rem;color:#ff69b4;font-weight:700">${escHtml(artists.join('+'))}</div>
+                            <div style="display:flex;gap:2px">
+                                <span style="font-size:0.3rem;color:#a78bfa;background:rgba(139,92,246,0.2);padding:1px 3px;border-radius:6px">📝${escHtml(txtAI.name)}</span>
+                                <span style="font-size:0.3rem;color:#ec4899;background:rgba(236,72,153,0.2);padding:1px 3px;border-radius:6px">🖼${escHtml(imgAI.name)}</span>
+                            </div>
                         </div>
-                        <div style="font-size:0.3rem;color:#fbbf24">${escHtml(artistTag)}</div>
-                        <div style="font-size:0.33rem;color:#67e8f9;margin-top:2px;max-height:2.5em;overflow:hidden;cursor:pointer" onclick="this.style.maxHeight=this.style.maxHeight==='none'?'2.5em':'none'" title="펼치기">${escHtml(scenePrompt)}</div>
-                        <div style="display:flex;gap:3px;margin-top:4px">
-                            <button onclick="nlRegenCard('${cardId}','${artistTag.replace(/'/g,"\\'")}','${scenePrompt.replace(/'/g,"\\'")}',${w},${h},${steps},${scale})" style="padding:2px 6px;background:#8b5cf6;border:none;border-radius:3px;color:#fff;font-size:0.35rem;cursor:pointer">🔄</button>
-                            <button onclick="nlEditCard('${cardId}')" style="padding:2px 6px;background:#06b6d4;border:none;border-radius:3px;color:#fff;font-size:0.35rem;cursor:pointer">✏️</button>
-                            <button onclick="let a=document.createElement('a');a.href=this.closest('div').parentElement.querySelector('img').src;a.download='nailab.png';a.click()" style="padding:2px 6px;background:#22c55e;border:none;border-radius:3px;color:#fff;font-size:0.35rem;cursor:pointer">💾</button>
+                        <div style="font-size:0.3rem;color:#67e8f9;margin-top:2px;max-height:2em;overflow:hidden;cursor:pointer" onclick="this.style.maxHeight=this.style.maxHeight==='none'?'2em':'none'">${escHtml(scenePrompt).substring(0,120)}</div>
+                        <div style="display:flex;gap:2px;margin-top:3px">
+                            <button onclick="nlRegenCard('${cardId}','${artistTag.replace(/'/g,"\\'")}','${scenePrompt.replace(/'/g,"\\'")}',${w},${h},${steps},${scale})" style="padding:2px 5px;background:#8b5cf6;border:none;border-radius:3px;color:#fff;font-size:0.33rem;cursor:pointer">🔄</button>
+                            <button onclick="nlEditCard('${cardId}')" style="padding:2px 5px;background:#06b6d4;border:none;border-radius:3px;color:#fff;font-size:0.33rem;cursor:pointer">✏️</button>
+                            <button onclick="let a=document.createElement('a');a.href=this.closest('div').parentElement.querySelector('img').src;a.download='nailab.png';a.click()" style="padding:2px 5px;background:#22c55e;border:none;border-radius:3px;color:#fff;font-size:0.33rem;cursor:pointer">💾</button>
                         </div>
                     </div>`;
-                card.dataset.artistTag = artistTag;
-                card.dataset.prompt = scenePrompt;
+                card.dataset.artistTag = artistTag; card.dataset.prompt = scenePrompt;
                 card.dataset.w = w; card.dataset.h = h; card.dataset.steps = steps; card.dataset.scale = scale;
-                log(`🧪 #${imgNum} ${ai.name} ✅`, 'ok');
+                log(`🧪 #${imgNum} ${txtAI.name}→${imgAI.name} ✅`, 'ok');
             } catch(e) {
-                card.innerHTML = `<div style="padding:15px;color:#ef4444;font-size:0.42rem">❌ ${ai.name}: ${e.message}</div>`;
-                log(`❌ NAI Lab ${ai.name}: ${e.message}`, 'err');
+                card.innerHTML = `<div style="padding:10px;color:#ef4444;font-size:0.4rem">❌ ${txtAI.name}→${imgAI.name}: ${e.message}</div>`;
+                log(`❌ ${txtAI.name}→${imgAI.name}: ${e.message}`, 'err');
             }
         }
     }
     btn.disabled = false; btn.textContent = '🧪 작가 조합 테스트';
-    document.getElementById('nlInfo').textContent = `${artists.join(' + ')} · ${textAIs.length}AI × ${countPerAI}장 = ${totalImages}장 완료`;
+    document.getElementById('nlInfo').textContent = `${artists.join('+')} · ${textAIs.length}T×${allImgAIs.length}I = ${totalImages}장 완료`;
 }
 
 async function nlRegenCard(cardId, artistTag, prompt, w, h, steps, scale) {
@@ -9877,7 +9895,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0409-15 (20260409) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0409-16 (20260409) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
