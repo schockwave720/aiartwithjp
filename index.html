@@ -5803,16 +5803,15 @@ function updI() { const n=document.querySelectorAll('#igrid input:checked').leng
 function getSelectedTextAIs() { return [...document.querySelectorAll('#tgrid .ai-cb')].filter(c => c.querySelector('input').checked).map(c => { const m = TEXT_PROVIDERS[c.dataset.p].models.find(x => x.id === c.dataset.id); return m ? {...m, p: c.dataset.p} : null; }).filter(Boolean); }
 function getSelectedImageAIs() { return [...document.querySelectorAll('#igrid .ai-cb')].filter(c => c.querySelector('input').checked).map(c => { const m = IMG_PROVIDERS[c.dataset.p].models.find(x => x.id === c.dataset.id); return m ? {...m, p: c.dataset.p} : null; }).filter(Boolean); }
 
-function selTextProvider(p) { document.querySelectorAll('#tgrid .ai-cb').forEach(c => { if(c.dataset.p===p) c.querySelector('input').checked=true; }); updT(); }
 function selTextAll() { document.querySelectorAll('#tgrid input').forEach(c => c.checked=true); updT(); }
 function clrText() { document.querySelectorAll('#tgrid input').forEach(c => c.checked=false); updT(); }
-function selImgProvider(p) { document.querySelectorAll('#igrid .ai-cb').forEach(c => { if(c.dataset.p===p) c.querySelector('input').checked=true; }); updI(); }
+function selImgProvider(p) { const cbs=[...document.querySelectorAll('#igrid .ai-cb')].filter(c=>c.dataset.p===p); const allC=cbs.every(c=>c.querySelector('input').checked); cbs.forEach(c=>c.querySelector('input').checked=!allC); updI(); if(aiSetupInit)syncFromMain(); }
 function selImgAll() { document.querySelectorAll('#igrid input').forEach(c => c.checked=true); updI(); }
 function clrImg() { document.querySelectorAll('#igrid input').forEach(c => c.checked=false); updI(); }
 
 function log(m, t='info') { const c = document.getElementById('logc'), e = document.createElement('div'); e.className = `log ${t}`; e.textContent = `[${new Date().toLocaleTimeString('ko',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}] ${m}`; c.appendChild(e); c.scrollTop = c.scrollHeight; }
 function prog(p, t) { document.getElementById('pfill').style.width = `${p}%`; document.getElementById('ptxt').textContent = t; }
-
+function selTextProvider(p) { const cbs=[...document.querySelectorAll('#tgrid .ai-cb')].filter(c=>c.dataset.p===p); const allC=cbs.every(c=>c.querySelector('input').checked); cbs.forEach(c=>c.querySelector('input').checked=!allC); updT(); if(aiSetupInit)syncFromMain(); }
 // TEXT API
 async function callCerebras(p, m) { 
     const r = await fetch('https://api.cerebras.ai/v1/chat/completions', { 
