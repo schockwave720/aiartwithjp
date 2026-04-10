@@ -5794,7 +5794,7 @@ function init() {
     if (favorites.length > 0) log(`⭐ ${favorites.length} favorites loaded`, 'info');
     initCommentLang();
     // AI설정 탭 초기화 (기본 탭)
-    setTimeout(() => { init(); initAISetupPanel(); }, 100);
+    setTimeout(() => { init(); setTimeout(() => { init(); initAISetupPanel(); }, 200);(); }, 100);
 }
 
 function updT() { const n=document.querySelectorAll('#tgrid input:checked').length; const el=document.getElementById('tcnt'); if(el)el.textContent=n; document.querySelectorAll('#tgrid .ai-cb').forEach(c => c.classList.toggle('sel', c.querySelector('input').checked)); const s=document.getElementById('sharedTxtCnt'); if(s)s.textContent=n; const s2=document.getElementById('tcnt2'); if(s2)s2.textContent=n; const dw=document.getElementById('dwTxtCntShared'); if(dw)dw.textContent=n; updateGenCalc(); }
