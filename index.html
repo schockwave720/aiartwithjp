@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0409-19 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0410-20 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -223,7 +223,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0409-19</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0410-20</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -1258,7 +1258,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0409-19 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0410-20 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
             </div>
         </div>
         
@@ -3688,7 +3688,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0409-19 모델 가격표</h1>
+<h1>💰 AIARTstudio v0410-20 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.02.12 기준</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -3737,7 +3737,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 이미지: <strong style="color:#a78bfa">Z.ai CogView-4</strong> (장당 14원, SFW) + <strong style="color:#ff69b4">NovelAI $25/월</strong> (NSFW OK)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0409-19 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0410-20 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -4859,7 +4859,6 @@ function clearArtistSelection() {
 function closeArtistModal() {
     document.getElementById('artistModal').classList.remove('show');
 }
-
 // NAI Artist Presets (from Illustory - 60개 전체!)
 const NAI_PRESETS = {
     "p00": { name: "00. ★ My Favorite", artist: "0.8::artist:okama::, 0.8::artist:kagami::, 0.7::artist:fellatrix::, year 2024" },
@@ -5794,8 +5793,7 @@ function init() {
     if (favorites.length > 0) log(`⭐ ${favorites.length} favorites loaded`, 'info');
     initCommentLang();
     // AI설정 탭 초기화 (기본 탭)
-    setTimeout(() => initAISetupPanel(), 100);
-}
+    setTimeout(() => { init(); initAISetupPanel(); }, 200);
 
 function updT() { const n=document.querySelectorAll('#tgrid input:checked').length; const el=document.getElementById('tcnt'); if(el)el.textContent=n; document.querySelectorAll('#tgrid .ai-cb').forEach(c => c.classList.toggle('sel', c.querySelector('input').checked)); const s=document.getElementById('sharedTxtCnt'); if(s)s.textContent=n; const s2=document.getElementById('tcnt2'); if(s2)s2.textContent=n; const dw=document.getElementById('dwTxtCntShared'); if(dw)dw.textContent=n; updateGenCalc(); }
 function updI() { const n=document.querySelectorAll('#igrid input:checked').length; const el=document.getElementById('icnt'); if(el)el.textContent=n; document.querySelectorAll('#igrid .ai-cb').forEach(c => c.classList.toggle('sel', c.querySelector('input').checked)); const s=document.getElementById('sharedImgCnt'); if(s)s.textContent=n; const s2=document.getElementById('icnt2'); if(s2)s2.textContent=n; const dw=document.getElementById('dwImgCntShared'); if(dw)dw.textContent=n; }
@@ -5803,15 +5801,16 @@ function updI() { const n=document.querySelectorAll('#igrid input:checked').leng
 function getSelectedTextAIs() { return [...document.querySelectorAll('#tgrid .ai-cb')].filter(c => c.querySelector('input').checked).map(c => { const m = TEXT_PROVIDERS[c.dataset.p].models.find(x => x.id === c.dataset.id); return m ? {...m, p: c.dataset.p} : null; }).filter(Boolean); }
 function getSelectedImageAIs() { return [...document.querySelectorAll('#igrid .ai-cb')].filter(c => c.querySelector('input').checked).map(c => { const m = IMG_PROVIDERS[c.dataset.p].models.find(x => x.id === c.dataset.id); return m ? {...m, p: c.dataset.p} : null; }).filter(Boolean); }
 
+function selTextProvider(p) { const cbs=[...document.querySelectorAll('#tgrid .ai-cb')].filter(c=>c.dataset.p===p); const allChecked=cbs.every(c=>c.querySelector('input').checked); cbs.forEach(c=>c.querySelector('input').checked=!allChecked); updT(); if(aiSetupInit)syncFromMain(); }
 function selTextAll() { document.querySelectorAll('#tgrid input').forEach(c => c.checked=true); updT(); }
 function clrText() { document.querySelectorAll('#tgrid input').forEach(c => c.checked=false); updT(); }
-function selImgProvider(p) { const cbs=[...document.querySelectorAll('#igrid .ai-cb')].filter(c=>c.dataset.p===p); const allC=cbs.every(c=>c.querySelector('input').checked); cbs.forEach(c=>c.querySelector('input').checked=!allC); updI(); if(aiSetupInit)syncFromMain(); }
+function selImgProvider(p) { const cbs=[...document.querySelectorAll('#igrid .ai-cb')].filter(c=>c.dataset.p===p); const allChecked=cbs.every(c=>c.querySelector('input').checked); cbs.forEach(c=>c.querySelector('input').checked=!allChecked); updI(); if(aiSetupInit)syncFromMain(); }
 function selImgAll() { document.querySelectorAll('#igrid input').forEach(c => c.checked=true); updI(); }
 function clrImg() { document.querySelectorAll('#igrid input').forEach(c => c.checked=false); updI(); }
 
 function log(m, t='info') { const c = document.getElementById('logc'), e = document.createElement('div'); e.className = `log ${t}`; e.textContent = `[${new Date().toLocaleTimeString('ko',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}] ${m}`; c.appendChild(e); c.scrollTop = c.scrollHeight; }
 function prog(p, t) { document.getElementById('pfill').style.width = `${p}%`; document.getElementById('ptxt').textContent = t; }
-function selTextProvider(p) { const cbs=[...document.querySelectorAll('#tgrid .ai-cb')].filter(c=>c.dataset.p===p); const allC=cbs.every(c=>c.querySelector('input').checked); cbs.forEach(c=>c.querySelector('input').checked=!allC); updT(); if(aiSetupInit)syncFromMain(); }
+
 // TEXT API
 async function callCerebras(p, m) { 
     const r = await fetch('https://api.cerebras.ai/v1/chat/completions', { 
@@ -9475,6 +9474,11 @@ function nlRandomPrompt(type) {
 // NAI Lab 진입 시 카테고리 버튼 초기화
 setTimeout(() => nlInitCatBtns(), 500);
 
+function nlUpdateArtistFields() {
+    const n = parseInt(document.getElementById('nlArtistCount').value) || 3;
+    nlArtistCount = n;
+    document.getElementById('nlA4Row').style.display = n >= 4 ? 'flex' : 'none';
+}
 function nlBuildArtistTag() {
     const n = nlArtistCount;
     const parts = [];
@@ -9536,9 +9540,14 @@ async function nlGenerate() {
     if (!artists.length) { alert('작가를 1명 이상 입력하세요!'); return; }
     const textAIs = getSelectedTextAIs();
     if (!textAIs.length) { alert('Text AI를 선택하세요! (⚙️ AI설정)'); return; }
-    const imgAIs = getSelectedImageAIs();
+    
     const hasNAI = getKey('novelai');
-    if (!imgAIs.length && !hasNAI) { alert('Image AI를 선택하거나 NAI 키를 입력하세요!'); return; }
+    const selectedImgAIs = getSelectedImageAIs().filter(m => m.id !== 'nai');
+    const imgAIs = [];
+    if (hasNAI) imgAIs.push({type:'nai', name:'NAI V4.5', id:'nai'});
+    selectedImgAIs.forEach(m => imgAIs.push({type:'other', name:m.name, ai:m}));
+    if (!imgAIs.length) { alert('NAI 키를 입력하거나 Image AI를 선택하세요!'); return; }
+    
     btn.disabled = true; btn.textContent = '⏳ 생성중...';
 
     const artistTag = nlBuildArtistTag();
@@ -9546,505 +9555,116 @@ async function nlGenerate() {
     const steps = parseInt(document.getElementById('nlSteps').value) || 28;
     const scale = parseFloat(document.getElementById('nlScale').value) || 5.5;
     const userTopic = document.getElementById('nlPrompt').value.trim();
+    const nlImgCount = parseInt(document.getElementById('nlCount').value) || 2;
     const gallery = document.getElementById('nlGallery');
+    gallery.innerHTML = '';
 
-    // 이미지 AI 목록: NAI + 선택된 다른 Image AI
-    const allImgAIs = [];
-    if (hasNAI) allImgAIs.push({type:'nai', name:'NAI V4.5', id:'nai'});
-    imgAIs.filter(m => m.id !== 'nai').forEach(m => allImgAIs.push({type:'other', name:m.name, ai:m}));
-    if (!allImgAIs.length) allImgAIs.push({type:'nai', name:'NAI V4.5', id:'nai'}); // fallback
-
-    const totalImages = textAIs.length * allImgAIs.length;
-    log(`🧪 NAI Lab: ${textAIs.length} Text AI × ${allImgAIs.length} Image AI = ${totalImages}장`, 'info');
-    document.getElementById('nlInfo').textContent = `${textAIs.length}T × ${allImgAIs.length}I = ${totalImages}장 생성중...`;
+    const totalImages = textAIs.length * imgAIs.length * nlImgCount;
+    log('🧪 NAI Lab: ' + textAIs.length + ' Text AI × ' + imgAIs.length + ' Image AI × ' + nlImgCount + '장 = ' + totalImages + '장', 'info');
+    document.getElementById('nlInfo').textContent = textAIs.length + 'T × ' + imgAIs.length + 'I × ' + nlImgCount + '장 = ' + totalImages + '장 생성중...';
 
     let imgNum = 0;
-    // ★ 작가 스타일 DB 조회
-    const artistStyles = artists.map(a => {
-        const found = NL_ALL_ARTISTS.find(x => x.name === a);
-        return found ? `${a}: ${found.s}` : a;
+    const artistStyles = artists.map(function(a) {
+        const found = NL_ALL_ARTISTS.find(function(x) { return x.name === a; });
+        return found ? a + ': ' + found.s : a;
     }).join(', ');
     
-    // ★ 다양성을 위한 랜덤 요소
     const VIBES = ['sensual elegance','dark romantic','dreamy ethereal','bold provocative','soft intimate','fierce warrior','playful cute','melancholic beauty','luxurious glamour','mysterious gothic','tropical paradise','cyberpunk neon','classical renaissance','bedroom intimate','bath/onsen scene','rain soaked','golden sunset','moonlit night','cherry blossom spring','autumn warmth'];
     const POSES = ['looking over shoulder','lying on bed','sitting cross-legged','leaning against wall','stretching arms up','hand on hip','playing with hair','from behind looking back','close-up portrait','full body standing','kneeling','reclining','walking towards viewer','dance pose','reading a book'];
     const OUTFITS = ['elegant dress','lingerie','swimsuit','school uniform','kimono','off-shoulder sweater','leather jacket','fantasy armor','maid outfit','casual tank top and shorts','wedding dress','chinese dress','nurse uniform','witch costume','naked towel'];
 
-    for (const txtAI of textAIs) {
-        let scenePrompt;
-        const randVibe = VIBES[Math.floor(Math.random() * VIBES.length)];
-        const randPose = POSES[Math.floor(Math.random() * POSES.length)];
-        const randOutfit = OUTFITS[Math.floor(Math.random() * OUTFITS.length)];
+    for (var ti = 0; ti < textAIs.length; ti++) {
+        var txtAI = textAIs[ti];
+        var scenePrompt;
+        var randVibe = VIBES[Math.floor(Math.random() * VIBES.length)];
+        var randPose = POSES[Math.floor(Math.random() * POSES.length)];
+        var randOutfit = OUTFITS[Math.floor(Math.random() * OUTFITS.length)];
         
         try {
-            const req = userTopic
-                ? `You are a NovelAI prompt expert. Create Danbooru tags for: "${userTopic}"
-Artists being tested: ${artistStyles}
-Output ONLY comma-separated Danbooru tags (30-40 tags). NO sentences.
-Focus on what makes these artists special. Include character, pose, expression, clothing details, background, lighting.`
-                : `You are a NovelAI prompt expert creating a scene to SHOWCASE these artists' signature strengths.
-
-Artists: ${artistStyles}
-
-VIBE for this image: ${randVibe}
-SUGGESTED POSE: ${randPose}
-SUGGESTED OUTFIT: ${randOutfit}
-
-Create Danbooru tags that:
-- Feature an attractive character (1girl unless artists specialize otherwise)
-- Show off what these artists are FAMOUS for (body detail? lighting? expressions? color?)
-- Include specific clothing/outfit details (not just "dress" but fabric, color, style)
-- Include a fitting background (not generic - specific place with details)
-- Include mood/atmosphere tags that match the vibe
-
-Output ONLY comma-separated Danbooru tags (30-40 tags). NO sentences, NO explanations.
-Each generation must be COMPLETELY DIFFERENT. Be creative and surprising.`;
+            var req = userTopic
+                ? 'You are a NovelAI prompt expert. Create Danbooru tags for: "' + userTopic + '"\nArtists being tested: ' + artistStyles + '\nOutput ONLY comma-separated Danbooru tags (30-40 tags). NO sentences.'
+                : 'You are a NovelAI prompt expert creating a scene to SHOWCASE these artists\' signature strengths.\n\nArtists: ' + artistStyles + '\n\nVIBE: ' + randVibe + '\nPOSE: ' + randPose + '\nOUTFIT: ' + randOutfit + '\n\nCreate Danbooru tags that feature an attractive character showing off what these artists are FAMOUS for.\nOutput ONLY comma-separated Danbooru tags (30-40 tags). NO sentences.';
             scenePrompt = await callText(txtAI, req);
             scenePrompt = scenePrompt.replace(/```/g,'').replace(/\n/g,', ').replace(/^[^a-zA-Z0-9{(1]*/,'').trim();
-            // 문장 제거
             scenePrompt = scenePrompt.replace(/[.!?]\s+[A-Z][a-z]/g,',').replace(/Here are.*?:/gi,'').replace(/Tags?:/gi,'').replace(/Output:/gi,'').trim();
             if (scenePrompt.length < 20) throw new Error('short');
         } catch(e) {
-            scenePrompt = `1girl, ${randPose}, ${randOutfit}, beautiful detailed face, ${randVibe}, detailed background, cinematic lighting, masterpiece`;
+            scenePrompt = '1girl, ' + randPose + ', ' + randOutfit + ', beautiful detailed face, ' + randVibe + ', detailed background, cinematic lighting, masterpiece';
         }
-        log(`📝 ${txtAI.name}: ${scenePrompt.substring(0,70)}...`, 'info');
+        log('📝 ' + txtAI.name + ': ' + scenePrompt.substring(0,70) + '...', 'info');
 
-        // ★ 각 Image AI가 이미지 생성
-        for (const imgAI of allImgAIs) {
-            imgNum++;
-            const cardId = 'nlCard' + Date.now() + imgNum;
-            const card = document.createElement('div');
-            card.id = cardId;
-            card.style.cssText = 'background:rgba(0,0,0,0.3);border-radius:8px;border:2px solid #ff69b4;overflow:hidden';
-            card.innerHTML = `<div style="aspect-ratio:${w}/${h};display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px"><div style="width:18px;height:18px;border:2px solid #475569;border-top-color:#ff69b4;border-radius:50%;animation:pulse 1.5s infinite"></div><div style="font-size:0.38rem;color:#ff69b4">#${imgNum}/${totalImages}</div><div style="font-size:0.33rem;color:#a78bfa">${escHtml(txtAI.name)} → ${escHtml(imgAI.name)}</div></div>`;
-            gallery.prepend(card);
+        var promptHeader = document.createElement('div');
+        promptHeader.style.cssText = 'grid-column:1/-1;background:linear-gradient(135deg,rgba(139,92,246,0.15),rgba(236,72,153,0.1));border:1px solid rgba(139,92,246,0.4);border-radius:8px;padding:8px 12px;margin-top:6px';
+        promptHeader.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="color:#a78bfa;font-weight:700;font-size:0.5rem">🤖 ' + escHtml(txtAI.name) + '</span><button onclick="navigator.clipboard.writeText(this.dataset.p);this.textContent=\'✅\'" data-p="' + escHtml(scenePrompt).replace(/"/g,'&quot;') + '" style="padding:2px 6px;background:#6366f1;border:none;border-radius:3px;color:#fff;font-size:0.35rem;cursor:pointer">📋 복사</button></div><div style="font-size:0.38rem;color:#94a3b8;line-height:1.4;max-height:3em;overflow:hidden;cursor:pointer" onclick="this.style.maxHeight=this.style.maxHeight===\'none\'?\'3em\':\'none\'">' + escHtml(scenePrompt).substring(0,200) + '...</div>';
+        gallery.appendChild(promptHeader);
 
-            try {
-                let url, cardSeed = 0;
-                if (imgAI.type === 'nai') {
-                    const naiResult = await nlCallNAI(artistTag, scenePrompt, w, h, steps, scale);
-                    url = naiResult.url; cardSeed = naiResult.seed;
-                } else {
-                    const fullP = `${artistTag}, ${scenePrompt}, masterpiece, best quality`;
-                    url = await callImg(imgAI.ai, fullP);
+        for (var ii = 0; ii < imgAIs.length; ii++) {
+            var imgAI = imgAIs[ii];
+            for (var rep = 0; rep < nlImgCount; rep++) {
+                imgNum++;
+                var cardId = 'nlC' + Date.now() + '_' + imgNum;
+                var card = document.createElement('div');
+                card.id = cardId;
+                card.style.cssText = 'background:rgba(0,0,0,0.3);border-radius:8px;border:2px solid #ff69b4;overflow:hidden';
+                card.innerHTML = '<div style="aspect-ratio:' + w + '/' + h + ';display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px"><div style="width:18px;height:18px;border:2px solid #475569;border-top-color:#ff69b4;border-radius:50%;animation:pulse 1.5s infinite"></div><div style="font-size:0.38rem;color:#ff69b4">#' + imgNum + '/' + totalImages + '</div><div style="font-size:0.33rem;color:#a78bfa">' + escHtml(txtAI.name) + ' → ' + escHtml(imgAI.name) + ' [' + (rep+1) + '/' + nlImgCount + ']</div></div>';
+                gallery.appendChild(card);
+
+                try {
+                    var url, cardSeed = 0;
+                    if (imgAI.type === 'nai') {
+                        var naiResult = await nlCallNAI(artistTag, scenePrompt, w, h, steps, scale);
+                        url = naiResult.url; cardSeed = naiResult.seed;
+                    } else {
+                        var fullP = artistTag + ', ' + scenePrompt + ', masterpiece, best quality';
+                        var imgResult = await callImg(imgAI.ai, fullP);
+                        url = (typeof imgResult === 'object' && imgResult.url) ? imgResult.url : imgResult;
+                    }
+                    
+                    var finalUrl = (typeof url === 'object' && url.url) ? url.url : url;
+                    var genIdx = generatedImages.length;
+                    generatedImages.push({
+                        url: finalUrl, prompt: scenePrompt, imgAi: imgAI.name,
+                        promptAi: txtAI.name, artist: artists.join('+'),
+                        size: w + 'x' + h, _naiLabSeed: cardSeed
+                    });
+                    updateGallery();
+                    
+                    card.innerHTML = '<img src="' + finalUrl + '" style="width:100%;cursor:pointer" onclick="openModal(' + genIdx + ')">' +
+                    '<div style="padding:5px;background:rgba(0,0,0,0.5)">' +
+                        '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2px">' +
+                            '<div style="font-size:0.4rem;color:#ff69b4;font-weight:700">' + escHtml(artists.join('+')) + '</div>' +
+                            '<div style="display:flex;gap:2px">' +
+                                '<span style="font-size:0.3rem;color:#a78bfa;background:rgba(139,92,246,0.2);padding:1px 3px;border-radius:6px">📝' + escHtml(txtAI.name) + '</span>' +
+                                '<span style="font-size:0.3rem;color:#ec4899;background:rgba(236,72,153,0.2);padding:1px 3px;border-radius:6px">🖼' + escHtml(imgAI.name) + '</span>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div style="font-size:0.3rem;color:#67e8f9;margin-top:2px;max-height:2em;overflow:hidden;cursor:pointer" onclick="event.stopPropagation();this.style.maxHeight=this.style.maxHeight===\'none\'?\'2em\':\'none\'">' + escHtml(scenePrompt).substring(0,120) + '</div>' +
+                        (cardSeed ? '<div style="font-size:0.28rem;color:#475569;margin-top:1px;cursor:pointer" onclick="event.stopPropagation();navigator.clipboard.writeText(\'' + cardSeed + '\');this.textContent=\'✅ copied!\'">🌱 seed:' + cardSeed + '</div>' : '') +
+                        '<div style="display:flex;gap:2px;margin-top:3px;align-items:center">' +
+                            '<button onclick="event.stopPropagation();nlRegenCard(\'' + cardId + '\',\'' + artistTag.replace(/'/g,"\\'") + '\',\'' + scenePrompt.replace(/'/g,"\\'") + '\',' + w + ',' + h + ',' + steps + ',' + scale + ')" style="padding:2px 5px;background:#8b5cf6;border:none;border-radius:3px;color:#fff;font-size:0.33rem;cursor:pointer">🔄</button>' +
+                            '<button onclick="event.stopPropagation();nlEditCard(\'' + cardId + '\')" style="padding:2px 5px;background:#06b6d4;border:none;border-radius:3px;color:#fff;font-size:0.33rem;cursor:pointer">✏️</button>' +
+                            '<button onclick="event.stopPropagation();var a=document.createElement(\'a\');a.href=this.closest(\'div\').parentElement.querySelector(\'img\')?.src||\'\';a.download=\'nailab.png\';a.click()" style="padding:2px 5px;background:#22c55e;border:none;border-radius:3px;color:#fff;font-size:0.33rem;cursor:pointer">💾</button>' +
+                            '<span style="margin-left:auto;display:flex;gap:1px">' + [1,2,3,4,5].map(function(star){return '<span onclick="event.stopPropagation();this.parentElement.querySelectorAll(\'span\').forEach(function(e,i){e.style.color=i<'+star+'?\'#fbbf24\':\'#475569\'});log(\'⭐ '+star+'점\',\'ok\')" style="cursor:pointer;font-size:0.4rem;color:#475569">★</span>';}).join('') + '</span>' +
+                        '</div>' +
+                    '</div>';
+                    card.dataset.artistTag = artistTag;
+                    card.dataset.prompt = scenePrompt;
+                    card.dataset.w = w; card.dataset.h = h;
+                    card.dataset.steps = steps; card.dataset.scale = scale;
+                    log('🧪 #' + imgNum + ' ' + txtAI.name + '→' + imgAI.name + ' [' + (rep+1) + '] ✅', 'ok');
+                } catch(e) {
+                    card.innerHTML = '<div style="padding:10px;color:#ef4444;font-size:0.4rem">❌ ' + txtAI.name + '→' + imgAI.name + ': ' + e.message + '</div>';
+                    log('❌ ' + txtAI.name + '→' + imgAI.name + ': ' + e.message, 'err');
                 }
-                card.innerHTML = `
-                    <img src="${url}" style="width:100%;cursor:pointer" onclick="document.getElementById('imgModal')?(document.getElementById('imgModal').style.display='flex',document.getElementById('modalImg').src=this.src):window.open(this.src)">
-                    <div style="padding:5px;background:rgba(0,0,0,0.5)">
-                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2px">
-                            <div style="font-size:0.4rem;color:#ff69b4;font-weight:700">${escHtml(artists.join('+'))}</div>
-                            <div style="display:flex;gap:2px">
-                                <span style="font-size:0.3rem;color:#a78bfa;background:rgba(139,92,246,0.2);padding:1px 3px;border-radius:6px">📝${escHtml(txtAI.name)}</span>
-                                <span style="font-size:0.3rem;color:#ec4899;background:rgba(236,72,153,0.2);padding:1px 3px;border-radius:6px">🖼${escHtml(imgAI.name)}</span>
-                            </div>
-                        </div>
-                        <div style="font-size:0.3rem;color:#67e8f9;margin-top:2px;max-height:2em;overflow:hidden;cursor:pointer" onclick="this.style.maxHeight=this.style.maxHeight==='none'?'2em':'none'">${escHtml(scenePrompt).substring(0,120)}</div>
-                        ${cardSeed ? `<div style="font-size:0.28rem;color:#475569;margin-top:1px;cursor:pointer" onclick="navigator.clipboard.writeText('${cardSeed}');this.textContent='✅ seed copied!';setTimeout(()=>this.textContent='🌱 seed:${cardSeed}',1500)" title="클릭→시드 복사">🌱 seed:${cardSeed}</div>` : ''}
-                        <div style="display:flex;gap:2px;margin-top:3px;align-items:center">
-                            <button onclick="nlRegenCard('${cardId}','${artistTag.replace(/'/g,"\\'")}','${scenePrompt.replace(/'/g,"\\'")}',${w},${h},${steps},${scale})" style="padding:2px 5px;background:#8b5cf6;border:none;border-radius:3px;color:#fff;font-size:0.33rem;cursor:pointer">🔄</button>
-                            <button onclick="nlEditCard('${cardId}')" style="padding:2px 5px;background:#06b6d4;border:none;border-radius:3px;color:#fff;font-size:0.33rem;cursor:pointer">✏️</button>
-                            <button onclick="let a=document.createElement('a');a.href=this.closest('div').parentElement.querySelector('img').src;a.download='nailab.png';a.click()" style="padding:2px 5px;background:#22c55e;border:none;border-radius:3px;color:#fff;font-size:0.33rem;cursor:pointer">💾</button>
-                            <button onclick="addThumbToCombo(this.closest('.img-wrap')?.querySelector('img')?.src||this.closest('div').parentElement.querySelector('img')?.src)" style="padding:2px 5px;background:#f59e0b;border:none;border-radius:3px;color:#fff;font-size:0.33rem;cursor:pointer" title="조합 대표 이미지로 지정">📸</button>
-                            <span style="margin-left:auto;display:flex;gap:1px">${[1,2,3,4,5].map(s=>`<span onclick="this.parentElement.querySelectorAll('span').forEach((e,i)=>e.style.color=i<${s}?'#fbbf24':'#475569');log('⭐ ${s}점 평가','ok')" style="cursor:pointer;font-size:0.4rem;color:#475569">★</span>`).join('')}</span>
-                        </div>
-                    </div>`;
-                card.dataset.artistTag = artistTag; card.dataset.prompt = scenePrompt;
-                card.dataset.w = w; card.dataset.h = h; card.dataset.steps = steps; card.dataset.scale = scale;
-                log(`🧪 #${imgNum} ${txtAI.name}→${imgAI.name} ✅`, 'ok');
-            } catch(e) {
-                card.innerHTML = `<div style="padding:10px;color:#ef4444;font-size:0.4rem">❌ ${txtAI.name}→${imgAI.name}: ${e.message}</div>`;
-                log(`❌ ${txtAI.name}→${imgAI.name}: ${e.message}`, 'err');
             }
         }
     }
+    
     btn.disabled = false; btn.textContent = '🧪 작가 조합 테스트';
-    document.getElementById('nlInfo').textContent = `${artists.join('+')} · ${textAIs.length}T×${allImgAIs.length}I = ${totalImages}장 완료`;
-}
-
-async function nlRegenCard(cardId, artistTag, prompt, w, h, steps, scale) {
-    const card = document.getElementById(cardId); if (!card) return;
-    const img = card.querySelector('img'); if(img) img.style.opacity = '0.3';
-    try {
-        const result = await nlCallNAI(artistTag, prompt, w, h, steps, scale);
-        if(img) { img.src = result.url; img.style.opacity = '1'; }
-        log(`🔄 재생성 완료 (seed:${result.seed})`, 'ok');
-    } catch(e) { log('❌ 재생성: ' + e.message, 'err'); if(img) img.style.opacity = '1'; }
-}
-
-function nlEditCard(cardId) {
-    const card = document.getElementById(cardId); if (!card) return;
-    const edit = prompt('프롬프트 수정 (추가/변경할 내용):');
-    if (!edit) return;
-    const oldPrompt = card.dataset.prompt || '';
-    const newPrompt = oldPrompt + ', ' + edit;
-    card.dataset.prompt = newPrompt;
-    nlRegenCard(cardId, card.dataset.artistTag||'', newPrompt, +card.dataset.w, +card.dataset.h, +card.dataset.steps, +card.dataset.scale);
-}
-
-// ★ AI 프롬프트 생성 (이미지 모드와 동일 수준!)
-// userTopic 있으면 → 그 주제를 작가 스타일로 확장
-// 없으면 → 작가 특성이 가장 잘 드러나는 장면을 AI가 창작
-async function nlGenerateScenePrompt(artists, userTopic, orientation) {
-    const textAIs = getSelectedTextAIs();
-    if (!textAIs.length) return '1girl, long hair, beautiful detailed eyes, standing, wind blowing hair, sunlit meadow, golden hour, detailed background';
-    const ai = textAIs[Math.floor(Math.random() * textAIs.length)];
-    
-    const topicPart = userTopic 
-        ? `The user wants this theme/scene: "${userTopic}". Expand this into a rich visual scene that showcases the artists' style.`
-        : `No specific theme given. Create a scene that BEST showcases these artists' unique strengths and signature style. Be creative and varied - each call should produce a DIFFERENT scene.`;
-    
-    const orientPart = orientation === 'landscape' ? 'wide composition, panoramic' : 'vertical composition, portrait orientation';
-    
-    const prompt = `You are a NovelAI V4.5 prompt expert. Generate Danbooru-style tags for an image.
-
-Artists: ${artists.join(', ')}
-${topicPart}
-
-RULES:
-- Output ONLY comma-separated Danbooru tags. NO sentences, NO explanations.
-- 30-50 tags maximum
-- Tag order: shot type, background, character, pose/action, clothing, expression, lighting, composition
-- Include: {{detailed background}}, specific environment details, ${orientPart}
-- Characters must be DOING something (not just standing)
-- Vary shot types: wide shot, cowboy shot, from behind, dutch angle, etc.
-- NEVER output artist tags (those are added separately)
-- Each generation must be UNIQUE and DIFFERENT
-
-Output tags now:`;
-
-    try {
-        const result = await callText(ai, prompt);
-        let cleaned = result.replace(/```/g,'').replace(/\n/g,', ').replace(/^[^a-zA-Z{(1]*/,'').trim();
-        // 문장이 섞여있으면 제거
-        cleaned = cleaned.replace(/[.!?]\s+[A-Z]/g, ',').replace(/Here are.*?:/gi,'').replace(/Tags?:/gi,'').trim();
-        if (cleaned.length < 20) throw new Error('too short');
-        log(`🤖 AI 프롬프트: ${cleaned.substring(0,80)}...`, 'info');
-        return cleaned;
-    } catch(e) {
-        // fallback: 랜덤 프롬프트
-        const fallbacks = [
-            '1girl, long hair, blue eyes, school uniform, cherry blossoms, wind, detailed background, sunlit path, spring',
-            '1girl, silver hair, red dress, gothic architecture, moonlight, dramatic lighting, full body, dark castle interior',
-            '1boy, muscular, leather jacket, neon city, rain, night, reflection on wet ground, cinematic',
-            '1girl, kimono, japanese garden, koi pond, autumn leaves, sitting on engawa, peaceful expression',
-            '1girl, witch hat, floating books, magical library, warm candlelight, mysterious atmosphere, wide shot',
-        ];
-        return fallbacks[Math.floor(Math.random() * fallbacks.length)];
-    }
-}
-
-// 기존 호환용
-async function nlGeneratePrompt(artists) { return nlGenerateScenePrompt(artists, '', 'landscape'); }
-
-async function nlAIPrompt() {
-    const artists = nlGetArtists();
-    if (!artists.length) { alert('작가를 먼저 입력하세요!'); return; }
-    const userTopic = document.getElementById('nlPrompt').value.trim();
-    document.getElementById('nlPrompt').value = '🤖 AI 프롬프트 생성중...';
-    try {
-        const prompt = await nlGenerateScenePrompt(artists, userTopic, 'landscape');
-        document.getElementById('nlPrompt').value = prompt;
-        log('🤖 AI 프롬프트 생성 완료', 'ok');
-    } catch(e) {
-        document.getElementById('nlPrompt').value = '';
-        log('❌ AI 프롬프트: ' + e.message, 'err');
-    }
-}
-
-// AI 작가 추천 + 자동 입력
-async function nlAIFind() {
-    const query = document.getElementById('nlAIQuery').value.trim();
-    if (!query) { alert('원하는 스타일을 입력!'); return; }
-    const el = document.getElementById('nlAIResult');
-    el.style.display = 'block';
-    const textAIs = getSelectedTextAIs();
-    if (!textAIs.length) { el.innerHTML = '<div style="color:#ef4444">Text AI를 선택하세요 (⚙️ AI설정)</div>'; return; }
-
-    // ★ 선택된 ALL Text AI가 각각 발굴
-    el.innerHTML = `<div style="color:#06b6d4">🔍 ${textAIs.length}개 AI가 각각 작가 발굴중...</div>`;
-    const allResults = [];
-
-    for (const ai of textAIs) {
-        el.innerHTML += `<div style="color:#94a3b8;font-size:0.38rem">⏳ ${ai.name} 검색중...</div>`;
-        try {
-            const result = await callText(ai, `You are a NovelAI V4.5 Danbooru artist expert. 작가 발굴 전문가.
-
-사용자 요청 스타일: "${query}"
-
-=== 발굴 프로세스 (3단계) ===
-
-[1단계] 후보 발굴 12명
-- "${query}" 스타일에 맞는 Danbooru 아티스트 태그 12명을 찾아라
-- NovelAI V4에서 실제 작동하는 작가 태그만 사용
-- 참고 DB: cutesexyrobutts, ratatatat74, incase, fellatrix, sciamano240, guweiz, wlop, sakimichan, personal_ami, bosshi, asanagi, tony_taka, okama, kagami, tarakanovich, blushyspicy, speedl00ver, aroma_sensei, kinkymation, luminyu, raichiyo33, kuvshinov_ilya, gerph, nyantcha, homare, fuzichoco, kase_daiki, mignon, noise, tsuaii, kekemotsu, ciloranko, yohan1754, as109, mumumu, fishine, ke-ta, terasu_mc, yom, gin00, ooyari_ashito, oda_non, mogudan, navel, rella, ask, artgerm, alphonse_mucha, peter_mohrbacher
-
-[2단계] 상위 6명 압축
-- 12명 중 요청 스타일에 가장 적합한 6명만 남겨라
-- 각 작가의 핵심 강점 1줄 요약
-
-[3단계] 최종 6개 조합 제안
-아래 형식으로 정확히 6개 조합을 출력:
-
-### 조합A (3인): 작가1 + 작가2 + 작가3
-- 가중치: 0.5, 0.5, 0.5
-- 표현 강점: (예: 피부 질감, 조명, 포즈)
-- 적합 장르: (예: 예술 누드, 로맨틱, 판타지)
-- 테스트 프롬프트: 1girl, ... (Danbooru tags, 20-30개)
-- 주의사항: (예: 배경 약함, 얼굴 스타일 충돌 가능)
-자동입력: 작가1, 작가2, 작가3
-
-### 조합B (3인): ...
-자동입력: ...
-
-### 조합C (3인): ...
-자동입력: ...
-
-### 조합D (2인): 작가1 + 작가2
-자동입력: ...
-
-### 조합E (2인): ...
-자동입력: ...
-
-### 조합F (4인): 작가1 + 작가2 + 작가3 + 작가4
-자동입력: ...
-
-RULES:
-- 한국어 반말로 답해
-- NSFW, 관능, 예술 누드, 다크, 애니, 반실사 중 사용자 의도에 맞는 축 우선
-- "자동입력:" 줄은 반드시 각 조합마다 포함 (프로그램 파싱용)
-- 작가 이름은 Danbooru 태그 형식 (언더스코어, 소문자)`);
-
-            allResults.push({ai: ai.name, result});
-            log(`🔍 ${ai.name} 작가 발굴 완료`, 'ok');
-        } catch(e) {
-            log(`❌ ${ai.name} 발굴 실패: ${e.message}`, 'err');
-        }
-    }
-
-    // 결과 렌더링 — AI별 탭 형식
-    if (!allResults.length) { el.innerHTML = '<div style="color:#ef4444">모든 AI 실패</div>'; return; }
-
-    let html = '<div style="display:flex;gap:3px;margin-bottom:6px;flex-wrap:wrap">';
-    allResults.forEach((r, i) => {
-        html += `<button onclick="document.querySelectorAll('.nl-ai-result').forEach(e=>e.style.display='none');document.getElementById('nlRes${i}').style.display='block';this.parentElement.querySelectorAll('button').forEach(b=>b.style.background='');this.style.background='#6366f1'" style="padding:2px 6px;border:1px solid #6366f1;border-radius:4px;color:#fff;font-size:0.38rem;cursor:pointer;background:${i===0?'#6366f1':''}">${r.ai}</button>`;
-    });
-    html += '</div>';
-    allResults.forEach((r, i) => {
-        const formatted = r.result.replace(/\n/g,'<br>')
-            .replace(/###\s*(.*?)(<br>)/g,'<div style="color:#ff69b4;font-weight:700;font-size:0.48rem;margin-top:6px;padding:3px 6px;background:rgba(255,105,180,0.1);border-radius:4px">$1</div>')
-            .replace(/\*\*(.*?)\*\*/g,'<b style="color:#fbbf24">$1</b>')
-            .replace(/(자동입력[:\s]*[^\n<]+)/g,'<span style="color:#22c55e;cursor:pointer;text-decoration:underline" onclick="nlApplyAutoInput(this.textContent)">$1</span>');
-        html += `<div id="nlRes${i}" class="nl-ai-result" style="display:${i===0?'block':'none'};max-height:500px;overflow-y:auto;line-height:1.6">${formatted}</div>`;
-    });
-    el.innerHTML = html;
-
-    // 첫 번째 AI 첫 번째 조합 자동입력
-    const firstAuto = allResults[0]?.result.match(/자동입력[:\s]*([^\n]+)/);
-    if (firstAuto) nlApplyAutoInput(firstAuto[0]);
-}
-
-// 자동입력 파싱 (클릭 또는 자동)
-function nlApplyAutoInput(text) {
-    const match = text.match(/자동입력[:\s]*(.+)/);
-    if (!match) return;
-    const names = match[1].split(',').map(s => s.trim().replace(/[^a-zA-Z0-9_\-]/g,'')).filter(Boolean);
-    for (let i = 0; i < Math.min(names.length, 4); i++) {
-        const el = document.getElementById('nlA'+(i+1));
-        if (el) el.value = names[i];
-    }
-    if (names.length >= 4) nlSetCount(4);
-    else if (names.length === 2) nlSetCount(2);
-    else nlSetCount(3);
-    // ★ Image 모드 Artist 필드에도 자동 반영
-    const naiTag = names.map((n,i) => `0.5::artist:${n}::`).join(', ') + ', year 2024';
-    const naiArtist = document.getElementById('naiArtist');
-    if (naiArtist) naiArtist.value = naiTag;
-    log(`🤖 자동입력: ${names.join(' + ')} → NAI Lab + Image 모드 반영!`, 'ok');
-}
-
-// 저장/로드
-function nlSave() {
-    const artists = nlGetArtists(); if (!artists.length) return;
-    const name = prompt('조합 이름:') || artists.join('+');
-    nlCombos.unshift({ name, artists, tag: nlBuildArtistTag(), date: new Date().toLocaleDateString('ko-KR') });
-    localStorage.setItem('nailab_combos', JSON.stringify(nlCombos));
-    nlRenderSaved(); log(`⭐ 저장: ${name}`, 'ok');
-}
-function nlRenderSaved() {
-    const el = document.getElementById('nlSaved');
-    if (!nlCombos.length) { el.innerHTML = '비어있음'; return; }
-    el.innerHTML = nlCombos.map((c,i) => `<div style="padding:3px;background:rgba(255,255,255,0.05);border-radius:3px;margin-bottom:2px;display:flex;justify-content:space-between;align-items:center">
-        <span style="color:#ff69b4;font-weight:700">${escHtml(c.name)}</span>
-        <div><button onclick="nlLoadCombo(${i})" style="padding:1px 4px;background:#6366f1;border:none;border-radius:2px;color:#fff;font-size:0.35rem;cursor:pointer">적용</button> <button onclick="nlCombos.splice(${i},1);localStorage.setItem('nailab_combos',JSON.stringify(nlCombos));nlRenderSaved()" style="padding:1px 4px;background:#ef4444;border:none;border-radius:2px;color:#fff;font-size:0.35rem;cursor:pointer">✕</button></div>
-    </div>`).join('');
-}
-function nlLoadCombo(i) {
-    const c = nlCombos[i]; if (!c) return;
-    c.artists.forEach((a,j) => { const el = document.getElementById('nlA'+(j+1)); if(el) el.value = a; });
-    document.getElementById('nlArtistCount').value = Math.min(c.artists.length, 4);
-    nlUpdateArtistFields();
-}
-setTimeout(() => nlRenderSaved(), 500);
-
-// ══════════════════════════════════════════════════════════════
-// ★★★ 🎨 ARTIST COMBO MANAGER (Image 모드 + NAI Lab 공유) ★★★
-// ══════════════════════════════════════════════════════════════
-let artistCombos = JSON.parse(localStorage.getItem('artist_combos') || '[]');
-
-function refreshComboSelect() {
-    const sel = document.getElementById('artistComboSelect');
-    if (!sel) return;
-    sel.innerHTML = '<option value="">-- 저장된 조합 선택 (' + artistCombos.length + '개) --</option>';
-    artistCombos.forEach((c, i) => {
-        const artists = c.tag.match(/artist:([a-zA-Z0-9_-]+)/gi)?.map(a => a.replace('artist:','')) || [];
-        sel.innerHTML += `<option value="${i}">${c.name} (${artists.join('+')})</option>`;
-    });
-}
-
-function loadArtistCombo() {
-    const sel = document.getElementById('artistComboSelect');
-    const idx = parseInt(sel?.value);
-    if (isNaN(idx) || !artistCombos[idx]) return;
-    const combo = artistCombos[idx];
-    const naiArtist = document.getElementById('naiArtist');
-    if (naiArtist) naiArtist.value = combo.tag;
-    // 썸네일 표시
-    const thumbEl = document.getElementById('comboThumb');
-    if (thumbEl && combo.thumbs?.length) {
-        thumbEl.style.display = 'flex';
-        thumbEl.style.gap = '3px';
-        thumbEl.innerHTML = combo.thumbs.map(t => `<img src="${t}" style="width:50px;height:50px;object-fit:cover;border-radius:4px;border:1px solid #ff69b4">`).join('');
-    } else if (thumbEl) { thumbEl.style.display = 'none'; }
-    log(`🎨 작가 조합 로드: ${combo.name}`, 'ok');
-}
-
-function saveCurrentArtistCombo() {
-    const tag = document.getElementById('naiArtist')?.value?.trim();
-    if (!tag) { alert('Artist 필드가 비어있습니다!'); return; }
-    if (artistCombos.length >= 100) { alert('최대 100개까지 저장 가능! 기존 조합을 삭제하세요.'); return; }
-    const name = prompt('조합 이름 (예: 글래머3인조, 다크판타지):');
-    if (!name) return;
-    artistCombos.unshift({ name, tag, thumbs: [], date: new Date().toLocaleDateString('ko-KR') });
-    localStorage.setItem('artist_combos', JSON.stringify(artistCombos));
-    refreshComboSelect();
-    log(`💾 작가 조합 저장: ${name} (총 ${artistCombos.length}개)`, 'ok');
-}
-
-function deleteArtistCombo() {
-    const sel = document.getElementById('artistComboSelect');
-    const idx = parseInt(sel?.value);
-    if (isNaN(idx) || !artistCombos[idx]) { alert('삭제할 조합을 선택하세요'); return; }
-    if (!confirm(`"${artistCombos[idx].name}" 삭제?`)) return;
-    artistCombos.splice(idx, 1);
-    localStorage.setItem('artist_combos', JSON.stringify(artistCombos));
-    refreshComboSelect();
-    log('🗑 조합 삭제됨', 'info');
-}
-
-// 썸네일 추가 (이미지 URL을 현재 선택된 조합에 추가)
-function addThumbToCombo(imgUrl) {
-    const sel = document.getElementById('artistComboSelect');
-    const idx = parseInt(sel?.value);
-    if (isNaN(idx) || !artistCombos[idx]) return;
-    if (!artistCombos[idx].thumbs) artistCombos[idx].thumbs = [];
-    if (artistCombos[idx].thumbs.length >= 2) artistCombos[idx].thumbs.shift(); // 최대 2장
-    artistCombos[idx].thumbs.push(imgUrl);
-    localStorage.setItem('artist_combos', JSON.stringify(artistCombos));
-    log('📸 조합 썸네일 추가!', 'ok');
-}
-
-// NAI Lab에서 저장 시 → 공유 저장소에도 추가
-const _origNlSave = typeof nlSave === 'function' ? nlSave : null;
-function nlSaveToShared() {
-    const artists = nlGetArtists(); if (!artists.length) return;
-    const tag = nlBuildArtistTag();
-    const name = prompt('조합 이름:') || artists.join('+');
-    // NAI Lab 로컬 저장
-    nlCombos.unshift({ name, artists, tag, date: new Date().toLocaleDateString('ko-KR') });
-    localStorage.setItem('nailab_combos', JSON.stringify(nlCombos));
-    nlRenderSaved();
-    // ★ Image 모드 공유 저장소에도 추가
-    if (artistCombos.length < 100) {
-        artistCombos.unshift({ name, tag, thumbs: [], date: new Date().toLocaleDateString('ko-KR') });
-        localStorage.setItem('artist_combos', JSON.stringify(artistCombos));
-        refreshComboSelect();
-    }
-    log(`⭐ 저장: ${name} (NAI Lab + Image 모드 공유)`, 'ok');
-}
-
-// init
-setTimeout(() => refreshComboSelect(), 600);
-// 각 모드의 🎤 버튼 → 녹음 → STT → 해당 입력창에 텍스트 삽입
-// Groq(기본) / OpenAI Whisper 선택 가능
-// ══════════════════════════════════════════════════════════════
-let _vRec = null, _vChunks = [], _vActive = false, _vTarget = null, _vBtn = null;
-
-// STT 설정 (Settings 패널에 추가됨)
-function getSTTConfig() {
-    const provider = document.getElementById('sttProvider')?.value || 'groq';
-    if (provider === 'groq') {
-        return { url: 'https://api.groq.com/openai/v1/audio/transcriptions', key: getKey('groq'), model: 'whisper-large-v3-turbo', name: 'Groq' };
-    } else if (provider === 'openai') {
-        return { url: 'https://api.openai.com/v1/audio/transcriptions', key: getKey('openai'), model: 'whisper-1', name: 'OpenAI' };
-    } else if (provider === 'cerebras') {
-        return { url: 'https://api.cerebras.ai/v1/audio/transcriptions', key: getKey('cerebras'), model: 'whisper-large-v3-turbo', name: 'Cerebras' };
-    }
-    return { url: 'https://api.groq.com/openai/v1/audio/transcriptions', key: getKey('groq'), model: 'whisper-large-v3-turbo', name: 'Groq' };
-}
-
-async function voiceToField(targetId) {
-    if (_vActive) { stopVTF(); return; }
-    const stt = getSTTConfig();
-    if (!stt.key) { log(`⚠️ ${stt.name} API 키 필요 (STT)`, 'warn'); alert(`${stt.name} API 키를 Settings에서 입력하세요!`); return; }
-    _vTarget = targetId;
-    try {
-        const stream = await navigator.mediaDevices.getUserMedia({audio:{sampleRate:16000,channelCount:1,echoCancellation:true,noiseSuppression:true}});
-        const mimes = ['audio/webm;codecs=opus','audio/webm','audio/ogg;codecs=opus','audio/mp4'];
-        let mime = ''; for (const m of mimes) if (MediaRecorder.isTypeSupported(m)) { mime = m; break; }
-        _vRec = new MediaRecorder(stream, mime ? {mimeType:mime} : {});
-        _vChunks = [];
-        _vRec.ondataavailable = e => { if(e.data.size>0) _vChunks.push(e.data); };
-        _vRec.onstop = async () => {
-            stream.getTracks().forEach(t => t.stop());
-            const blob = new Blob(_vChunks, {type: _vRec.mimeType || 'audio/webm'});
-            if (_vBtn) { _vBtn.textContent = '⏳'; _vBtn.style.background = '#eab308'; }
-            log(`🎤 ${stt.name} STT 변환중...`, 'info');
-            try {
-                const fd = new FormData();
-                fd.append('file', blob, 'voice.webm');
-                fd.append('model', stt.model);
-                fd.append('language', 'ko');
-                fd.append('response_format', 'text');
-                const r = await fetch(stt.url, {method:'POST', headers:{'Authorization':'Bearer '+stt.key}, body:fd});
-                if (!r.ok) throw new Error(stt.name + ' ' + r.statusText);
-                const text = (await r.text()).trim();
-                const el = document.getElementById(_vTarget);
-                if (el) { el.value = (el.value ? el.value + ' ' : '') + text; el.focus(); }
-                log(`🎤 ${stt.name}: ${text}`, 'ok');
-            } catch(e) { log('❌ STT: ' + e.message, 'err'); }
-            if (_vBtn) { _vBtn.textContent = '🎤'; _vBtn.style.background = '#22c55e'; }
-            _vBtn = null;
-        };
-        _vRec.start(1000);
-        _vActive = true;
-        _vBtn = event?.target || document.activeElement;
-        if (_vBtn) { _vBtn.textContent = '⏹'; _vBtn.style.background = '#ef4444'; }
-        log(`🎤 녹음 시작 (${stt.name})! 다시 누르면 중지`, 'info');
-    } catch(e) { log('⚠️ 마이크 접근 실패 (HTTPS 필요)', 'warn'); alert('마이크 접근 실패! HTTPS 환경에서만 작동합니다.'); }
-}
-
-function stopVTF() {
-    if (_vRec && _vRec.state !== 'inactive') _vRec.stop();
-    _vActive = false;
-}
-
+    document.getElementById('nlInfo').textContent = artists.join('+') + ' · ' + textAIs.length + 'T×' + imgAIs.length + 'I×' + nlImgCount + '장 = ' + totalImages + '장 완료';
+}    
 init();
 </script>
-<footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
-    <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0409-19 (20260409) Personal Edition • Client-side multi-AI creative tool.</p>
-    <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
-    <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
-</footer>
 </body>
 </html>
+
