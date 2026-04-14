@@ -4516,9 +4516,10 @@ const TEXT_PROVIDERS = {
         {id:'ds-r1d',name:'R1 Distill 70B',m:'deepseek-r1-distill-llama-70b',tag:'fast',nsfw:true},
     ] },
     xai: { name:'🤖 xAI (Grok)', color:'xai', nsfw:'yes', models:[
-        {id:'grk420',name:'Grok 4.20 Beta 🔥',m:'grok-4-20-beta',tag:'new',nsfw:true},
-        {id:'grk4',name:'Grok 4 (Frontier)',m:'grok-4',tag:'best',nsfw:true},
-        {id:'grk41r',name:'Grok 4.1 Fast (추론)',m:'grok-4-1-fast-reasoning',tag:'hot',nsfw:true},
+        {id:'grk420r',name:'Grok 4.20 (추론)',m:'grok-4.20-0309-reasoning',tag:'best',nsfw:true},
+        {id:'grk420n',name:'Grok 4.20 (비추론)',m:'grok-4.20-0309-non-reasoning',tag:'new',nsfw:true},
+        {id:'grk4',name:'Grok 4',m:'grok-4-0709',tag:'hot',nsfw:true},
+        {id:'grk41r',name:'Grok 4.1 Fast (추론)',m:'grok-4-1-fast-reasoning',tag:'fast',nsfw:true},
         {id:'grk41n',name:'Grok 4.1 Fast',m:'grok-4-1-fast-non-reasoning',tag:'fast',nsfw:true},
     ]},
     openai: { name:'🤖 OpenAI', color:'openai', nsfw:'no', models:[
@@ -4736,7 +4737,6 @@ const IMG_PROVIDERS = {
     ]},
     grok: { name:'🚀 Grok', color:'grok', models:[
         {id:'grok-imagine',name:'Grok Imagine (Aurora)',m:'grok-imagine-image',tag:'best'},
-        {id:'grok-2img',name:'Grok 2 Image',m:'grok-2-image',tag:'hot'},
         {id:'grok-imgpro',name:'Grok Imagine Pro',m:'grok-imagine-image-pro',tag:'new'},
     ]},
 };
