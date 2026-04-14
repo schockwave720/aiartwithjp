@@ -4488,10 +4488,10 @@ function getSmartRandomSize(topic) {
 
 const TEXT_PROVIDERS = {
     cerebras: { name:'⚡ Cerebras', color:'cerebras', nsfw:'partial', models:[
-        {id:'cb-qw3',name:'Qwen3 235B (1400t/s)',m:'qwen-3-235b-a22b-instruct-2507',tag:'best',nsfw:true},
-        {id:'cb-gptoss',name:'GPT-OSS 120B (3000t/s)',m:'gpt-oss-120b',tag:'hot',nsfw:false},
-        {id:'cb-glm47',name:'GLM 4.7 (355B)',m:'zai-glm-4.7',tag:'new',nsfw:true},
+        {id:'cb-gptoss',name:'GPT-OSS 120B (3000t/s)',m:'gpt-oss-120b',tag:'best',nsfw:false},
         {id:'cb-llama31',name:'Llama 3.1 8B (2200t/s)',m:'llama3.1-8b',tag:'fast',nsfw:true},
+        {id:'cb-qw3',name:'Qwen3 235B (1400t/s) ⚠Preview',m:'qwen-3-235b-a22b-instruct-2507',tag:'hot',nsfw:true},
+        {id:'cb-glm47',name:'GLM 4.7 (355B) ⚠Preview',m:'zai-glm-4.7',tag:'new',nsfw:true},
     ]},
     gemini: { name:'💎 Gemini', color:'gemini', nsfw:'no', models:[
         {id:'gem31p', name:'Gemini 3.1 Pro',  m:'gemini-3.1-pro-preview',   tag:'best',nsfw:false},
@@ -4515,11 +4515,11 @@ const TEXT_PROVIDERS = {
         {id:'ds-v3',name:'V3 Chat',m:'deepseek-chat',tag:'hot',nsfw:true},
         {id:'ds-r1d',name:'R1 Distill 70B',m:'deepseek-r1-distill-llama-70b',tag:'fast',nsfw:true},
     ] },
-    xai: { name:'🤖 xAI', color:'xai', nsfw:'yes', models:[
-        {id:'grk420',name:'Grok 4.20 Beta',m:'grok-4-20-beta',tag:'new',nsfw:true},
-        {id:'grk41r',name:'Grok 4.1 Fast (R)',m:'grok-4-1-fast-reasoning',tag:'best',nsfw:true},
-        {id:'grk41n',name:'Grok 4.1 Fast',m:'grok-4-1-fast-non-reasoning',tag:'hot',nsfw:true},
-        {id:'grk3m',name:'Grok 3 Mini',m:'grok-3-mini-latest',tag:'fast',nsfw:true},
+    xai: { name:'🤖 xAI (Grok)', color:'xai', nsfw:'yes', models:[
+        {id:'grk420',name:'Grok 4.20 Beta 🔥',m:'grok-4-20-beta',tag:'new',nsfw:true},
+        {id:'grk4',name:'Grok 4 (Frontier)',m:'grok-4',tag:'best',nsfw:true},
+        {id:'grk41r',name:'Grok 4.1 Fast (추론)',m:'grok-4-1-fast-reasoning',tag:'hot',nsfw:true},
+        {id:'grk41n',name:'Grok 4.1 Fast',m:'grok-4-1-fast-non-reasoning',tag:'fast',nsfw:true},
     ]},
     openai: { name:'🤖 OpenAI', color:'openai', nsfw:'no', models:[
         {id:'oai-gpt54',name:'GPT-5.4',m:'gpt-5.4',tag:'best',nsfw:false},
@@ -4634,6 +4634,8 @@ const IMG_PRICE_USD = {
     'krea-chatgpt': 0.06, 'krea-rw4': 0.08,
     // Grok
     'grok-imagine': 0.07,
+    'grok-2img': 0.07,
+    'grok-imgpro': 0.10,
     // Venice (USD per image)
 };
 
@@ -4733,7 +4735,9 @@ const IMG_PROVIDERS = {
         {id:'krea-rw4',name:'Runway Gen-4 💸💸',m:'runway-gen-4'},
     ]},
     grok: { name:'🚀 Grok', color:'grok', models:[
-        {id:'grok-imagine',name:'Grok Imagine 💸',m:'grok-imagine-image'},
+        {id:'grok-imagine',name:'Grok Imagine (Aurora)',m:'grok-imagine-image',tag:'best'},
+        {id:'grok-2img',name:'Grok 2 Image',m:'grok-2-image',tag:'hot'},
+        {id:'grok-imgpro',name:'Grok Imagine Pro',m:'grok-imagine-image-pro',tag:'new'},
     ]},
 };
 
