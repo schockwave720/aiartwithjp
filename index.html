@@ -478,6 +478,7 @@
                     <button class="qbtn" onclick="selTextProvider('anthropic')">🧠Claude</button>
                     <button class="qbtn" onclick="selTextProvider('or')">🌐OR</button>
                     <button class="qbtn" onclick="selTextProvider('zai')">🧠Z.ai</button>
+                    <button class="qbtn" onclick="selTextProvider('dashscope')">🐉Qwen</button>
                     <button class="qbtn" onclick="selTextAll()">All</button>
                     <button class="qbtn" onclick="clrText()">Clear</button>
                 </div>
@@ -495,6 +496,7 @@
                     <button class="qbtn" onclick="selImgProvider('krea')">✨Krea</button>
                     <button class="qbtn" onclick="selImgProvider('grok')">🚀Grok</button>
                     <button class="qbtn" onclick="selImgProvider('zai')">🧠Z.ai</button>
+                    <button class="qbtn" onclick="selImgProvider('dashscope')">🐉Qwen</button>
                     <button class="qbtn" onclick="selImgAll()">All</button>
                     <button class="qbtn" onclick="clrImg()">Clear</button>
                 </div>
@@ -4539,6 +4541,7 @@ const TEXT_PROVIDERS = {
         {id:'or-free',name:'🎰 Free Router (자동)',m:'openrouter/free',tag:'free',nsfw:true},
         {id:'or-mimo-pro',name:'MiMo-V2-Pro 🆓🔥',m:'xiaomi/mimo-v2-pro',tag:'best',nsfw:true},
         {id:'or-mimo-flash',name:'MiMo-V2-Flash 🆓',m:'xiaomi/mimo-v2-flash',tag:'fast',nsfw:true},
+        {id:'or-qw36f',name:'Qwen 3.6 Plus 🆓',m:'qwen/qwen3.6-plus:free',tag:'best',nsfw:true},
         {id:'or-dsv32f',name:'DS V3.2 🆓',m:'deepseek/deepseek-v3.2:free',tag:'best',nsfw:true},
         {id:'or-dsr1f',name:'DeepSeek R1 🆓',m:'deepseek/deepseek-r1:free',tag:'hot',nsfw:true},
         {id:'or-arc-lgf',name:'Arcee Trinity 400B 🆓',m:'arcee-ai/trinity-large-preview:free',tag:'hot',nsfw:true},
@@ -4582,6 +4585,15 @@ const TEXT_PROVIDERS = {
         {id:'zai-glm45a',name:'GLM-4.5 Air',m:'glm-4.5-air',tag:'fast',nsfw:true},
         {id:'zai-glm45f',name:'GLM-4.5 Flash',m:'glm-4.5-flash',tag:'free',nsfw:true},
         {id:'zai-glm32b',name:'GLM-4 32B',m:'glm-4-32b-0414-128k',tag:'fast',nsfw:true},
+    ]},
+    dashscope: { name:'🐉 Qwen (DashScope)', color:'dashscope', nsfw:'partial', models:[
+        {id:'ds-qw36p',name:'Qwen 3.6 Plus',m:'qwen3.6-plus',tag:'best',nsfw:true},
+        {id:'ds-qw35p',name:'Qwen 3.5 Plus',m:'qwen3.5-plus',tag:'hot',nsfw:true},
+        {id:'ds-qw35f',name:'Qwen 3.5 Flash',m:'qwen3.5-flash',tag:'fast',nsfw:true},
+        {id:'ds-qw3max',name:'Qwen3 Max',m:'qwen3-max',tag:'hot',nsfw:true},
+        {id:'ds-qwplus',name:'Qwen Plus',m:'qwen-plus',tag:'fast',nsfw:true},
+        {id:'ds-qw3235',name:'Qwen3 235B MoE',m:'qwen3-235b-a22b',nsfw:true},
+        {id:'ds-qwcoder',name:'Qwen3 Coder Plus',m:'qwen3-coder-plus',tag:'new',nsfw:false},
     ]},
 };
 
@@ -5934,6 +5946,49 @@ async function callAnthropic(p, m) {
 async function callOR(p, m) { const r = await fetch('https://openrouter.ai/api/v1/chat/completions', { method:'POST', headers:{'Authorization':`Bearer ${getKey('openrouter')}`,'Content-Type':'application/json','HTTP-Referer':location.href}, body:JSON.stringify({model:m,messages:[{role:'user',content:p}],max_tokens:4000}) }); const d = await r.json(); if(d.error) throw new Error(d.error.message||JSON.stringify(d.error)); if(!d.choices?.[0]) throw new Error('OpenRouter: 응답 없음'); return d.choices[0].message.content; }
 async function callSambaNova(p, m) { const r = await fetch('https://api.sambanova.ai/v1/chat/completions', { method:'POST', headers:{'Authorization':`Bearer ${getKey('sambanova')}`,'Content-Type':'application/json'}, body:JSON.stringify({model:m,messages:[{role:'user',content:p}],max_tokens:4000}) }); const d = await r.json(); if(d.error) throw new Error(d.error.message); if(!d.choices?.[0]) throw new Error('SambaNova: 응답 없음'); return d.choices[0].message.content; }
 async function callZAI(p, m) { const r = await fetch('https://api.z.ai/api/paas/v4/chat/completions', { method:'POST', headers:{'Authorization':`Bearer ${getKey('zai')}`,'Content-Type':'application/json'}, body:JSON.stringify({model:m,messages:[{role:'user',content:p}],max_tokens:4000}) }); const d = await r.json(); if(d.error) { const msg = d.error.message || JSON.stringify(d.error); if(msg.includes('不安全') || msg.includes('敏感') || msg.includes('sensitive')) throw new Error('🔞 Z.ai 검열 차단! 중국 AI라 민감한 프롬프트 제한. 다른 AI로 재시도'); if(msg.includes('余额不足') || msg.includes('balance')) throw new Error('💸 Z.ai 잔액 부족! 무료 Flash 모델 사용 추천'); throw new Error(msg); } if(!d.choices?.[0]) throw new Error('Z.ai: 응답 없음'); return d.choices[0].message.content; }
+async function callDashScopeText(p, m) {
+    const key = getKey('dashscope');
+    if (!key) throw new Error('🐉 DashScope API 키 필요!\n→ alibabacloud.com에서 발급');
+    const endpoint = 'https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions';
+    const proxyList = [
+        { url: endpoint, label: '직접' },
+        { url: 'https://corsproxy.io/?'+encodeURIComponent(endpoint), label: 'corsproxy' },
+    ];
+    let lastErr = '';
+    for (const proxy of proxyList) {
+        try {
+            const controller = new AbortController();
+            const tid = setTimeout(() => controller.abort(), 60000);
+            const r = await fetch(proxy.url, {
+                method:'POST',
+                headers:{'Authorization':`Bearer ${key}`,'Content-Type':'application/json'},
+                body:JSON.stringify({model:m,messages:[{role:'user',content:p}],max_tokens:4000}),
+                signal:controller.signal
+            });
+            clearTimeout(tid);
+            if(!r.ok) {
+                const err = await r.json().catch(()=>({}));
+                const msg = err?.error?.message || err?.message || `DashScope ${r.status}`;
+                if(r.status===401||r.status===403) throw new Error(`🔑 DashScope 키 오류: ${msg}`);
+                if(r.status===429) throw new Error('⏳ Qwen 요청 제한! 잠시 후 재시도');
+                throw new Error(msg);
+            }
+            const d = await r.json();
+            if(d.error) throw new Error(d.error.message);
+            if(!d.choices?.[0]) throw new Error('Qwen: 응답 없음');
+            log(`✅ Qwen Text (${proxy.label}) OK`, 'ok');
+            return d.choices[0].message.content;
+        } catch(e) {
+            lastErr = e.message;
+            if(e.name==='AbortError'){log(`⏳ DashScope ${proxy.label} 타임아웃`,'warn');continue;}
+            if(e.message.includes('Failed to fetch')||e.message.includes('NetworkError')||e.message.includes('Load failed')||e.message.includes('ERR_FAILED')){
+                log(`🚫 DashScope ${proxy.label} CORS`,'warn');continue;
+            }
+            throw e;
+        }
+    }
+    throw new Error(`Qwen Text API 실패: ${lastErr}`);
+}
 async function callVenice(p, m) {
     const key = getKey('venice');
     if (!key) throw new Error('🌊 Venice API 키 필요!');
@@ -5994,6 +6049,7 @@ async function callText(ai, p) {
             case 'or': result = await callOR(p,ai.m); break;
             case 'sambanova': result = await callSambaNova(p,ai.m); break;
             case 'zai': result = await callZAI(p,ai.m); break;
+            case 'dashscope': result = await callDashScopeText(p,ai.m); break;
             default: throw new Error(`알 수 없는 프로바이더: ${ai.p}`);
         }
         clearTimeout(timer);
