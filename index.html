@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0415-6 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0415-7 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -224,7 +224,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0415-6</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0415-7</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -1334,7 +1334,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0415-6 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0415-7 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
             </div>
         </div>
         
@@ -4184,7 +4184,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0415-6 모델 가격표</h1>
+<h1>💰 AIARTstudio v0415-7 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.04 기준 | 싱가포르(International) 엔드포인트</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -4253,7 +4253,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 🐉 이미지: <strong style="color:#a78bfa">Qwen Image Plus</strong> (장당 ₩29) + <strong style="color:#a78bfa">Qwen Image Max</strong> (장당 ₩109, 최고 퀄)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0415-6 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0415-7 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -6843,7 +6843,7 @@ async function genNovelAI(prompt) {
     const zip = await JSZip.loadAsync(await response.arrayBuffer());
     const fileNames = Object.keys(zip.files);
     if (fileNames.length > 0) {
-        // ★ v0415-6: blob: → data: URL (blob은 갤러리 모달에서 만료됨)
+        // ★ v0415-7: blob: → data: URL (blob은 갤러리 모달에서 만료됨)
         const imgBlob = await zip.files[fileNames[0]].async('blob');
         const url = await new Promise((res, rej) => {
             const reader = new FileReader();
@@ -7033,75 +7033,9 @@ async function genKrea(prompt, model) {
 async function genCivitai(prompt) { const r = await fetch('https://orchestration.civitai.com/v1/consumer/jobs', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getKey('civitai')}` }, body: JSON.stringify({ "$type": "textToImage", "baseModel": "SDXL", "model": "urn:air:sdxl:checkpoint:civitai:259398@290640", "params": { "prompt": `masterpiece, ${prompt}`, "negativePrompt": "worst quality", "scheduler": "EulerA", "steps": 25, "cfgScale": 7, "width": 1024, "height": 1024, "seed": -1 } }) }); if (!r.ok) throw new Error(`Civitai ${r.status}`); const d = await r.json(); const token = d.jobs?.[0]?.jobId || d.token; for (let i = 0; i < 30; i++) { await new Promise(r => setTimeout(r, 3000)); const sr = await fetch(`https://orchestration.civitai.com/v1/consumer/jobs?token=${token}`, { headers: {'Authorization': `Bearer ${getKey('civitai')}`} }); const sd = await sr.json(); const job = sd.jobs?.[0] || sd; const result = Array.isArray(job.result) ? job.result[0] : job.result; if (result?.available && (result.blobUrl || result.url)) return result.blobUrl || result.url; if (job.status === 'failed') throw new Error('Civitai: Failed'); } throw new Error('Civitai: Timeout'); }
 
 async function genZAI(prompt, model, overrideSize) {
-    const key = getKey('zai');
-    if (!key) throw new Error('Z.ai API 키 필요');
-    const size = overrideSize || (model === 'glm-image' ? '1280x1280' : '1024x1024');
-    const apiUrl = 'https://api.z.ai/api/paas/v4/images/generations';
-    // ★ v0415-6: response_format=b64_json → base64 직접 수신 (mfile.z.ai CORS 완전 우회!)
-    const payload = JSON.stringify({ model: model, prompt: prompt, size: size, response_format: 'b64_json' });
-    const hdrs = { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json' };
-    
-    // CORS 프록시 목록 (API 호출용)
-    const attempts = [
-        apiUrl,
-        'https://corsproxy.io/?' + encodeURIComponent(apiUrl),
-        'https://api.allorigins.win/raw?url=' + encodeURIComponent(apiUrl)
-    ];
-    
-    let d = null, lastErr = '';
-    for (const url of attempts) {
-        try {
-            const r = await fetch(url, { method: 'POST', headers: hdrs, body: payload });
-            if (!r.ok) {
-                const err = await r.json().catch(()=>({}));
-                const msg = err?.error?.message || JSON.stringify(err) || `Z.ai ${r.status}`;
-                if (msg.includes('不安全') || msg.includes('敏感') || msg.includes('sensitive') || msg.includes('unsafe')) {
-                    throw new Error('🔞 Z.ai NSFW 차단! 중국 AI라 야한/폭력적 프롬프트 금지. SFW 프롬프트로 재시도하거나 NovelAI/Krea 사용 추천');
-                }
-                if (msg.includes('余额不足') || msg.includes('balance')) {
-                    throw new Error('💸 Z.ai 잔액 부족! 무료 모델(GLM-4.7-Flash) 사용하거나 충전 필요');
-                }
-                throw new Error(msg);
-            }
-            d = await r.json();
-            break;
-        } catch(e) {
-            lastErr = e.message;
-            if (!e.message.includes('Failed to fetch') && !e.message.includes('NetworkError') && !e.message.includes('Load failed')) throw e;
-        }
-    }
-    if (!d) throw new Error(`Z.ai CORS 차단: ${lastErr}`);
-    
-    // b64_json 응답 처리
-    if (d?.data?.[0]?.b64_json) {
-        return `data:image/png;base64,${d.data[0].b64_json}`;
-    }
-    // fallback: URL 응답 (b64_json 미지원 모델)
-    if (d?.data?.[0]?.url) {
-        const imgUrl = d.data[0].url;
-        // 프록시 경유 fetch 시도
-        const proxies = [
-            imgUrl,
-            'https://corsproxy.io/?' + encodeURIComponent(imgUrl),
-            'https://api.allorigins.win/raw?url=' + encodeURIComponent(imgUrl)
-        ];
-        for (const pUrl of proxies) {
-            try {
-                const r = await fetch(pUrl);
-                if (!r.ok) continue;
-                const blob = await r.blob();
-                return await new Promise((res, rej) => {
-                    const reader = new FileReader();
-                    reader.onloadend = () => res(reader.result);
-                    reader.onerror = rej;
-                    reader.readAsDataURL(blob);
-                });
-            } catch(e) { continue; }
-        }
-        // 최후 수단: URL 직접 반환
-        return imgUrl;
-    }
-    throw new Error('Z.ai: 이미지 데이터 없음');
+    // ★ v0415-7: Z.ai CogView는 b64_json 미지원 + mfile.z.ai CORS 차단
+    // 브라우저에서 직접 사용 불가 → 에러 메시지로 대체 AI 안내
+    throw new Error('⚠️ Z.ai 이미지는 CORS 제한으로 GitHub Pages에서 사용 불가! Gemini/NAI/Grok 등 다른 이미지 AI를 사용하세요');
 }
 // ★ Venice AI - 이미지 생성 (검열 없음!)
 async function genVenice(prompt, model) {
@@ -7303,127 +7237,8 @@ async function genGrokImagine(prompt, model) {
 }
 // ★ DashScope (Alibaba) — Qwen Image 공식 API
 async function genDashScope(prompt, model) {
-    const key = getKey('dashscope');
-    if (!key) throw new Error('🐉 DashScope API 키 필요!\n→ alibabacloud.com 에서 발급 (key-dashscope)');
-    
-    const dsModel = model || 'qwen-image-max';
-    const sizeValue = document.getElementById('kreaSize')?.value || '1024x768';
-    const [w, h] = sizeValue.split('x').map(Number);
-    const dsSize = `${w}*${h}`; // DashScope는 *로 구분
-    
-    // 국제 엔드포인트 (싱가포르)
-    const endpoint = 'https://dashscope-intl.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation';
-    
-    const requestBody = {
-        model: dsModel,
-        input: {
-            messages: [{ role: 'user', content: [{ text: prompt.substring(0, 2000) }] }]
-        },
-        parameters: {
-            size: dsSize,
-            prompt_extend: true,
-            watermark: false,
-            n: 1
-        }
-    };
-    
-    log(`🐉 Qwen Image (${dsModel}) 생성 중...`, 'info');
-    
-    // ★ 직접 호출 → 프록시 폴백
-    const proxyList = [
-        { url: endpoint, label: '직접' },
-        { url: 'https://corsproxy.io/?' + encodeURIComponent(endpoint), label: 'corsproxy' },
-    ];
-    
-    let data = null, lastErr = '';
-    for (const proxy of proxyList) {
-        try {
-            const controller = new AbortController();
-            const tid = setTimeout(() => controller.abort(), 120000);
-            
-            const r = await fetch(proxy.url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${key}`,
-                },
-                body: JSON.stringify(requestBody),
-                signal: controller.signal
-            });
-            clearTimeout(tid);
-            
-            if (!r.ok) {
-                const err = await r.json().catch(() => ({}));
-                const msg = err?.message || err?.error?.message || `DashScope ${r.status}`;
-                if (r.status === 401 || r.status === 403) throw new Error(`🔑 DashScope 키 오류: ${msg}`);
-                if (r.status === 429) throw new Error('⏳ Qwen 요청 제한! 잠시 후 재시도');
-                throw new Error(msg);
-            }
-            
-            data = await r.json();
-            log(`✅ Qwen Image (${proxy.label}) 응답 OK`, 'ok');
-            break;
-        } catch(e) {
-            lastErr = e.message;
-            if (e.name === 'AbortError') { log(`⏳ ${proxy.label} 타임아웃`, 'warn'); continue; }
-            if (e.message.includes('Failed to fetch') || e.message.includes('NetworkError') || e.message.includes('Load failed') || e.message.includes('ERR_FAILED')) {
-                log(`🚫 DashScope ${proxy.label} CORS`, 'warn'); continue;
-            }
-            throw e;
-        }
-    }
-    
-    if (!data) throw new Error(`Qwen Image CORS 실패: ${lastErr}\n💡 localhost에서 실행하거나 DashScope 키를 확인해주세요`);
-    
-    // ★ 동기 응답: output.choices[0].message.content[0].image
-    const choices = data?.output?.choices;
-    if (choices && choices.length > 0) {
-        const content = choices[0]?.message?.content;
-        if (content && content.length > 0) {
-            const imageUrl = content[0]?.image;
-            if (imageUrl) {
-                log(`✅ Qwen Image 완료! URL: ${imageUrl.substring(0, 60)}...`, 'ok');
-                // blob 변환 시도 (저장 가능하게)
-                try {
-                    const imgR = await fetch(imageUrl);
-                    if (imgR.ok) {
-                        const blob = await imgR.blob();
-                        return { url: URL.createObjectURL(blob), size: dsSize.replace('*', 'x') };
-                    }
-                } catch(e) { /* 직접 URL 사용 */ }
-                return { url: imageUrl, size: dsSize.replace('*', 'x') };
-            }
-        }
-    }
-    
-    // ★ 비동기 응답: task_id → 폴링
-    const taskId = data?.output?.task_id;
-    if (taskId) {
-        log(`🐉 Qwen Image 비동기 작업 (${taskId})`, 'info');
-        const statusUrl = `https://dashscope-intl.aliyuncs.com/api/v1/tasks/${taskId}`;
-        for (let i = 0; i < 60; i++) {
-            await new Promise(r => setTimeout(r, 2000));
-            try {
-                const sr = await fetch(statusUrl, { headers: { 'Authorization': `Bearer ${key}` } });
-                const sd = await sr.json();
-                if (sd?.output?.task_status === 'SUCCEEDED') {
-                    const results = sd?.output?.results;
-                    if (results && results.length > 0 && results[0].url) {
-                        log(`✅ Qwen Image 완료!`, 'ok');
-                        return { url: results[0].url, size: dsSize.replace('*', 'x') };
-                    }
-                }
-                if (sd?.output?.task_status === 'FAILED') {
-                    throw new Error(`Qwen Image 실패: ${sd?.output?.message || 'Unknown'}`);
-                }
-            } catch(e) {
-                if (e.message.includes('Qwen Image 실패')) throw e;
-            }
-        }
-        throw new Error('Qwen Image 타임아웃 (2분)');
-    }
-    
-    throw new Error('Qwen Image: 응답 형식 오류 - ' + JSON.stringify(data).substring(0, 200));
+    // ★ v0415-7: DashScope 이미지 API도 CORS 차단 — GitHub Pages에서 사용 불가
+    throw new Error('⚠️ DashScope 이미지는 CORS 제한으로 GitHub Pages에서 사용 불가! Gemini/NAI/Grok 등 다른 이미지 AI를 사용하세요');
 }
 
 async function callImg(ai, prompt, opts) { 
@@ -10686,7 +10501,7 @@ async function galGenerate() {
     const promises = iais.map(async (ai) => {
         try {
             const result = await callImg(ai, artPrompt, { size: '1344x768' });
-            // ★ v0415-6: 이미지 모드와 동일한 방식 — generatedImages + openModal
+            // ★ v0415-7: 이미지 모드와 동일한 방식 — generatedImages + openModal
             const imgUrl = (typeof result === 'object' && result.url) ? result.url : result;
             if (!imgUrl) throw new Error('이미지 URL 없음');
             
@@ -10791,7 +10606,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0415-6 (20260409) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0415-7 (20260409) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
