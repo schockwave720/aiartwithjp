@@ -3478,6 +3478,11 @@ async function callTextChatOpenAI(ai, msgs) {
     
     const body = { model: ai.m, messages: msgs, max_tokens: 4000 };
     
+    // DashScope: enable_thinking 비활성화 (non-streaming 필수)
+    if (ai.p === 'dashscope') {
+        body.extra_body = { enable_thinking: false };
+    }
+    
     // DashScope CORS 프록시 처리
     if (ai.p === 'dashscope') {
         const proxyList = [
@@ -5388,16 +5393,16 @@ const TEXT_PROVIDERS = {
         {id:'ant-haiku',name:'Haiku 3.5',m:'claude-3-5-haiku-20241022',tag:'fast',nsfw:false},
     ]},
     or: { name:'🌐 OpenRouter', color:'openrouter', nsfw:'partial', models:[
-        // ★★ 무료 — 가성비 甲
+        // ★★ 무료 — 2026.04 확인
         {id:'or-free',name:'🎰 Free Router (자동)',m:'openrouter/free',tag:'free',nsfw:true},
+        {id:'or-qw36f',name:'Qwen 3.6 Plus 🆓',m:'qwen/qwen3.6-plus',tag:'best',nsfw:true},
         {id:'or-mimo-pro',name:'MiMo-V2-Pro 🆓🔥',m:'xiaomi/mimo-v2-pro',tag:'best',nsfw:true},
         {id:'or-mimo-flash',name:'MiMo-V2-Flash 🆓',m:'xiaomi/mimo-v2-flash',tag:'fast',nsfw:true},
-        {id:'or-qw36f',name:'Qwen 3.6 Plus 🆓',m:'qwen/qwen3.6-plus:free',tag:'best',nsfw:true},
-        {id:'or-dsv32f',name:'DS V3.2 🆓',m:'deepseek/deepseek-v3.2:free',tag:'best',nsfw:true},
-        {id:'or-dsr1f',name:'DeepSeek R1 🆓',m:'deepseek/deepseek-r1:free',tag:'hot',nsfw:true},
+        {id:'or-nemo3sf',name:'Nemotron 3 Super 120B 🆓',m:'nvidia/nemotron-3-super-120b-a12b:free',tag:'hot',nsfw:true},
         {id:'or-arc-lgf',name:'Arcee Trinity 400B 🆓',m:'arcee-ai/trinity-large-preview:free',tag:'hot',nsfw:true},
         {id:'or-arc-minif',name:'Arcee Trinity Mini 🆓',m:'arcee-ai/trinity-mini:free',tag:'fast',nsfw:true},
-        {id:'or-nemo3sf',name:'Nemotron 3 Super 🆓',m:'nvidia/nemotron-3-super-49b-v1:free',tag:'hot',nsfw:true},
+        {id:'or-gemma4f',name:'Gemma 4 31B 🆓',m:'google/gemma-4-31b-it:free',tag:'new',nsfw:false},
+        {id:'or-qw3nextf',name:'Qwen3 Next 80B 🆓',m:'qwen/qwen3-next-80b-a3b-instruct:free',tag:'new',nsfw:true},
         {id:'or-step35f',name:'Step 3.5 Flash 🆓',m:'stepfun/step-3-5-flash:free',tag:'fast',nsfw:true},
         {id:'or-llama33f',name:'Llama 3.3 70B 🆓',m:'meta-llama/llama-3.3-70b-instruct:free',tag:'fast',nsfw:true},
         {id:'or-gptoss120f',name:'GPT-OSS 120B 🆓',m:'openai/gpt-oss-120b:free',tag:'hot',nsfw:true},
@@ -5409,7 +5414,6 @@ const TEXT_PROVIDERS = {
         {id:'or-seed16f',name:'Seed 1.6 Flash $0.05',m:'bytedance/seed-1.6-flash',tag:'fast',nsfw:true},
         {id:'or-seed16',name:'Seed 1.6 $0.5',m:'bytedance/seed-1.6',tag:'hot',nsfw:true},
         {id:'or-kimi',name:'Kimi K2.5 $0.38',m:'moonshotai/kimi-k2.5',tag:'hot',nsfw:true},
-        {id:'or-qw36',name:'Qwen 3.6 Plus $0.5',m:'qwen/qwen3.6-plus',tag:'best',nsfw:true},
         {id:'or-mm27',name:'MiniMax M2.7 $0.5',m:'minimax/minimax-m2.7',tag:'hot',nsfw:true},
         {id:'or-mm25',name:'MiniMax M2.5 $0.5',m:'minimax/minimax-m2.5',tag:'hot',nsfw:true},
         {id:'or-mmher',name:'MiniMax M2-her 🎭 $0.5',m:'minimax/minimax-m2-her',nsfw:true},
@@ -6813,7 +6817,7 @@ async function callDashScopeText(p, m) {
             const r = await fetch(proxy.url, {
                 method:'POST',
                 headers:{'Authorization':`Bearer ${key}`,'Content-Type':'application/json'},
-                body:JSON.stringify({model:m,messages:[{role:'user',content:p}],max_tokens:4000}),
+                body:JSON.stringify({model:m,messages:[{role:'user',content:p}],max_tokens:4000,extra_body:{enable_thinking:false}}),
                 signal:controller.signal
             });
             clearTimeout(tid);
