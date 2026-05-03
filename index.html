@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0422-1 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0503-1 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -224,7 +224,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0422-1</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0503-1</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -1374,7 +1374,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0422-1 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0503-1 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
             </div>
         </div>
         
@@ -4524,7 +4524,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0422-1 모델 가격표</h1>
+<h1>💰 AIARTstudio v0503-1 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.04 기준 | 싱가포르(International) 엔드포인트</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -4593,7 +4593,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 🐉 이미지: <strong style="color:#a78bfa">Qwen Image Plus</strong> (장당 ₩29) + <strong style="color:#a78bfa">Qwen Image Max</strong> (장당 ₩109, 최고 퀄)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0422-1 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0503-1 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -5374,11 +5374,14 @@ const TEXT_PROVIDERS = {
         {id:'ds-r1d',name:'R1 Distill 70B',m:'deepseek-r1-distill-llama-70b',tag:'fast',nsfw:true},
     ] },
     xai: { name:'🤖 xAI (Grok)', color:'xai', nsfw:'yes', models:[
-        {id:'grk420r',name:'Grok 4.20 (추론)',m:'grok-4.20-0309-reasoning',tag:'best',nsfw:true},
-        {id:'grk420n',name:'Grok 4.20 (비추론)',m:'grok-4.20-0309-non-reasoning',tag:'new',nsfw:true},
-        {id:'grk4',name:'Grok 4',m:'grok-4-0709',tag:'hot',nsfw:true},
-        {id:'grk41r',name:'Grok 4.1 Fast (추론)',m:'grok-4-1-fast-reasoning',tag:'fast',nsfw:true},
-        {id:'grk41n',name:'Grok 4.1 Fast',m:'grok-4-1-fast-non-reasoning',tag:'fast',nsfw:true},
+        {id:'grk43',name:'✨ Grok 4.3',m:'grok-4.3',tag:'best',nsfw:true},
+        {id:'grk43l',name:'🆕 Grok 4.3 Latest',m:'grok-4.3-latest',tag:'new',nsfw:true},
+        {id:'grk420r',name:'🔥 Grok 4.20 (추론)',m:'grok-4.20-reasoning',tag:'hot',nsfw:true},
+        {id:'grk420n',name:'🔥 Grok 4.20',m:'grok-4.20-non-reasoning',tag:'hot',nsfw:true},
+        {id:'grk41r',name:'⚡ Grok 4.1 Fast (추론)',m:'grok-4.1-fast-reasoning',tag:'fast',nsfw:true},
+        {id:'grk41n',name:'⚡ Grok 4.1 Fast',m:'grok-4.1-fast-non-reasoning',tag:'fast',nsfw:true},
+        {id:'grkcf',name:'💻 Grok Code Fast',m:'grok-code-fast-1',tag:'fast',nsfw:true},
+        {id:'grk4',name:'Grok 4',m:'grok-4-0709',nsfw:true},
     ]},
     openai: { name:'🤖 OpenAI', color:'openai', nsfw:'no', models:[
         {id:'oai-gpt54',name:'GPT-5.4',m:'gpt-5.4',tag:'best',nsfw:false},
@@ -6742,35 +6745,58 @@ async function callGroq(p, m) { const r = await fetch('https://api.groq.com/open
 async function callDeepSeek(p, m) { const r = await fetch('https://api.deepseek.com/chat/completions', { method:'POST', headers:{'Authorization':`Bearer ${getKey('deepseek')}`,'Content-Type':'application/json'}, body:JSON.stringify({model:m,messages:[{role:'user',content:p}]}) }); const d = await r.json(); if(d.error) throw new Error(d.error.message); if(!d.choices?.[0]) throw new Error('DeepSeek: 응답 없음'); return d.choices[0].message.content; }
 async function callXAI(p, m) {
     const apiUrl = 'https://api.x.ai/v1/chat/completions';
-    const hdrs = {'Authorization':`Bearer ${getKey('xai')}`,'Content-Type':'application/json'};
+    const key = getKey('xai');
+    if (!key) throw new Error('xAI API 키 필요 (key-xai)');
+    const hdrs = {'Authorization':`Bearer ${key}`,'Content-Type':'application/json'};
     const payload = JSON.stringify({model:m,messages:[{role:'user',content:p}],max_tokens:4000});
     // ★ 텍스트 API는 응답 빠름(~5초) → 프록시 OK
     const proxyList = [
         { url: apiUrl, label: '직접' },
         { url: 'https://corsproxy.io/?'+encodeURIComponent(apiUrl), label: 'corsproxy.io' },
     ];
+    // ★ Retry with exponential backoff (429 대응)
+    const MAX_RETRY = 4;
     let lastErr = '';
-    for (const proxy of proxyList) {
-        try {
-            const controller = new AbortController();
-            const tid = setTimeout(() => controller.abort(), 60000);
-            const r = await fetch(proxy.url, {method:'POST', headers:hdrs, body:payload, signal:controller.signal});
-            clearTimeout(tid);
-            const d = await r.json();
-            if(d.error) throw new Error(d.error.message);
-            if(d.choices?.[0]) {
-                log(`✅ xAI (${proxy.label}) 응답 OK`, 'ok');
-                return d.choices[0].message.content;
+    for (let attempt = 0; attempt < MAX_RETRY; attempt++) {
+        for (const proxy of proxyList) {
+            try {
+                const controller = new AbortController();
+                const tid = setTimeout(() => controller.abort(), 60000);
+                const r = await fetch(proxy.url, {method:'POST', headers:hdrs, body:payload, signal:controller.signal});
+                clearTimeout(tid);
+                // ★ 429 → backoff 후 재시도
+                if (r.status === 429) {
+                    const wait = Math.pow(2, attempt) * 1000 + Math.floor(Math.random() * 500);
+                    log(`⏳ xAI 429 rate limit → ${(wait/1000).toFixed(1)}초 대기 (재시도 ${attempt+1}/${MAX_RETRY})`, 'warn');
+                    await new Promise(rs => setTimeout(rs, wait));
+                    lastErr = '429 rate limit';
+                    break; // 안쪽 for 탈출 → attempt 증가
+                }
+                if (r.status === 401) throw new Error('🔑 xAI API 키 오류! console.x.ai에서 새 키 발급');
+                if (!r.ok) {
+                    const errTxt = await r.text().catch(()=>''); 
+                    throw new Error(`xAI ${r.status}: ${errTxt.substring(0,200) || '응답 없음'}`);
+                }
+                const d = await r.json();
+                if(d.error) throw new Error(d.error.message || JSON.stringify(d.error));
+                if(d.choices?.[0]?.message?.content?.trim()) {
+                    log(`✅ xAI ${m} (${proxy.label}) 응답 OK`, 'ok');
+                    return d.choices[0].message.content;
+                }
+                // ★ 빈 응답 진단 (모델 ID 잘못된 경우 종종 발생)
+                throw new Error(`xAI: 빈 응답 (모델 "${m}" 확인 필요 — 존재하지 않는 모델 ID일 수 있음)`);
+            } catch(e) {
+                lastErr = e.message;
+                if (e.name === 'AbortError') { log(`⏳ xAI ${proxy.label} 타임아웃`, 'warn'); continue; }
+                if(e.message.includes('Failed to fetch') || e.message.includes('NetworkError') || e.message.includes('Load failed') || e.message.includes('ERR_FAILED')) {
+                    log(`🚫 xAI ${proxy.label} CORS 차단`, 'warn'); continue;
+                }
+                if (e.message.includes('429') || e.message.includes('rate limit')) break;
+                throw e;
             }
-            throw new Error('xAI: 응답 없음');
-        } catch(e) {
-            lastErr = e.message;
-            if (e.name === 'AbortError') { log(`⏳ xAI ${proxy.label} 타임아웃`, 'warn'); continue; }
-            if(e.message.includes('Failed to fetch') || e.message.includes('NetworkError') || e.message.includes('Load failed') || e.message.includes('ERR_FAILED')) {
-                log(`🚫 xAI ${proxy.label} CORS 차단`, 'warn'); continue;
-            }
-            throw e;
         }
+        // 429가 아니면 retry 안 함
+        if (!lastErr.includes('429') && !lastErr.includes('rate limit')) break;
     }
     throw new Error(`xAI 텍스트 API 실패: ${lastErr}\n💡 다른 Story AI를 선택하거나, localhost에서 실행해주세요`);
 }
@@ -7511,6 +7537,10 @@ async function genVenice(prompt, model) {
         return `data:image/png;base64,${b64}`;
     }
 }
+// ★ Grok Imagine 글로벌 호출 간격 추적 (429 예방)
+let _lastGrokImagineCall = 0;
+const GROK_IMAGINE_MIN_INTERVAL = 3500; // ms — Grok Imagine은 호출 사이 최소 3.5초
+
 // ★ Grok Imagine (xAI) - 텍스트→이미지 생성
 async function genGrokImagine(prompt, model) {
     const key = getKey('xai');
@@ -7518,6 +7548,15 @@ async function genGrokImagine(prompt, model) {
     const grokModel = model || 'grok-imagine-image';
     const aspectRatio = document.getElementById('grokAspect')?.value || '16:9';
     const resolution = document.getElementById('grokResolution')?.value || '2k';
+    
+    // ★ 호출 간격 강제 (직전 호출이 3.5초 이내면 대기)
+    const sinceLast = Date.now() - _lastGrokImagineCall;
+    if (sinceLast < GROK_IMAGINE_MIN_INTERVAL) {
+        const waitMs = GROK_IMAGINE_MIN_INTERVAL - sinceLast;
+        log(`⏸️ Grok Imagine 간격 조절: ${(waitMs/1000).toFixed(1)}초 대기`, 'info');
+        await new Promise(r => setTimeout(r, waitMs));
+    }
+    _lastGrokImagineCall = Date.now();
     
     const apiUrl = 'https://api.x.ai/v1/images/generations';
     const payload = JSON.stringify({
@@ -7539,52 +7578,70 @@ async function genGrokImagine(prompt, model) {
         { url: 'https://thingproxy.freeboard.io/fetch/' + apiUrl, label: 'thingproxy', timeout: 90000 },
     ];
     
+    // ★ 429 retry with exponential backoff
+    const MAX_RETRY = 4;
     let d = null, lastErr = '';
-    for (const proxy of proxyConfigs) {
-        try {
-            log(`🚀 Grok Imagine (${proxy.label})...`, 'info');
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), proxy.timeout);
-            
-            const r = await fetch(proxy.url, { 
-                method: 'POST', headers: hdrs, body: payload,
-                signal: controller.signal
-            });
-            clearTimeout(timeoutId);
-            
-            if (!r.ok) {
-                const err = await r.json().catch(() => ({}));
-                const msg = err?.error?.message || err?.error || JSON.stringify(err) || `Grok ${r.status}`;
-                if (r.status === 401) throw new Error('🔑 xAI API 키 오류! console.x.ai에서 새 키 발급');
-                if (r.status === 429) throw new Error('⏳ Grok 요청 제한! 잠시 후 재시도');
-                if (r.status === 400 && (msg.includes('moderation') || msg.includes('content policy'))) {
-                    throw new Error('🔞 Grok 콘텐츠 정책 차단! 프롬프트 수정 필요');
+    
+    retryLoop:
+    for (let attempt = 0; attempt < MAX_RETRY; attempt++) {
+        for (const proxy of proxyConfigs) {
+            try {
+                log(`🚀 Grok Imagine (${proxy.label})${attempt > 0 ? ` [재시도 ${attempt+1}/${MAX_RETRY}]` : ''}...`, 'info');
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), proxy.timeout);
+                
+                const r = await fetch(proxy.url, { 
+                    method: 'POST', headers: hdrs, body: payload,
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+                
+                if (!r.ok) {
+                    const err = await r.json().catch(() => ({}));
+                    const msg = err?.error?.message || err?.error || JSON.stringify(err) || `Grok ${r.status}`;
+                    if (r.status === 401) throw new Error('🔑 xAI API 키 오류! console.x.ai에서 새 키 발급');
+                    // ★ 429 → exponential backoff 후 재시도
+                    if (r.status === 429) {
+                        const wait = Math.pow(2, attempt + 1) * 1000 + Math.floor(Math.random() * 500); // 2s, 4s, 8s, 16s
+                        log(`⏳ Grok 429 → ${(wait/1000).toFixed(1)}초 대기 후 재시도 (${attempt+1}/${MAX_RETRY})`, 'warn');
+                        await new Promise(rs => setTimeout(rs, wait));
+                        lastErr = '⏳ Grok 요청 제한 (재시도 중)';
+                        continue retryLoop; // 바깥 attempt 루프로
+                    }
+                    if (r.status === 400 && (msg.includes('moderation') || msg.includes('content policy'))) {
+                        throw new Error('🔞 Grok 콘텐츠 정책 차단! 프롬프트 수정 필요');
+                    }
+                    if (r.status === 504 || r.status === 502 || r.status === 503) {
+                        log(`⏳ ${proxy.label} 타임아웃(${r.status}), 다음 프록시...`, 'warn');
+                        continue;
+                    }
+                    throw new Error(msg);
                 }
-                if (r.status === 504 || r.status === 502 || r.status === 503) {
-                    log(`⏳ ${proxy.label} 타임아웃(${r.status}), 다음 프록시...`, 'warn');
+                d = await r.json();
+                log(`✅ Grok API 응답 (${proxy.label})`, 'ok');
+                break retryLoop; // 성공 → 모든 루프 탈출
+            } catch(e) {
+                lastErr = e.message;
+                if (e.name === 'AbortError') {
+                    log(`⏳ ${proxy.label} 타임아웃, 다음...`, 'warn');
                     continue;
                 }
-                throw new Error(msg);
+                // CORS/네트워크 에러면 다음 프록시로
+                if (e.message.includes('Failed to fetch') || e.message.includes('NetworkError') || e.message.includes('Load failed') || e.message.includes('ERR_FAILED')) {
+                    log(`🚫 ${proxy.label} CORS/네트워크 차단, 다음...`, 'warn');
+                    continue;
+                }
+                throw e; // 인증/정책 에러는 바로 throw
             }
-            d = await r.json();
-            log(`✅ Grok API 응답 (${proxy.label})`, 'ok');
-            break;
-        } catch(e) {
-            lastErr = e.message;
-            if (e.name === 'AbortError') {
-                log(`⏳ ${proxy.label} 타임아웃, 다음...`, 'warn');
-                continue;
-            }
-            // CORS/네트워크 에러면 다음 프록시로
-            if (e.message.includes('Failed to fetch') || e.message.includes('NetworkError') || e.message.includes('Load failed') || e.message.includes('ERR_FAILED')) {
-                log(`🚫 ${proxy.label} CORS/네트워크 차단, 다음...`, 'warn');
-                continue;
-            }
-            throw e; // 인증/정책 에러는 바로 throw
         }
+        // 모든 프록시 실패 — 429가 아니라면 retry 의미 없음
+        if (!lastErr.includes('429') && !lastErr.includes('Grok 요청 제한')) break;
     }
     
     if (!d) {
+        if (lastErr.includes('429') || lastErr.includes('요청 제한')) {
+            throw new Error(`⏳ Grok 요청 제한 (${MAX_RETRY}회 재시도 후 실패)\n💡 잠시 후 다시 시도하거나 다른 모델 사용`);
+        }
         throw new Error(`Grok CORS/타임아웃 실패!\n💡 해결: 터미널에서 python3 -m http.server 8080\n→ localhost:8080 에서 열면 CORS 없이 직접 연결됩니다.`);
     }
     
@@ -11130,7 +11187,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0422-1 (20260422) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0503-1 (20260503) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
