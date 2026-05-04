@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0504-3 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0504-6 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -224,7 +224,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0504-3</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0504-6</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -622,13 +622,13 @@
         <div class="card" style="margin-top:8px">
             <h2 style="color:#fbbf24">🔑 API Keys (한번 입력 → 자동 저장)</h2>
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:4px;margin-bottom:8px">
-                <div class="api-row"><label>⚡Cerebras</label><input type="text" id="key-cerebras"></div>
+                <div class="api-row"><label>⚡Cerebras</label><input type="text" id="key-cerebras"><button onclick="testCerebrasKey()" style="margin-left:4px;padding:2px 8px;font-size:0.7rem;background:#3b82f6;color:white;border:none;border-radius:4px;cursor:pointer">🔍검증</button></div>
                 <div class="api-row"><label style="color:var(--gem)">💎Gemini</label><input type="text" id="key-gemini"></div>
                 <div class="api-row"><label>🌐OpenRouter</label><input type="text" id="key-openrouter"><button onclick="testOpenRouterKey()" style="margin-left:4px;padding:2px 8px;font-size:0.7rem;background:#3b82f6;color:white;border:none;border-radius:4px;cursor:pointer">🔍검증</button></div>
                 <div class="api-row"><label>🚀Groq</label><input type="text" id="key-groq"></div>
                 <div class="api-row"><label>💰DeepSeek</label><input type="text" id="key-deepseek"></div>
                 <div class="api-row"><label>🤖xAI (Grok)</label><input type="text" id="key-xai"></div>
-                <div class="api-row"><label style="color:#10a37f">OpenAI</label><input type="text" id="key-openai" placeholder="sk-..."></div>
+                <div class="api-row"><label style="color:#10a37f">OpenAI</label><input type="text" id="key-openai" placeholder="sk-..."><button onclick="testOpenAIKey()" style="margin-left:4px;padding:2px 8px;font-size:0.7rem;background:#10a37f;color:white;border:none;border-radius:4px;cursor:pointer">🔍검증</button></div>
                 <div class="api-row"><label style="color:#d97706">Claude</label><input type="text" id="key-anthropic" placeholder="sk-ant-..."></div>
                 <div class="api-row"><label>🎨NovelAI</label><input type="text" id="key-novelai"></div>
                 <div class="api-row"><label style="color:var(--poe)">🐦Poe</label><input type="text" id="key-poe"></div>
@@ -1373,7 +1373,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0504-3 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0504-6 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
             </div>
         </div>
         
@@ -4523,7 +4523,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0504-3 모델 가격표</h1>
+<h1>💰 AIARTstudio v0504-6 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.04 기준 | 싱가포르(International) 엔드포인트</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -4592,7 +4592,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 🐉 이미지: <strong style="color:#a78bfa">Qwen Image Plus</strong> (장당 ₩29) + <strong style="color:#a78bfa">Qwen Image Max</strong> (장당 ₩109, 최고 퀄)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0504-3 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0504-6 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -5345,10 +5345,10 @@ function getSmartRandomSize(topic) {
 
 const TEXT_PROVIDERS = {
     cerebras: { name:'⚡ Cerebras', color:'cerebras', nsfw:'partial', models:[
-        {id:'cb-gptoss',name:'GPT-OSS 120B (3000t/s)',m:'gpt-oss-120b',tag:'best',nsfw:false},
-        {id:'cb-llama31',name:'Llama 3.1 8B (2200t/s)',m:'llama3.1-8b',tag:'fast',nsfw:true},
-        {id:'cb-qw3',name:'Qwen3 235B (1400t/s) ⚠Preview',m:'qwen-3-235b-a22b-instruct-2507',tag:'hot',nsfw:true},
-        {id:'cb-glm47',name:'GLM 4.7 (355B) ⚠Preview',m:'zai-glm-4.7',tag:'new',nsfw:true},
+        {id:'cb-gptoss',name:'GPT-OSS 120B (3000t/s) ⭐',m:'gpt-oss-120b',tag:'best',nsfw:false},
+        {id:'cb-llama31',name:'Llama 3.1 8B (2200t/s) ⚠5/27 종료',m:'llama3.1-8b',tag:'fast',nsfw:true},
+        {id:'cb-qw3',name:'Qwen3 235B (1400t/s) ⚠Preview·5/27 종료',m:'qwen-3-235b-a22b-instruct-2507',tag:'hot',nsfw:true},
+        {id:'cb-glm47',name:'GLM 4.7 💸유료전용 (무료티어차단)',m:'zai-glm-4.7',nsfw:true},
     ]},
     gemini: { name:'💎 Gemini', color:'gemini', nsfw:'no', models:[
         {id:'gem31p', name:'Gemini 3.1 Pro',  m:'gemini-3.1-pro-preview',   tag:'best',nsfw:false},
@@ -6690,13 +6690,93 @@ function log(m, t='info') { const c = document.getElementById('logc'), e = docum
 function prog(p, t) { document.getElementById('pfill').style.width = `${p}%`; document.getElementById('ptxt').textContent = t; }
 
 // TEXT API
+// ★ OpenAI 키 검증
+async function testOpenAIKey() {
+    const key = getKey('openai');
+    if (!key) { alert('🔑 OpenAI 키를 먼저 입력해주세요!\n→ platform.openai.com/api-keys에서 발급'); return; }
+    log(`🔍 OpenAI 키 검증 중... (${key.substring(0, 8)}...${key.slice(-4)})`, 'info');
+    try {
+        const r = await fetch('https://api.openai.com/v1/models', {
+            headers: {'Authorization': `Bearer ${key}`}
+        });
+        if (r.status === 401) {
+            log(`❌ OpenAI 키 무효`, 'err');
+            alert(`❌ OpenAI 키 검증 실패! (401)\n\n💡 해결:\n1. platform.openai.com/api-keys에서 키 상태 확인\n2. 키가 sk-로 시작하는지 확인\n3. 만료/삭제됐으면 새로 발급`);
+            return;
+        }
+        if (!r.ok) { alert(`⚠️ OpenAI API 응답 이상: ${r.status}`); return; }
+        const d = await r.json();
+        const modelCount = d.data?.length || 0;
+        const gptModels = (d.data || []).filter(m => m.id.includes('gpt')).map(m => m.id).slice(0, 8).join('\n  • ');
+        log(`✅ OpenAI 키 유효! 모델 ${modelCount}개`, 'ok');
+        alert(`✅ OpenAI 키 검증 성공!\n\n📊 사용 가능: ${modelCount}개\n\nGPT 모델 (일부):\n  • ${gptModels}\n\n→ 호출 시 404가 뜨면 모델 ID가 위 리스트에 없는 것입니다.`);
+    } catch(e) {
+        log(`❌ OpenAI 검증 오류: ${e.message}`, 'err');
+        alert(`⚠️ 네트워크 오류: ${e.message}`);
+    }
+}
+
+// ★ Cerebras 키 검증 (모델 리스트 API로 확인)
+async function testCerebrasKey() {
+    const key = getKey('cerebras');
+    if (!key) { alert('🔑 Cerebras 키를 먼저 입력해주세요!'); return; }
+    log(`🔍 Cerebras 키 검증 중... (${key.substring(0, 8)}...${key.slice(-4)})`, 'info');
+    try {
+        const r = await fetch('https://api.cerebras.ai/v1/models', {
+            headers: {'Authorization': `Bearer ${key}`}
+        });
+        if (r.status === 401 || r.status === 403) {
+            log(`❌ Cerebras 키 무효: ${r.status}`, 'err');
+            alert(`❌ Cerebras 키 검증 실패! (${r.status})\n\n💡 해결:\n1. cloud.cerebras.ai 접속\n2. API Keys 섹션에서 키 상태 확인\n3. 만료/삭제됐으면 새로 발급\n4. 무료 베타가 종료됐을 수 있음`);
+            return;
+        }
+        if (!r.ok) {
+            alert(`⚠️ Cerebras API 응답 이상: HTTP ${r.status}`);
+            return;
+        }
+        const d = await r.json();
+        const modelCount = d.data?.length || 0;
+        const modelNames = (d.data || []).map(m => m.id).slice(0, 10).join('\n  • ');
+        log(`✅ Cerebras 키 유효! 모델 ${modelCount}개 사용 가능`, 'ok');
+        alert(`✅ Cerebras 키 검증 성공!\n\n📊 사용 가능한 모델: ${modelCount}개\n  • ${modelNames}${modelCount > 10 ? '\n  ... (and more)' : ''}\n\n→ 키는 정상 작동합니다.\n→ 호출 시 404가 뜨면 모델 ID가 위 리스트에 없는 것입니다.`);
+    } catch(e) {
+        log(`❌ Cerebras 검증 네트워크 오류: ${e.message}`, 'err');
+        alert(`⚠️ 네트워크 오류: ${e.message}`);
+    }
+}
+
 async function callCerebras(p, m) { 
+    const key = getKey('cerebras');
+    if (!key) throw new Error('🔑 Cerebras API 키 필요 (key-cerebras)');
     const r = await fetch('https://api.cerebras.ai/v1/chat/completions', { 
         method:'POST', 
-        headers:{'Authorization':`Bearer ${getKey('cerebras')}`,'Content-Type':'application/json'}, 
+        headers:{'Authorization':`Bearer ${key}`,'Content-Type':'application/json'}, 
         body:JSON.stringify({model:m,messages:[{role:'user',content:p}],max_tokens:4000}) 
-    }); 
-    if(!r.ok) throw new Error(`Cerebras ${r.status}: ${r.statusText}`);
+    });
+    if(!r.ok) {
+        const errTxt = await r.text().catch(()=>'');
+        // ★ 에러 코드별 진단
+        if (r.status === 401) {
+            throw new Error(`🔑 Cerebras 인증 실패 (401)\n→ 키 만료/무효. 🔍검증 버튼으로 확인\n→ cloud.cerebras.ai에서 새 키 발급`);
+        }
+        if (r.status === 403) {
+            // GLM 4.7, GPT-OSS 120B는 rate limit 빡셈 (공식 공지)
+            if (m === 'zai-glm-4.7' || m === 'gpt-oss-120b') {
+                throw new Error(`⏳ Cerebras 무료 티어 rate limit (403)\n→ "${m}" 인기 폭발로 무료 한도 임시 축소됨 (공식 공지)\n→ 잠시 후 재시도 또는 다른 Cerebras 모델 사용\n→ 또는 cloud.cerebras.ai에서 크레딧 충전`);
+            }
+            throw new Error(`🚫 Cerebras 권한 거부 (403)\n→ 이 모델 사용 권한 없음. 🔍검증 버튼으로 확인`);
+        }
+        if (r.status === 404) {
+            if (m === 'zai-glm-4.7') {
+                throw new Error(`💸 GLM 4.7 무료 티어 차단 (404)\n→ Cerebras가 무료 티어에서 GLM 4.7 접근 차단\n→ cloud.cerebras.ai에서 크레딧 충전하면 사용 가능\n→ 또는 GPT-OSS 120B 사용 권장`);
+            }
+            throw new Error(`❌ Cerebras 모델 없음: "${m}"\n→ 🔍검증 버튼으로 사용 가능한 모델 확인`);
+        }
+        if (r.status === 429) {
+            throw new Error(`⏳ Cerebras 요청 제한 (429) — 잠시 후 재시도`);
+        }
+        throw new Error(`Cerebras ${r.status}: ${errTxt.substring(0,200) || r.statusText}`);
+    }
     const d = await r.json(); 
     if(d.error) throw new Error(d.error.message || d.error); 
     if(!d.choices || !d.choices[0]) throw new Error('Cerebras: 응답 없음'); 
@@ -11362,7 +11442,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0504-3 (20260504) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0504-6 (20260504) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
