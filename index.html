@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0505-3 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0505-4 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -224,7 +224,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0505-3</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0505-4</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -1373,7 +1373,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0505-3 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0505-4 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
             </div>
         </div>
         
@@ -4523,7 +4523,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0505-3 모델 가격표</h1>
+<h1>💰 AIARTstudio v0505-4 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.04 기준 | 싱가포르(International) 엔드포인트</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -4592,7 +4592,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 🐉 이미지: <strong style="color:#a78bfa">Qwen Image Plus</strong> (장당 ₩29) + <strong style="color:#a78bfa">Qwen Image Max</strong> (장당 ₩109, 최고 퀄)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0505-3 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0505-4 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -6875,9 +6875,17 @@ async function _callXAICore(p, m, key, apiUrl) {
         for (const proxy of proxyList) {
             try {
                 const controller = new AbortController();
-                const tid = setTimeout(() => controller.abort(), 60000);
+                const tid = setTimeout(() => controller.abort(), 120000); // 120초 (추론 모델 대응)
                 const r = await fetch(proxy.url, {method:'POST', headers:hdrs, body:payload, signal:controller.signal});
                 clearTimeout(tid);
+                // ★ 504 타임아웃은 재시도 가능
+                if (r.status === 504) {
+                    const wait = (attempt + 1) * 2000 + Math.floor(Math.random() * 500);
+                    log(`⏳ xAI 504 타임아웃 → ${(wait/1000).toFixed(1)}초 대기 후 재시도 (${attempt+1}/${MAX_RETRY})`, 'warn');
+                    await new Promise(rs => setTimeout(rs, wait));
+                    lastErr = '504 timeout';
+                    break;
+                }
                 // ★ 429 → backoff 후 재시도 (유료 티어 대응)
                 if (r.status === 429) {
                     const waitSchedule = [1500, 4000, 10000, 25000]; // 1.5s, 4s, 10s, 25s
@@ -6910,10 +6918,10 @@ async function _callXAICore(p, m, key, apiUrl) {
                 throw e;
             }
         }
-        // 429가 아니면 retry 안 함
-        if (!lastErr.includes('429') && !lastErr.includes('rate limit')) break;
+        // 429/504가 아니면 retry 안 함
+        if (!lastErr.includes('429') && !lastErr.includes('rate limit') && !lastErr.includes('504') && !lastErr.includes('timeout')) break;
     }
-    throw new Error(`xAI 429 rate limit (재시도 ${MAX_RETRY}회 모두 실패)\n💡 동시 호출이 너무 많을 수 있습니다 — 모델 수를 줄이거나 잠시 후 재시도\n💡 또는 console.x.ai에서 rate limit 한도 확인`);
+    throw new Error(`xAI API 실패: ${lastErr} (재시도 ${MAX_RETRY}회 모두 실패)\n💡 504면 서버 일시 장애 — 잠시 후 재시도\n💡 429면 동시 호출 줄이거나 console.x.ai 확인`);
 }
 async function callOpenAI(p, m) { const key = getKey('openai'); if (!key) throw new Error('OpenAI API 키 필요'); const body = {model:m,messages:[{role:'user',content:p}]}; if(m.startsWith('o') || m.startsWith('gpt-5') || m.includes('gpt-4.1')) { body.max_completion_tokens = 4000; } else { body.max_tokens = 4000; } const r = await fetch('https://api.openai.com/v1/chat/completions', { method:'POST', headers:{'Authorization':`Bearer ${key}`,'Content-Type':'application/json'}, body:JSON.stringify(body) }); if(!r.ok) { const errData = await r.json().catch(()=>({})); throw new Error(errData?.error?.message || `OpenAI ${r.status}`); } const d = await r.json(); if(d.error) throw new Error(d.error.message); if(!d.choices?.[0]) throw new Error('OpenAI: 응답 없음'); return d.choices[0].message.content; }
 async function callAnthropic(p, m) { 
@@ -7248,12 +7256,29 @@ async function applyNAIReference(params) {
 }
 
 // ★ NAI 동시 호출 방지 뮤텍스
+// ★ NAI 글로벌 락 + 호출 간격 (Concurrent generation lock 대응)
 let _naiLock = Promise.resolve();
+let _naiLastEnd = 0;
+const NAI_MIN_INTERVAL = 1500; // 호출 사이 최소 1.5초
+
 function withNaiLock(fn) {
     const prev = _naiLock;
     let resolve;
     _naiLock = new Promise(r => resolve = r);
-    return prev.then(() => fn().finally(resolve));
+    return prev.then(async () => {
+        // 직전 호출 종료 후 충분한 간격 보장
+        const sinceLast = Date.now() - _naiLastEnd;
+        if (_naiLastEnd > 0 && sinceLast < NAI_MIN_INTERVAL) {
+            const wait = NAI_MIN_INTERVAL - sinceLast;
+            await new Promise(r => setTimeout(r, wait));
+        }
+        try {
+            return await fn();
+        } finally {
+            _naiLastEnd = Date.now();
+            resolve();
+        }
+    });
 }
 
 async function genNovelAI(prompt) {
@@ -7357,19 +7382,41 @@ async function genNovelAI(prompt) {
     
     log(`🎨 NAI: ${s.width}x${s.height}, ${s.steps}steps${artistName ? ', 🎨'+artistName : ''}`, 'img');
     log(`📝 NAI 입력: ${fullPrompt.substring(0, 120)}...`, 'info');
-    const response = await fetch('https://image.novelai.net/ai/generate-image', { 
-        method: 'POST', 
-        headers: { 
-            'Content-Type': 'application/json', 
-            'Authorization': `Bearer ${getKey('novelai')}`, 
-            'Origin': 'https://novelai.net', 
-            'Referer': 'https://novelai.net/' 
-        }, 
-        body: JSON.stringify(requestBody) 
-    });
+    
+    // ★ NAI 429 자동 재시도 (Concurrent generation locked 대응)
+    let response = null;
+    const MAX_NAI_RETRY = 3;
+    for (let attempt = 0; attempt < MAX_NAI_RETRY; attempt++) {
+        response = await fetch('https://image.novelai.net/ai/generate-image', { 
+            method: 'POST', 
+            headers: { 
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${getKey('novelai')}`, 
+                'Origin': 'https://novelai.net', 
+                'Referer': 'https://novelai.net/' 
+            }, 
+            body: JSON.stringify(requestBody) 
+        });
+        if (response.status === 429) {
+            const errText = await response.text().catch(() => '');
+            const wait = (attempt + 1) * 3000 + Math.floor(Math.random() * 1000); // 3s, 6s, 9s
+            if (errText.includes('Concurrent generation') || errText.includes('locked')) {
+                log(`⏳ NAI 동시 생성 락 → ${(wait/1000).toFixed(1)}초 대기 후 재시도 (${attempt+1}/${MAX_NAI_RETRY})`, 'warn');
+            } else {
+                log(`⏳ NAI 429 → ${(wait/1000).toFixed(1)}초 대기 (${attempt+1}/${MAX_NAI_RETRY})`, 'warn');
+            }
+            await new Promise(r => setTimeout(r, wait));
+            continue;
+        }
+        break; // 429 아니면 루프 탈출
+    }
+    
     if (!response.ok) {
         const errText = await response.text().catch(() => '');
         log(`❌ NAI API 에러 ${response.status}: ${errText.substring(0, 200)}`, 'error');
+        if (response.status === 429) {
+            throw new Error(`NAI 429: 동시 생성 한계 (${MAX_NAI_RETRY}회 재시도 실패)\n💡 NAI는 한 번에 1장씩만 생성됩니다. 호출 수를 줄이세요.`);
+        }
         throw new Error(`NAI ${response.status}: ${errText.substring(0, 200)}`);
     }
     const zip = await JSZip.loadAsync(await response.arrayBuffer());
@@ -11454,7 +11501,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0505-3 (20260505) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0505-4 (20260505) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
