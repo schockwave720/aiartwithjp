@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0504-2 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0504-3 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -224,7 +224,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0504-2</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0504-3</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -1373,7 +1373,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0504-2 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0504-3 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
             </div>
         </div>
         
@@ -4523,7 +4523,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0504-2 모델 가격표</h1>
+<h1>💰 AIARTstudio v0504-3 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.04 기준 | 싱가포르(International) 엔드포인트</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -4592,7 +4592,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 🐉 이미지: <strong style="color:#a78bfa">Qwen Image Plus</strong> (장당 ₩29) + <strong style="color:#a78bfa">Qwen Image Max</strong> (장당 ₩109, 최고 퀄)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0504-2 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0504-3 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -10016,21 +10016,28 @@ async function generateSunoSong() {
 
 THEME: "${topic}"
 GENRE: ${genre === 'auto' ? 'Choose the best genre that fits the theme' : genre}
-LANGUAGE: ${langMap[lang] || '한국어'}
+LYRICS LANGUAGE: ${langMap[lang] || '한국어'}
 MOOD: ${mood === 'auto' ? 'Choose the best mood for this theme' : mood}
+
+⚠️ CRITICAL LANGUAGE RULES (Suno AI compatibility):
+- 🎶 STYLE OF MUSIC tag: MUST be in ENGLISH (genre, vocal type, instruments, tempo, mood keywords)
+- 🎵 TITLE: Match the lyrics language (Korean lyrics → Korean title; English lyrics → English title; Japanese lyrics → Japanese title)
+- 📜 LYRICS: Use ${langMap[lang] || '한국어'} (the chosen lyrics language)
+- 🖼️ ALBUM COVER PROMPT: MUST be in ENGLISH (Danbooru-style tags, square 1:1 album cover composition)
+- [Section] tags like [Intro] [Verse 1] [Chorus]: ALWAYS in English (Suno requires this)
 
 Create a COMPLETE song with Suno-compatible formatting. Output EXACTLY this structure:
 
-🎵 TITLE: [곡 제목]
+🎵 TITLE: [곡 제목 — match lyrics language]
 
-🎶 STYLE OF MUSIC: [Suno style tag - 예: emotional ballad, female vocal, piano, strings, 120bpm]
+🎶 STYLE OF MUSIC: [English Suno style tag — e.g., "emotional ballad, female vocal, piano, strings, 120bpm, melancholic"]
 
 📋 SONG STRUCTURE:
 [Intro]
-(instrumental description)
+(instrumental description in English)
 
 [Verse 1]
-(가사 4-6줄)
+(가사 4-6줄 — in ${langMap[lang] || '한국어'})
 
 [Pre-Chorus]
 (가사 2줄)
@@ -10054,16 +10061,16 @@ Create a COMPLETE song with Suno-compatible formatting. Output EXACTLY this stru
 (변주 후렴)
 
 [Outro]
-(instrumental fade)
+(instrumental fade — English description)
 
 RULES:
-- [Section] tags are REQUIRED for Suno
+- [Section] tags are REQUIRED for Suno (English only!)
 - Lyrics must be emotionally resonant and poetic
-- Style tag should be specific: include vocal type, instruments, tempo, mood keywords
+- Style tag should be specific: include vocal type, instruments, tempo, mood keywords (ALL in English)
 - Make it a REAL song someone would want to listen to
 - Each AI must create a COMPLETELY DIFFERENT song (different melody concept, different lyrics)
 
-🖼️ ALBUM COVER PROMPT: [English Danbooru-style tags for album cover art, 15-20 tags, aesthetic and matching the song mood]`;
+🖼️ ALBUM COVER PROMPT: [English Danbooru-style tags for SQUARE 1:1 album cover art, 15-20 tags. Must include: "album cover", "square composition", "centered". Match the song mood. NO TEXT/TYPOGRAPHY in the image.]`;
 
     const results = document.getElementById('songResults');
     // ★ 선택된 ALL Text AI가 각각 작곡
@@ -10119,21 +10126,52 @@ RULES:
             
             log(`🎵 ${ai.name}: "${title}" 작곡 완료!`, 'ok');
             
-            // 앨범 커버 생성
+            // 앨범 커버 생성 (1:1 정사각형 강제)
             if (wantCover && coverPrompt) {
                 const coverEl = document.getElementById(cardId + '-cover');
                 coverEl.innerHTML = '<div style="width:16px;height:16px;border:2px solid #f59e0b;border-top-color:transparent;border-radius:50%;animation:pulse 1.5s infinite"></div>';
+                
+                // ★ 1:1 정사각형 사이즈 강제 (사용자 와이드 설정 백업 후 변경)
+                const naiSizeEl = document.getElementById('naiSize');
+                const kreaSizeEl = document.getElementById('kreaSize');
+                const origNaiSize = naiSizeEl?.value;
+                const origKreaSize = kreaSizeEl?.value;
+                if (naiSizeEl) naiSizeEl.value = '1024x1024'; // NAI 정사각
+                if (kreaSizeEl) kreaSizeEl.value = '1024x1024'; // Krea 정사각
+                
+                // ★ 앨범 커버에 어울리는 정사각 키워드 추가
+                const squareCoverPrompt = coverPrompt + ', album cover art, square 1:1 composition, centered, no text, no typography, professional album artwork';
+                
                 try {
                     const imgAIs = getSelectedImageAIs();
+                    let result;
                     if (imgAIs.length) {
                         const imgAi = imgAIs[Math.floor(Math.random() * imgAIs.length)];
-                        const url = await callImg(imgAi, coverPrompt + ', album cover art, music, aesthetic');
-                        coverEl.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover">`;
+                        result = await callImg(imgAi, squareCoverPrompt);
                     } else {
-                        const url = await genGeminiFlash(coverPrompt + ', album cover art');
-                        coverEl.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover">`;
+                        result = await genGeminiFlash(squareCoverPrompt);
                     }
-                } catch(e) { coverEl.innerHTML = '<div style="font-size:2rem">🎵</div>'; }
+                    // ★ url 정규화 — 객체({url}/{src}) 또는 string 둘 다 처리
+                    let imgUrl = '';
+                    if (typeof result === 'string') imgUrl = result;
+                    else if (result?.url) imgUrl = result.url;
+                    else if (result?.src) imgUrl = result.src;
+                    else if (Array.isArray(result) && result[0]) imgUrl = typeof result[0] === 'string' ? result[0] : (result[0].url || result[0].src || '');
+                    
+                    if (imgUrl) {
+                        coverEl.innerHTML = `<img src="${imgUrl}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.innerHTML='<div style=&quot;font-size:2rem&quot;>🎵</div>'">`;
+                        log(`🖼️ ${title} 앨범 커버 생성 완료`, 'ok');
+                    } else {
+                        throw new Error('이미지 URL 없음');
+                    }
+                } catch(e) {
+                    coverEl.innerHTML = '<div style="font-size:2rem">🎵</div>';
+                    log(`⚠️ ${title} 앨범 커버 실패: ${e.message}`, 'warn');
+                } finally {
+                    // ★ 사이즈 원복
+                    if (naiSizeEl && origNaiSize) naiSizeEl.value = origNaiSize;
+                    if (kreaSizeEl && origKreaSize) kreaSizeEl.value = origKreaSize;
+                }
             }
         } catch(e) {
             card.innerHTML = `<div style="color:#ef4444;font-size:0.45rem;padding:8px">❌ ${ai.name}: ${e.message}</div>`;
@@ -11324,7 +11362,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0504-2 (20260504) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0504-3 (20260504) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
