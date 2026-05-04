@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0503-3 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0503-5 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -224,7 +224,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0503-3</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0503-5</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -1374,7 +1374,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0503-3 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0503-5 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
             </div>
         </div>
         
@@ -4524,7 +4524,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0503-3 모델 가격표</h1>
+<h1>💰 AIARTstudio v0503-5 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.04 기준 | 싱가포르(International) 엔드포인트</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -4593,7 +4593,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 🐉 이미지: <strong style="color:#a78bfa">Qwen Image Plus</strong> (장당 ₩29) + <strong style="color:#a78bfa">Qwen Image Max</strong> (장당 ₩109, 최고 퀄)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0503-3 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0503-5 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -5378,6 +5378,7 @@ const TEXT_PROVIDERS = {
         {id:'grk43l',name:'🆕 Grok 4.3 Latest',m:'grok-4.3-latest',tag:'new',nsfw:true},
         {id:'grk420r',name:'🔥 Grok 4.20 (추론)',m:'grok-4.20-reasoning',tag:'hot',nsfw:true},
         {id:'grk420n',name:'🔥 Grok 4.20',m:'grok-4.20-non-reasoning',tag:'hot',nsfw:true},
+        {id:'grk420l',name:'Grok 4.20 Latest',m:'grok-4.20-latest',nsfw:true},
         {id:'grk41r',name:'⚡ Grok 4.1 Fast (추론)',m:'grok-4-1-fast-reasoning',tag:'fast',nsfw:true},
         {id:'grk41n',name:'⚡ Grok 4.1 Fast',m:'grok-4-1-fast-non-reasoning',tag:'fast',nsfw:true},
         {id:'grkcf',name:'💻 Grok Code Fast',m:'grok-code-fast-1',tag:'fast',nsfw:true},
@@ -6789,11 +6790,11 @@ async function _callXAICore(p, m, key, apiUrl) {
                 const tid = setTimeout(() => controller.abort(), 60000);
                 const r = await fetch(proxy.url, {method:'POST', headers:hdrs, body:payload, signal:controller.signal});
                 clearTimeout(tid);
-                // ★ 429 → backoff 후 재시도 (xAI 무료 티어 대응: 더 길게)
+                // ★ 429 → backoff 후 재시도 (유료 티어 대응)
                 if (r.status === 429) {
-                    const waitSchedule = [5000, 15000, 30000, 60000]; // 5s, 15s, 30s, 60s
-                    const wait = waitSchedule[attempt] + Math.floor(Math.random() * 1000);
-                    log(`⏳ xAI 429 rate limit → ${(wait/1000).toFixed(0)}초 대기 (재시도 ${attempt+1}/${MAX_RETRY})`, 'warn');
+                    const waitSchedule = [1500, 4000, 10000, 25000]; // 1.5s, 4s, 10s, 25s
+                    const wait = waitSchedule[attempt] + Math.floor(Math.random() * 500);
+                    log(`⏳ xAI 429 rate limit → ${(wait/1000).toFixed(1)}초 대기 (재시도 ${attempt+1}/${MAX_RETRY})`, 'warn');
                     await new Promise(rs => setTimeout(rs, wait));
                     lastErr = '429 rate limit';
                     break; // 안쪽 for 탈출 → attempt 증가
@@ -6824,7 +6825,7 @@ async function _callXAICore(p, m, key, apiUrl) {
         // 429가 아니면 retry 안 함
         if (!lastErr.includes('429') && !lastErr.includes('rate limit')) break;
     }
-    throw new Error(`xAI 429 rate limit (재시도 ${MAX_RETRY}회 모두 실패)\n💡 xAI 무료/저티어 계정은 분당 호출 제한이 매우 낮습니다.\n💡 해결: console.x.ai에서 크레딧 충전 또는 다른 Story AI 사용`);
+    throw new Error(`xAI 429 rate limit (재시도 ${MAX_RETRY}회 모두 실패)\n💡 동시 호출이 너무 많을 수 있습니다 — 모델 수를 줄이거나 잠시 후 재시도\n💡 또는 console.x.ai에서 rate limit 한도 확인`);
 }
 async function callOpenAI(p, m) { const key = getKey('openai'); if (!key) throw new Error('OpenAI API 키 필요'); const body = {model:m,messages:[{role:'user',content:p}]}; if(m.startsWith('o') || m.startsWith('gpt-5') || m.includes('gpt-4.1')) { body.max_completion_tokens = 4000; } else { body.max_tokens = 4000; } const r = await fetch('https://api.openai.com/v1/chat/completions', { method:'POST', headers:{'Authorization':`Bearer ${key}`,'Content-Type':'application/json'}, body:JSON.stringify(body) }); if(!r.ok) { const errData = await r.json().catch(()=>({})); throw new Error(errData?.error?.message || `OpenAI ${r.status}`); } const d = await r.json(); if(d.error) throw new Error(d.error.message); if(!d.choices?.[0]) throw new Error('OpenAI: 응답 없음'); return d.choices[0].message.content; }
 async function callAnthropic(p, m) { 
@@ -6850,7 +6851,29 @@ async function callAnthropic(p, m) {
         throw new Error(`Claude CORS 제한 - OpenRouter 사용 권장: ${e.message}`);
     }
 }
-async function callOR(p, m) { const r = await fetch('https://openrouter.ai/api/v1/chat/completions', { method:'POST', headers:{'Authorization':`Bearer ${getKey('openrouter')}`,'Content-Type':'application/json','HTTP-Referer':location.href}, body:JSON.stringify({model:m,messages:[{role:'user',content:p}],max_tokens:4000}) }); const d = await r.json(); if(d.error) throw new Error(d.error.message||JSON.stringify(d.error)); if(!d.choices?.[0]) throw new Error('OpenRouter: 응답 없음'); return d.choices[0].message.content; }
+async function callOR(p, m) {
+    const key = getKey('openrouter');
+    if (!key) throw new Error('🔑 OpenRouter API 키 필요!\n→ openrouter.ai/keys 에서 발급 (key-openrouter)');
+    const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method:'POST',
+        headers:{'Authorization':`Bearer ${key}`,'Content-Type':'application/json','HTTP-Referer':location.href},
+        body:JSON.stringify({model:m,messages:[{role:'user',content:p}],max_tokens:4000})
+    });
+    const d = await r.json();
+    if(d.error) {
+        const msg = d.error.message || JSON.stringify(d.error);
+        // ★ 'User not found' = 키 만료/삭제 진단
+        if (msg.includes('User not found') || msg.includes('user not found')) {
+            throw new Error(`🔑 OpenRouter 키 무효 (User not found)\n→ openrouter.ai/keys 에서 키 재발급 필요\n→ 또는 크레딧 충전 확인`);
+        }
+        if (r.status === 401) throw new Error('🔑 OpenRouter API 키 인증 실패! 키 확인 또는 재발급');
+        if (r.status === 402) throw new Error('💸 OpenRouter 크레딧 부족! openrouter.ai/credits 에서 충전');
+        if (r.status === 429) throw new Error('⏳ OpenRouter 요청 제한! 잠시 후 재시도');
+        throw new Error(msg);
+    }
+    if(!d.choices?.[0]) throw new Error('OpenRouter: 응답 없음');
+    return d.choices[0].message.content;
+}
 async function callSambaNova(p, m) { const r = await fetch('https://api.sambanova.ai/v1/chat/completions', { method:'POST', headers:{'Authorization':`Bearer ${getKey('sambanova')}`,'Content-Type':'application/json'}, body:JSON.stringify({model:m,messages:[{role:'user',content:p}],max_tokens:4000}) }); const d = await r.json(); if(d.error) throw new Error(d.error.message); if(!d.choices?.[0]) throw new Error('SambaNova: 응답 없음'); return d.choices[0].message.content; }
 async function callZAI(p, m) { const r = await fetch('https://api.z.ai/api/paas/v4/chat/completions', { method:'POST', headers:{'Authorization':`Bearer ${getKey('zai')}`,'Content-Type':'application/json'}, body:JSON.stringify({model:m,messages:[{role:'user',content:p}],max_tokens:4000}) }); const d = await r.json(); if(d.error) { const msg = d.error.message || JSON.stringify(d.error); if(msg.includes('不安全') || msg.includes('敏感') || msg.includes('sensitive')) throw new Error('🔞 Z.ai 검열 차단! 중국 AI라 민감한 프롬프트 제한. 다른 AI로 재시도'); if(msg.includes('余额不足') || msg.includes('balance')) throw new Error('💸 Z.ai 잔액 부족! 무료 Flash 모델 사용 추천'); throw new Error(msg); } if(!d.choices?.[0]) throw new Error('Z.ai: 응답 없음'); return d.choices[0].message.content; }
 async function callDashScopeText(p, m) {
@@ -7743,8 +7766,8 @@ async function _genGrokImagineCore(prompt, model, key) {
         } catch(e) { /* 다음 */ }
     }
     
-    // 폴백: URL 직접 반환
-    log(`⚠️ Grok blob 실패 → URL 직접 사용`, 'warn');
+    // 폴백: URL 직접 반환 (CORS 우회 정상 동작 — 이미지는 정상 표시됨)
+    log(`🖼️ Grok 이미지 URL 직접 사용 (CORS 우회 정상)`, 'info');
     return { url: imageUrl, size: '1024x1024', _external: true };
 }
 // ★ DashScope (Alibaba) — Qwen Image 공식 API
@@ -11238,7 +11261,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0503-3 (20260503) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0503-5 (20260503) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
