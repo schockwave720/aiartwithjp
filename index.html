@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0505-4 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0505-5 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -224,7 +224,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0505-4</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0505-5</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -1373,7 +1373,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0505-4 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0505-5 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
             </div>
         </div>
         
@@ -4523,7 +4523,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0505-4 모델 가격표</h1>
+<h1>💰 AIARTstudio v0505-5 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.04 기준 | 싱가포르(International) 엔드포인트</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -4592,7 +4592,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 🐉 이미지: <strong style="color:#a78bfa">Qwen Image Plus</strong> (장당 ₩29) + <strong style="color:#a78bfa">Qwen Image Max</strong> (장당 ₩109, 최고 퀄)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0505-4 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0505-5 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -10124,6 +10124,68 @@ const JP_CAT_DESC = {
 // ══════════════════════════════════════════════════════════════
 // ★★★ 🎵 SUNO SONG GENERATOR ★★★
 // ══════════════════════════════════════════════════════════════
+// ★ 앨범 커버 전용 모달 (Song 모드용 — 클릭 확대 + 다운로드)
+function showAlbumCoverModal(src, title) {
+    if (!src) return;
+    let modal = document.getElementById('albumCoverModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'albumCoverModal';
+        modal.style.cssText = 'display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.95);z-index:99998;justify-content:center;align-items:center;flex-direction:column;backdrop-filter:blur(8px)';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+        modal.innerHTML = `
+            <button onclick="document.getElementById('albumCoverModal').style.display='none'" style="position:fixed;top:15px;right:20px;width:42px;height:42px;background:rgba(239,68,68,0.9);border:2px solid rgba(255,255,255,0.4);border-radius:50%;color:#fff;font-size:1.3rem;cursor:pointer;font-weight:bold;z-index:100000">✕</button>
+            <img id="albumCoverModalImg" src="" style="max-width:90vw;max-height:80vh;object-fit:contain;border-radius:8px;box-shadow:0 0 60px rgba(245,158,11,0.4)">
+            <div style="margin-top:15px;display:flex;gap:10px;align-items:center;background:rgba(20,30,50,0.95);padding:10px 16px;border-radius:10px;border:1px solid #f59e0b">
+                <span id="albumCoverModalTitle" style="color:#fbbf24;font-size:0.65rem;font-weight:700;max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+                <button id="albumCoverModalDL" style="padding:6px 14px;background:linear-gradient(135deg,#10b981,#059669);border:none;border-radius:6px;color:#fff;font-size:0.55rem;cursor:pointer;font-weight:700">💾 다운로드</button>
+                <button onclick="document.getElementById('albumCoverModal').style.display='none'" style="padding:6px 14px;background:#475569;border:none;border-radius:6px;color:#fff;font-size:0.55rem;cursor:pointer">닫기</button>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+    document.getElementById('albumCoverModalImg').src = src;
+    document.getElementById('albumCoverModalTitle').textContent = '🎵 ' + (title || 'Album Cover');
+    
+    // 다운로드 버튼 핸들러 (blob URL이든 일반 URL이든 처리)
+    const dlBtn = document.getElementById('albumCoverModalDL');
+    dlBtn.onclick = async () => {
+        try {
+            const safeName = (title || 'album_cover').replace(/[^a-zA-Z0-9가-힣_-]/g, '_') + '.png';
+            // blob URL은 직접 다운로드, 일반 URL은 fetch 후 blob 변환 (CORS 우회)
+            if (src.startsWith('blob:')) {
+                const a = document.createElement('a');
+                a.href = src;
+                a.download = safeName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } else {
+                dlBtn.textContent = '⏳ 다운중...';
+                const r = await fetch(src);
+                const blob = await r.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = safeName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+            }
+            dlBtn.textContent = '✅ 저장됨!';
+            setTimeout(() => dlBtn.textContent = '💾 다운로드', 1500);
+        } catch(e) {
+            dlBtn.textContent = '❌ 실패';
+            // CORS 에러 시 새탭 폴백
+            try { window.open(src, '_blank'); } catch(_) {}
+            setTimeout(() => dlBtn.textContent = '💾 다운로드', 2000);
+        }
+    };
+    
+    modal.style.display = 'flex';
+}
+
 async function generateSunoSong() {
     const btn = document.getElementById('songGenBtn');
     const topic = document.getElementById('songTopic').value.trim();
@@ -10232,7 +10294,7 @@ RULES:
 
             card.innerHTML = `
                 <div style="display:flex;gap:10px;align-items:flex-start">
-                    <div id="${cardId}-cover" style="width:150px;height:150px;flex-shrink:0;border-radius:8px;overflow:hidden;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;font-size:2rem">🎵</div>
+                    <div id="${cardId}-cover" title="앨범 커버 영역" style="width:150px;height:150px;flex-shrink:0;border-radius:8px;overflow:hidden;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;font-size:2rem;transition:transform 0.2s,box-shadow 0.2s" onmouseenter="if(this.querySelector('img')){this.style.transform='scale(1.05)';this.style.boxShadow='0 0 20px rgba(245,158,11,0.5)'}" onmouseleave="this.style.transform='scale(1)';this.style.boxShadow='none'">🎵</div>
                     <div style="flex:1;min-width:0">
                         <div style="font-size:0.75rem;color:#fbbf24;font-weight:800">${escHtml(title)}</div>
                         <div style="font-size:0.42rem;color:#94a3b8;margin:2px 0">by ${escHtml(ai.name)}</div>
@@ -10286,8 +10348,12 @@ RULES:
                     else if (Array.isArray(result) && result[0]) imgUrl = typeof result[0] === 'string' ? result[0] : (result[0].url || result[0].src || '');
                     
                     if (imgUrl) {
-                        coverEl.innerHTML = `<img src="${imgUrl}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.innerHTML='<div style=&quot;font-size:2rem&quot;>🎵</div>'">`;
-                        log(`🖼️ ${title} 앨범 커버 생성 완료`, 'ok');
+                        // ★ 클릭 시 확대 + 다운로드 가능하도록 수정
+                        const safeTitle = (title || 'album_cover').replace(/[^a-zA-Z0-9가-힣]/g, '_').substring(0, 40);
+                        coverEl.style.cursor = 'pointer';
+                        coverEl.title = '클릭: 확대 보기 + 다운로드';
+                        coverEl.innerHTML = `<img src="${imgUrl}" data-title="${escHtml(safeTitle)}" style="width:100%;height:100%;object-fit:cover;display:block" onclick="event.stopPropagation();showAlbumCoverModal(this.src, this.dataset.title)" onerror="this.parentElement.innerHTML='<div style=&quot;font-size:2rem&quot;>🎵</div>'">`;
+                        log(`🖼️ ${title} 앨범 커버 생성 완료 (클릭하면 확대)`, 'ok');
                     } else {
                         throw new Error('이미지 URL 없음');
                     }
@@ -11501,7 +11567,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0505-4 (20260505) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0505-5 (20260505) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
