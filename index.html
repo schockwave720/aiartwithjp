@@ -7353,7 +7353,7 @@ async function applyNAIReference(params) {
 // ★ NAI 글로벌 락 + 호출 간격 (Concurrent generation lock 대응)
 let _naiLock = Promise.resolve();
 let _naiLastEnd = 0;
-const NAI_MIN_INTERVAL = 1500; // 호출 사이 최소 1.5초
+const NAI_MIN_INTERVAL = 3000; // 호출 사이 최소 3초 (NAI는 한 장당 5~15초 소요, 동시 생성 락 방지)
 
 function withNaiLock(fn) {
     const prev = _naiLock;
@@ -7477,41 +7477,59 @@ async function genNovelAI(prompt) {
     log(`🎨 NAI: ${s.width}x${s.height}, ${s.steps}steps${artistName ? ', 🎨'+artistName : ''}`, 'img');
     log(`📝 NAI 입력: ${fullPrompt.substring(0, 120)}...`, 'info');
     
-    // ★ NAI 429 자동 재시도 (Concurrent generation locked 대응)
+    // ★ NAI 자동 재시도 (429/503/502/504 대응 — Concurrent lock, Service Unavailable 등)
     let response = null;
-    const MAX_NAI_RETRY = 3;
+    const MAX_NAI_RETRY = 4;
+    let lastStatus = 0;
     for (let attempt = 0; attempt < MAX_NAI_RETRY; attempt++) {
-        response = await fetch('https://image.novelai.net/ai/generate-image', { 
-            method: 'POST', 
-            headers: { 
-                'Content-Type': 'application/json', 
-                'Authorization': `Bearer ${getKey('novelai')}`, 
-                'Origin': 'https://novelai.net', 
-                'Referer': 'https://novelai.net/' 
-            }, 
-            body: JSON.stringify(requestBody) 
-        });
-        if (response.status === 429) {
-            const errText = await response.text().catch(() => '');
-            const wait = (attempt + 1) * 3000 + Math.floor(Math.random() * 1000); // 3s, 6s, 9s
-            if (errText.includes('Concurrent generation') || errText.includes('locked')) {
-                log(`⏳ NAI 동시 생성 락 → ${(wait/1000).toFixed(1)}초 대기 후 재시도 (${attempt+1}/${MAX_NAI_RETRY})`, 'warn');
-            } else {
-                log(`⏳ NAI 429 → ${(wait/1000).toFixed(1)}초 대기 (${attempt+1}/${MAX_NAI_RETRY})`, 'warn');
-            }
+        try {
+            response = await fetch('https://image.novelai.net/ai/generate-image', { 
+                method: 'POST', 
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'Authorization': `Bearer ${getKey('novelai')}`, 
+                    'Origin': 'https://novelai.net', 
+                    'Referer': 'https://novelai.net/' 
+                }, 
+                body: JSON.stringify(requestBody) 
+            });
+        } catch(netErr) {
+            // ERR_QUIC_PROTOCOL_ERROR, ERR_NETWORK_CHANGED, fetch failed 등 네트워크 레이어 실패
+            const wait = (attempt + 1) * 2500 + Math.floor(Math.random() * 1500);
+            log(`🌐 NAI 네트워크 오류 (${netErr.message?.substring(0,40)}) → ${(wait/1000).toFixed(1)}초 후 재시도 (${attempt+1}/${MAX_NAI_RETRY})`, 'warn');
+            if (attempt === MAX_NAI_RETRY - 1) throw new Error(`NAI 네트워크 실패: ${netErr.message}\n💡 chrome://flags → "QUIC" 검색 → Disabled로 변경 후 Chrome 재시작 권장`);
             await new Promise(r => setTimeout(r, wait));
             continue;
         }
-        break; // 429 아니면 루프 탈출
+        lastStatus = response.status;
+        
+        // 재시도 가치 있는 상태: 429(rate), 503(unavailable), 502(bad gw), 504(gw timeout), 500(server)
+        if ([429, 500, 502, 503, 504].includes(response.status)) {
+            const errText = await response.text().catch(() => '');
+            // 지수 백오프 + 지터 (3s, 6s, 12s, 24s + 랜덤)
+            const wait = Math.min(24000, 3000 * Math.pow(2, attempt)) + Math.floor(Math.random() * 1500);
+            const label = response.status === 429 
+                ? (errText.includes('Concurrent generation') || errText.includes('locked') ? '동시 생성 락' : 'rate limit')
+                : `서버 ${response.status}`;
+            log(`⏳ NAI ${label} → ${(wait/1000).toFixed(1)}초 대기 후 재시도 (${attempt+1}/${MAX_NAI_RETRY})`, 'warn');
+            if (attempt < MAX_NAI_RETRY - 1) {
+                await new Promise(r => setTimeout(r, wait));
+                continue;
+            }
+        }
+        break; // 성공 또는 재시도 불가 에러
     }
     
-    if (!response.ok) {
-        const errText = await response.text().catch(() => '');
-        log(`❌ NAI API 에러 ${response.status}: ${errText.substring(0, 200)}`, 'error');
-        if (response.status === 429) {
+    if (!response || !response.ok) {
+        const errText = response ? await response.text().catch(() => '') : '';
+        log(`❌ NAI API 에러 ${lastStatus}: ${errText.substring(0, 200)}`, 'error');
+        if (lastStatus === 429) {
             throw new Error(`NAI 429: 동시 생성 한계 (${MAX_NAI_RETRY}회 재시도 실패)\n💡 NAI는 한 번에 1장씩만 생성됩니다. 호출 수를 줄이세요.`);
         }
-        throw new Error(`NAI ${response.status}: ${errText.substring(0, 200)}`);
+        if (lastStatus === 503) {
+            throw new Error(`NAI 503: 서버 일시 불가 (${MAX_NAI_RETRY}회 재시도 실패)\n💡 잠시 후 다시 시도하세요. status.novelai.net 확인 권장.`);
+        }
+        throw new Error(`NAI ${lastStatus}: ${errText.substring(0, 200)}`);
     }
     const zip = await JSZip.loadAsync(await response.arrayBuffer());
     const fileNames = Object.keys(zip.files);
@@ -11766,12 +11784,13 @@ async function galGenerate() {
     
     let successCount = 0;
     const galStartIdx = generatedImages.length; // 기존 이미지 뒤에 추가
-    const promises = iais.map(async (ai) => {
+    
+    // ★ v0513-2: NAI는 직렬, 나머지는 병렬 (NAI 동시 호출이 503/429 폭탄 원인)
+    const runOne = async (ai) => {
         try {
             const result = await callImg(ai, artPrompt);
             if (result?.url) {
                 successCount++;
-                // generatedImages에 추가 (openModal 호환)
                 const imgIdx = generatedImages.length;
                 generatedImages.push({
                     url: result.url,
@@ -11796,9 +11815,22 @@ async function galGenerate() {
             const el = document.getElementById(`gal-${ai.id}`);
             if (el) el.innerHTML = `<div style="font-size:0.4rem;color:#ef4444">${ai.name}<br>❌ ${e.message?.substring(0,40)}</div>`;
         }
-    });
+    };
     
-    await Promise.allSettled(promises);
+    const naiAis = iais.filter(ai => ai.p === 'nai');
+    const otherAis = iais.filter(ai => ai.p !== 'nai');
+    
+    // 비-NAI들은 동시 발사
+    const otherPromises = otherAis.map(runOne);
+    
+    // NAI는 순차 발사 (한 장씩 끝나야 다음)
+    const naiPromise = (async () => {
+        for (const ai of naiAis) {
+            await runOne(ai);
+        }
+    })();
+    
+    await Promise.allSettled([...otherPromises, naiPromise]);
     
     // 사이즈 복원
     if (document.getElementById('kreaSize') && origSize) document.getElementById('kreaSize').value = origSize;
