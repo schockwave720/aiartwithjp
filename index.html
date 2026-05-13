@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0512-1 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0505-8 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -224,7 +224,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0512-1</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0505-8</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -622,13 +622,13 @@
         <div class="card" style="margin-top:8px">
             <h2 style="color:#fbbf24">🔑 API Keys (한번 입력 → 자동 저장)</h2>
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:4px;margin-bottom:8px">
-                <div class="api-row"><label>⚡Cerebras</label><input type="text" id="key-cerebras"></div>
+                <div class="api-row"><label>⚡Cerebras</label><input type="text" id="key-cerebras"><button onclick="testCerebrasKey()" style="margin-left:4px;padding:2px 8px;font-size:0.7rem;background:#3b82f6;color:white;border:none;border-radius:4px;cursor:pointer">🔍검증</button></div>
                 <div class="api-row"><label style="color:var(--gem)">💎Gemini</label><input type="text" id="key-gemini"></div>
-                <div class="api-row"><label>🌐OpenRouter</label><input type="text" id="key-openrouter"></div>
+                <div class="api-row"><label>🌐OpenRouter</label><input type="text" id="key-openrouter"><button onclick="testOpenRouterKey()" style="margin-left:4px;padding:2px 8px;font-size:0.7rem;background:#3b82f6;color:white;border:none;border-radius:4px;cursor:pointer">🔍검증</button></div>
                 <div class="api-row"><label>🚀Groq</label><input type="text" id="key-groq"></div>
                 <div class="api-row"><label>💰DeepSeek</label><input type="text" id="key-deepseek"></div>
                 <div class="api-row"><label>🤖xAI (Grok)</label><input type="text" id="key-xai"></div>
-                <div class="api-row"><label style="color:#10a37f">OpenAI</label><input type="text" id="key-openai" placeholder="sk-..."></div>
+                <div class="api-row"><label style="color:#10a37f">OpenAI</label><input type="text" id="key-openai" placeholder="sk-..."><button onclick="testOpenAIKey()" style="margin-left:4px;padding:2px 8px;font-size:0.7rem;background:#10a37f;color:white;border:none;border-radius:4px;cursor:pointer">🔍검증</button></div>
                 <div class="api-row"><label style="color:#d97706">Claude</label><input type="text" id="key-anthropic" placeholder="sk-ant-..."></div>
                 <div class="api-row"><label>🎨NovelAI</label><input type="text" id="key-novelai"></div>
                 <div class="api-row"><label style="color:var(--poe)">🐦Poe</label><input type="text" id="key-poe"></div>
@@ -1162,8 +1162,8 @@
                             </div>
                             <div id="comboThumb" style="display:none;margin-bottom:3px"></div>
                         </div>
-                        <div class="srow"><label>Artist:</label><textarea id="naiArtist" rows="2">0.8::artist:okama::, 0.8::artist:kagami::, 0.7::artist:fellatrix::, year 2024</textarea></div>
-                        <div class="srow"><label>Quality:</label><textarea id="naiQuality" rows="3">{{very aesthetic}}, {{{ultra detailed}}}, nsfw, -1::multiple view::, simple illustration, best quality, very aesthetic, -1::official style, official art::, -2::3d, 3d background, realistic, photorealistic::</textarea></div>
+                        <div class="srow"><label>Artist:</label><textarea id="naiArtist" rows="2">0.6::artist:fuusen club::, 0.6::artist:okama::, 0.6::artist:kagami::, 0.5::artist:fellatrix::, year 2024, nsfw, oil painting style, photorealistic</textarea></div>
+                        <div class="srow"><label>Quality:</label><textarea id="naiQuality" rows="4">photorealistic, -1::flat color::, natural, -3::simple illustration::, best illustration, novel illustration, {{{masterpiece}}}, {{{best quality}}}, {{{amazing quality}}}, {{very aesthetic}}, {{{ultra detailed}}}, nsfw, -1::multiple view::, simple illustration, upscaled, blurry, text::, -1::official style, official art::, 2::3d, 3d background, realistic, photorealistic::, no text, best quality, very aesthetic, thick thigh, wide hips, mature married woman, lewd, nsfw, abundant body hair</textarea></div>
                         <!-- Content Rating Mode -->
                         <div class="srow"><label>Rating:</label>
                             <select id="nsfwMode" onchange="updateNSFWMode()" style="font-size:0.5rem">
@@ -1179,7 +1179,7 @@
                                 <option value="quality">👑 성능 우선</option>
                             </select>
                         </div>
-                        <div class="srow"><label>Negative:</label><textarea id="naiNegative" rows="4">blank page, text, logo, watermark, too many watermarks, reference, signature, artist name, dated, artistic error, scan artifacts, jpeg artifacts, upscaled, aliasing, film grain, heavy film grain, dithering, chromatic aberration, digital dissolve, halftone, screentones, artist:xinzoruo, artist:milkpanda, artist:kurukurumagical, artist collaboration, one-hour drawing challenge, toon (style), 1990s (style), 4koma, 2koma, mutation, deformed, distorted, disfigured, bad anatomy, unnatural hair, bad face, mob face, bad eyes, empty eyes, bad proportions, bad limbs, amputee, bad arm, bad hands, bad hand structure, extra digits, fewer digits, bad leg, extra leg, distorted composition, bad perspective, multiple views, disorganized colors, unfinished, incomplete, displeasing, very displeasing, unsatisfactory, inadequate, deficient, subpar, poor, blurry, lowres, worst quality, bad quality, fewer details, bad portrait, bad illustration, full nude, naked</textarea></div>
+                        <div class="srow"><label>Negative:</label><textarea id="naiNegative" rows="4">full nude, naked, blank page, text, logo, watermark, too many watermarks, reference, signature, artist name, dated, artistic error, scan artifacts, jpeg artifacts, upscaled, aliasing, film grain, heavy film grain, dithering, chromatic aberration, digital dissolve, halftone, screentones, artist:xinzoruo, artist:milkpanda, artist:kurukurumagical, artist collaboration, one-hour drawing challenge, toon (style), 1990s (style), 4koma, 2koma, mutation, deformed, distorted, disfigured, bad anatomy, unnatural hair, bad face, mob face, bad eyes, empty eyes, bad proportions, bad limbs, amputee, bad arm, bad hands, bad hand structure, extra digits, fewer digits, bad leg, extra leg, distorted composition, bad perspective, multiple views, disorganized colors, unfinished, incomplete, displeasing, very displeasing, unsatisfactory, inadequate, deficient, subpar, poor, blurry, lowres, worst quality, bad quality, fewer details, bad portrait</textarea></div>
                         <div class="srow">
                             <label>Size:</label><select id="naiSize">
                                 <option value="1216x832" selected>1216×832 가로</option>
@@ -1318,7 +1318,6 @@
                                     <option value="ideogram-2-turbo">Ideogram 2.0A Turbo 💨</option>
                                     <option value="seedream-4">Seedream 4 (사실적)</option>
                                     <option value="seedream-3">Seedream 3 (빠름)</option>
-                                    <option value="runway-gen-4">Runway Gen-4 (시네마틱)</option>
                                 </optgroup>
                             </select>
                         </div>
@@ -1374,7 +1373,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0512-1 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0505-8 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
             </div>
         </div>
         
@@ -1532,6 +1531,95 @@
 </div>
 
 <script>
+// ★ AIART 안전 유틸 (v0505-8: JSON 파싱 복구 + LocalStorage 용량 안전장치)
+const AIART = {
+    version: '0505-8',
+    
+    // JSON 파싱 — 실패 시 패턴 복구 (DeepSeek/Llama가 가끔 깨진 JSON 뱉을 때)
+    safeJSONParse(str, fallback = null) {
+        if (!str || typeof str !== 'string') return fallback;
+        // 1차: 그냥 시도
+        try { return JSON.parse(str); } catch(e1) {}
+        // 2차: 마크다운 코드블록 제거 (```json ... ``` 패턴)
+        const codeBlock = str.match(/```(?:json)?\s*([\s\S]*?)```/);
+        if (codeBlock) {
+            try { return JSON.parse(codeBlock[1].trim()); } catch(e2) {}
+        }
+        // 3차: { ... } 또는 [ ... ] 첫 매치 추출
+        const objMatch = str.match(/\{[\s\S]*\}/);
+        const arrMatch = str.match(/\[[\s\S]*\]/);
+        const candidate = (arrMatch && (!objMatch || arrMatch.index < objMatch.index)) ? arrMatch[0] : (objMatch ? objMatch[0] : null);
+        if (candidate) {
+            try { return JSON.parse(candidate); } catch(e3) {
+                // 4차: trailing comma 등 자주 나오는 오류 정정
+                const fixed = candidate
+                    .replace(/,\s*([}\]])/g, '$1')      // trailing comma
+                    .replace(/,\s*,/g, ',')              // double comma
+                    .replace(/([{,]\s*)([a-zA-Z_$][\w$]*)\s*:/g, '$1"$2":'); // unquoted key
+                try { return JSON.parse(fixed); } catch(e4) {}
+            }
+        }
+        console.warn('[AIART] JSON 파싱 완전 실패:', str.substring(0, 100));
+        return fallback;
+    },
+    
+    // LocalStorage 안전 — Quota 초과 시 오래된 키 자동 정리
+    safeLocalStorage: {
+        get(key, defaultVal = null) {
+            try {
+                const raw = localStorage.getItem(key);
+                if (raw === null || raw === undefined) return defaultVal;
+                // JSON처럼 보이면 파싱, 아니면 raw string 반환
+                if (raw.startsWith('{') || raw.startsWith('[') || raw === 'true' || raw === 'false' || raw === 'null') {
+                    try { return JSON.parse(raw); } catch(e) { return raw; }
+                }
+                return raw;
+            } catch(e) {
+                console.warn('[AIART] localStorage.get 실패:', key, e);
+                return defaultVal;
+            }
+        },
+        set(key, value) {
+            const serialized = (typeof value === 'string') ? value : JSON.stringify(value);
+            try {
+                localStorage.setItem(key, serialized);
+                return true;
+            } catch(e) {
+                if (e.name === 'QuotaExceededError' || e.code === 22) {
+                    console.warn('[AIART] localStorage 용량 초과 — 오래된 키 정리 시도');
+                    // 가장 큰 키 5개 제거 시도
+                    try {
+                        const keys = [];
+                        for (let i = 0; i < localStorage.length; i++) {
+                            const k = localStorage.key(i);
+                            if (k && k !== key) {
+                                keys.push({ k, size: (localStorage.getItem(k) || '').length });
+                            }
+                        }
+                        keys.sort((a, b) => b.size - a.size);
+                        for (let i = 0; i < Math.min(5, keys.length); i++) {
+                            localStorage.removeItem(keys[i].k);
+                            console.warn('[AIART] 정리:', keys[i].k);
+                        }
+                        // 재시도
+                        localStorage.setItem(key, serialized);
+                        return true;
+                    } catch(e2) {
+                        console.error('[AIART] localStorage 정리 후에도 저장 실패:', e2);
+                        return false;
+                    }
+                }
+                console.warn('[AIART] localStorage.set 실패:', key, e);
+                return false;
+            }
+        },
+        remove(key) {
+            try { localStorage.removeItem(key); return true; }
+            catch(e) { return false; }
+        }
+    }
+};
+
 let currentMode = 'aisetup';
 const generatedImages = [];
 const results = [];
@@ -2754,6 +2842,8 @@ function dwRegisterImage(imgUrl, prompt, imgAiName, artist, size, _external) {
     const idx = generatedImages.length;
     generatedImages.push({ url: imgUrl, prompt, imgAi: imgAiName || 'DW', promptAi: 'Dream Weaver', artist: artist || '', size: size || '', _external: !!_external });
     updateGallery();
+    // ★ v0513-1: 외부 URL이면 백그라운드 blob 변환
+    setTimeout(() => rehydrateExternal(idx), 500);
     return idx;
 }
 
@@ -4524,7 +4614,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0512-1 모델 가격표</h1>
+<h1>💰 AIARTstudio v0505-8 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.04 기준 | 싱가포르(International) 엔드포인트</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -4593,7 +4683,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 🐉 이미지: <strong style="color:#a78bfa">Qwen Image Plus</strong> (장당 ₩29) + <strong style="color:#a78bfa">Qwen Image Max</strong> (장당 ₩109, 최고 퀄)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0512-1 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0505-8 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -5133,12 +5223,15 @@ async function runOneRound(topic, style, textAIs, iais, roundNum, totalRounds) {
                 try {
                     const r = await callImg(imgAI, prompt);
                     const ref = getCurrentRefInfo();
+                    const pushedIdx = generatedImages.length;
                     if (typeof r === 'object' && r.url) {
                         generatedImages.push({ url: r.url, prompt, imgAi: imgAI.name, promptAi: pAI.name, round: roundNum, artist: r.artist, size: r.size, _external: r._external, explanation, ...ref });
                     } else {
                         generatedImages.push({ url: r, prompt, imgAi: imgAI.name, promptAi: pAI.name, round: roundNum, explanation, ...ref });
                     }
                     updateGallery();
+                    // ★ v0513-1: 외부 URL이면 백그라운드 blob 변환 시작
+                    setTimeout(() => rehydrateExternal(pushedIdx), 500);
                     infGenerated++;
                     log(`🖼️ R${roundNum} ${pAI.name}→${imgAI.name} [${n+1}/${imgCount}] 🎨${r.artist || ''} ${r.size || ''}`, 'ok');
                     if (n < imgCount - 1 || imgAIs.indexOf(imgAI) < imgAIs.length - 1) await new Promise(r => setTimeout(r, 1200));
@@ -5346,10 +5439,10 @@ function getSmartRandomSize(topic) {
 
 const TEXT_PROVIDERS = {
     cerebras: { name:'⚡ Cerebras', color:'cerebras', nsfw:'partial', models:[
-        {id:'cb-gptoss',name:'GPT-OSS 120B (3000t/s ⚡최강)',m:'gpt-oss-120b',tag:'best',nsfw:false},
-        {id:'cb-glm47',name:'GLM 4.7 355B (1000t/s 🆕)',m:'zai-glm-4.7',tag:'new',nsfw:true},
-        {id:'cb-qw3',name:'Qwen3 235B (1400t/s) ⚠5/27삭제',m:'qwen-3-235b-a22b-instruct-2507',tag:'hot',nsfw:true},
-        {id:'cb-llama31',name:'Llama 3.1 8B (2200t/s) ⚠5/27삭제',m:'llama3.1-8b',tag:'fast',nsfw:true},
+        {id:'cb-gptoss',name:'GPT-OSS 120B (3000t/s) ⭐',m:'gpt-oss-120b',tag:'best',nsfw:false},
+        {id:'cb-glm47',name:'GLM 4.7 (355B) 💎코딩특화',m:'zai-glm-4.7',tag:'new',nsfw:true},
+        {id:'cb-qw3',name:'Qwen3 235B (1400t/s) ⚠5/27 종료',m:'qwen-3-235b-a22b-instruct-2507',tag:'hot',nsfw:true},
+        {id:'cb-llama31',name:'Llama 3.1 8B (2200t/s) ⚠5/27 종료',m:'llama3.1-8b',tag:'fast',nsfw:true},
     ]},
     gemini: { name:'💎 Gemini', color:'gemini', nsfw:'no', models:[
         {id:'gem31p', name:'Gemini 3.1 Pro',  m:'gemini-3.1-pro-preview',   tag:'best',nsfw:false},
@@ -5374,11 +5467,15 @@ const TEXT_PROVIDERS = {
         {id:'ds-r1d',name:'R1 Distill 70B',m:'deepseek-r1-distill-llama-70b',tag:'fast',nsfw:true},
     ] },
     xai: { name:'🤖 xAI (Grok)', color:'xai', nsfw:'yes', models:[
-        {id:'grk420r',name:'Grok 4.20 (추론)',m:'grok-4.20-0309-reasoning',tag:'best',nsfw:true},
-        {id:'grk420n',name:'Grok 4.20 (비추론)',m:'grok-4.20-0309-non-reasoning',tag:'new',nsfw:true},
-        {id:'grk4',name:'Grok 4',m:'grok-4-0709',tag:'hot',nsfw:true},
-        {id:'grk41r',name:'Grok 4.1 Fast (추론)',m:'grok-4-1-fast-reasoning',tag:'fast',nsfw:true},
-        {id:'grk41n',name:'Grok 4.1 Fast',m:'grok-4-1-fast-non-reasoning',tag:'fast',nsfw:true},
+        {id:'grk43',name:'✨ Grok 4.3',m:'grok-4.3',tag:'best',nsfw:true},
+        {id:'grk43l',name:'🆕 Grok 4.3 Latest',m:'grok-4.3-latest',tag:'new',nsfw:true},
+        {id:'grk420r',name:'🔥 Grok 4.20 (추론)',m:'grok-4.20-reasoning',tag:'hot',nsfw:true},
+        {id:'grk420n',name:'🔥 Grok 4.20',m:'grok-4.20-non-reasoning',tag:'hot',nsfw:true},
+        {id:'grk420l',name:'Grok 4.20 Latest',m:'grok-4.20-latest',nsfw:true},
+        {id:'grk41r',name:'⚡ Grok 4.1 Fast (추론)',m:'grok-4-1-fast-reasoning',tag:'fast',nsfw:true},
+        {id:'grk41n',name:'⚡ Grok 4.1 Fast',m:'grok-4-1-fast-non-reasoning',tag:'fast',nsfw:true},
+        {id:'grkcf',name:'💻 Grok Code Fast',m:'grok-code-fast-1',tag:'fast',nsfw:true},
+        {id:'grk4',name:'Grok 4',m:'grok-4-0709',nsfw:true},
     ]},
     openai: { name:'🤖 OpenAI', color:'openai', nsfw:'no', models:[
         {id:'oai-gpt54',name:'GPT-5.4',m:'gpt-5.4',tag:'best',nsfw:false},
@@ -5393,38 +5490,47 @@ const TEXT_PROVIDERS = {
         {id:'ant-haiku',name:'Haiku 3.5',m:'claude-3-5-haiku-20241022',tag:'fast',nsfw:false},
     ]},
     or: { name:'🌐 OpenRouter', color:'openrouter', nsfw:'partial', models:[
-        // ★★ 무료 — 2026.04 확인
+        // ★★ 무료 — 2026.05 검증 완료
         {id:'or-free',name:'🎰 Free Router (자동)',m:'openrouter/free',tag:'free',nsfw:true},
+        {id:'or-trin-lg',name:'Arcee Trinity 400B 🆓',m:'arcee-ai/trinity-large-preview',tag:'best',nsfw:true},
+        {id:'or-trin-mini',name:'Arcee Trinity Mini 🆓',m:'arcee-ai/trinity-mini',tag:'fast',nsfw:true},
+        {id:'or-venice-uc',name:'🌶️ Venice Uncensored 🆓',m:'cognitivecomputations/dolphin-mistral-24b-venice-edition:free',tag:'hot',nsfw:true},
         {id:'or-qw36f',name:'Qwen 3.6 Plus 🆓',m:'qwen/qwen3.6-plus',tag:'best',nsfw:true},
         {id:'or-mimo-pro',name:'MiMo-V2-Pro 🆓🔥',m:'xiaomi/mimo-v2-pro',tag:'best',nsfw:true},
         {id:'or-mimo-flash',name:'MiMo-V2-Flash 🆓',m:'xiaomi/mimo-v2-flash',tag:'fast',nsfw:true},
         {id:'or-nemo3sf',name:'Nemotron 3 Super 120B 🆓',m:'nvidia/nemotron-3-super-120b-a12b:free',tag:'hot',nsfw:true},
-        {id:'or-arc-lgf',name:'Arcee Trinity 400B 🆓',m:'arcee-ai/trinity-large-preview:free',tag:'hot',nsfw:true},
-        {id:'or-arc-minif',name:'Arcee Trinity Mini 🆓',m:'arcee-ai/trinity-mini:free',tag:'fast',nsfw:true},
         {id:'or-gemma4f',name:'Gemma 4 31B 🆓',m:'google/gemma-4-31b-it:free',tag:'new',nsfw:false},
         {id:'or-qw3nextf',name:'Qwen3 Next 80B 🆓',m:'qwen/qwen3-next-80b-a3b-instruct:free',tag:'new',nsfw:true},
-        {id:'or-step35f',name:'Step 3.5 Flash 🆓',m:'stepfun/step-3-5-flash:free',tag:'fast',nsfw:true},
+        {id:'or-step35f',name:'Step 3.5 Flash 🆓',m:'stepfun/step-3.5-flash:free',tag:'fast',nsfw:true},
         {id:'or-llama33f',name:'Llama 3.3 70B 🆓',m:'meta-llama/llama-3.3-70b-instruct:free',tag:'fast',nsfw:true},
         {id:'or-gptoss120f',name:'GPT-OSS 120B 🆓',m:'openai/gpt-oss-120b:free',tag:'hot',nsfw:true},
         {id:'or-mm25f',name:'MiniMax M2.5 🆓',m:'minimax/minimax-m2.5:free',tag:'fast',nsfw:true},
         // ★★ 저렴 ($0.05~$2) — 검열 적고 가성비 좋은 순
-        {id:'or-dsv32',name:'DS V3.2 $0.14',m:'deepseek/deepseek-v3.2',tag:'best',nsfw:true},
-        {id:'or-dsv32s',name:'DS V3.2 Speciale $0.14',m:'deepseek/deepseek-v3.2-speciale',tag:'hot',nsfw:true},
+        {id:'or-dsv32',name:'DS V3.2 $0.25',m:'deepseek/deepseek-v3.2',tag:'best',nsfw:true},
+        {id:'or-dsv32s',name:'DS V3.2 Speciale $0.25',m:'deepseek/deepseek-v3.2-speciale',tag:'hot',nsfw:true},
         {id:'or-dsr1',name:'DeepSeek R1 $0.55',m:'deepseek/deepseek-r1',tag:'hot',nsfw:true},
-        {id:'or-seed16f',name:'Seed 1.6 Flash $0.05',m:'bytedance/seed-1.6-flash',tag:'fast',nsfw:true},
-        {id:'or-seed16',name:'Seed 1.6 $0.5',m:'bytedance/seed-1.6',tag:'hot',nsfw:true},
-        {id:'or-kimi',name:'Kimi K2.5 $0.38',m:'moonshotai/kimi-k2.5',tag:'hot',nsfw:true},
+        {id:'or-trin-think',name:'🆕 Trinity Large Thinking $0.22',m:'arcee-ai/trinity-large-thinking',tag:'new',nsfw:true},
+        {id:'or-step35',name:'Step 3.5 Flash $0.10',m:'stepfun/step-3.5-flash',tag:'fast',nsfw:true},
+        {id:'or-glm45a',name:'🆕 GLM 4.5 Air $0.20',m:'z-ai/glm-4.5-air',tag:'fast',nsfw:true},
+        {id:'or-seed16f',name:'Seed 1.6 Flash $0.05',m:'bytedance-seed/seed-1.6-flash',tag:'fast',nsfw:true},
+        {id:'or-seed16',name:'Seed 1.6 $0.5',m:'bytedance-seed/seed-1.6',tag:'hot',nsfw:true},
+        {id:'or-kimi26',name:'🆕 Kimi K2.6 $0.74',m:'moonshotai/kimi-k2.6',tag:'best',nsfw:true},
+        {id:'or-kimi',name:'Kimi K2.5 $0.38',m:'moonshotai/kimi-k2.5',nsfw:true},
+        {id:'or-grok41',name:'🆕 Grok 4.1 Fast $0.20',m:'x-ai/grok-4.1-fast',tag:'fast',nsfw:true},
         {id:'or-mm27',name:'MiniMax M2.7 $0.5',m:'minimax/minimax-m2.7',tag:'hot',nsfw:true},
-        {id:'or-mm25',name:'MiniMax M2.5 $0.5',m:'minimax/minimax-m2.5',tag:'hot',nsfw:true},
+        {id:'or-mm25',name:'MiniMax M2.5 $0.5',m:'minimax/minimax-m2.5',nsfw:true},
         {id:'or-mmher',name:'MiniMax M2-her 🎭 $0.5',m:'minimax/minimax-m2-her',nsfw:true},
         {id:'or-llama33',name:'Llama 3.3 70B $0.06',m:'meta-llama/llama-3.3-70b-instruct',tag:'fast',nsfw:true},
-        {id:'or-gemini25f',name:'Gemini 2.5 Flash $0.15',m:'google/gemini-2.5-flash-preview-04-17',tag:'fast',nsfw:false},
+        {id:'or-gemini3f',name:'🆕 Gemini 3 Flash $0.50',m:'google/gemini-3-flash-preview',tag:'fast',nsfw:false},
+        {id:'or-gemini25f',name:'Gemini 2.5 Flash $0.15',m:'google/gemini-2.5-flash',tag:'fast',nsfw:false},
         {id:'or-gemini31fl',name:'Gemini 3.1 Flash Lite $0.25',m:'google/gemini-3.1-flash-lite',tag:'fast',nsfw:false},
         {id:'or-mistral',name:'Mistral Large 3 $2',m:'mistralai/mistral-large-2512',nsfw:true},
-        {id:'or-devstral',name:'Devstral (코딩) $1',m:'mistralai/devstral-2507',tag:'hot',nsfw:false},
+        {id:'or-devstral2f',name:'Devstral 2 (코딩) 🆓',m:'mistralai/devstral-2512:free',tag:'free',nsfw:false},
+        {id:'or-devstralm',name:'Devstral Medium (코딩) $0.4',m:'mistralai/devstral-medium',tag:'hot',nsfw:false},
         // ★★ 프리미엄 ($2.5+) — 최고 성능
         {id:'or-g54',name:'GPT-5.4 $2.5',m:'openai/gpt-5.4',tag:'best',nsfw:false},
-        {id:'or-c46s',name:'Claude Sonnet 4.6 $3',m:'anthropic/claude-sonnet-4-6-20250514',tag:'best',nsfw:false},
+        {id:'or-c46s',name:'Claude Sonnet 4.6 $3',m:'anthropic/claude-sonnet-4.6',tag:'best',nsfw:false},
+        {id:'or-c47o',name:'🆕 Claude Opus 4.7 $5',m:'anthropic/claude-opus-4.7',tag:'best',nsfw:false},
         {id:'or-grok3',name:'Grok 3 $3',m:'x-ai/grok-3-beta',tag:'hot',nsfw:true},
         {id:'or-gemini31p',name:'Gemini 3.1 Pro $2.5',m:'google/gemini-3.1-pro',tag:'best',nsfw:false},
         {id:'or-perplx',name:'Perplexity Sonar $1',m:'perplexity/sonar-pro',tag:'hot',nsfw:false},
@@ -5599,7 +5705,7 @@ const IMG_PROVIDERS = {
         {id:'krea-nbp',name:'NanaBanana Pro 💸',m:'nano-banana-pro'},
         {id:'krea-f11pu',name:'Flux 1.1 Ultra 💸',m:'flux-1-1-pro-ultra'},
         {id:'krea-im4u',name:'Imagen 4 Ultra 💸',m:'imagen-4-ultra'},
-        {id:'krea-rw4',name:'Runway Gen-4 💸💸',m:'runway-gen-4'},
+        // Runway Gen-4 제거됨 (Krea API 422 — 비디오 전용, 이미지 미지원)
     ]},
     grok: { name:'🚀 Grok', color:'grok', models:[
         {id:'grok-imagine',name:'Grok Imagine (Aurora)',m:'grok-imagine-image',tag:'best'},
@@ -5726,7 +5832,7 @@ function closeArtistModal() {
 
 // NAI Artist Presets (from Illustory - 60개 전체!)
 const NAI_PRESETS = {
-    "p00": { name: "00. ★ My Favorite", artist: "0.8::artist:okama::, 0.8::artist:kagami::, 0.7::artist:fellatrix::, year 2024" },
+    "p00": { name: "00. ★ My Favorite", artist: "0.6::artist:fuusen club::, 0.6::artist:okama::, 0.6::artist:kagami::, 0.5::artist:fellatrix::, year 2024, nsfw, oil painting style, photorealistic" },
     "p01": { name: "01. CSR + Incase", artist: "0.9::artist:cutesexyrobutts::, 0.8::artist:incase::, 0.7::artist:fellatrix::, year 2024" },
     "p02": { name: "02. Ratatatat74 + Gerph", artist: "0.9::artist:ratatatat74::, 0.8::artist:gerph::, 0.7::artist:nyantcha::, year 2024" },
     "p03": { name: "03. Personal Ami + Yuritamashi", artist: "0.9::artist:personal_ami::, 0.8::artist:yuritamashi::, 0.7::artist:bbc-chan::, year 2024" },
@@ -6678,13 +6784,93 @@ function log(m, t='info') { const c = document.getElementById('logc'), e = docum
 function prog(p, t) { document.getElementById('pfill').style.width = `${p}%`; document.getElementById('ptxt').textContent = t; }
 
 // TEXT API
+// ★ OpenAI 키 검증
+async function testOpenAIKey() {
+    const key = getKey('openai');
+    if (!key) { alert('🔑 OpenAI 키를 먼저 입력해주세요!\n→ platform.openai.com/api-keys에서 발급'); return; }
+    log(`🔍 OpenAI 키 검증 중... (${key.substring(0, 8)}...${key.slice(-4)})`, 'info');
+    try {
+        const r = await fetch('https://api.openai.com/v1/models', {
+            headers: {'Authorization': `Bearer ${key}`}
+        });
+        if (r.status === 401) {
+            log(`❌ OpenAI 키 무효`, 'err');
+            alert(`❌ OpenAI 키 검증 실패! (401)\n\n💡 해결:\n1. platform.openai.com/api-keys에서 키 상태 확인\n2. 키가 sk-로 시작하는지 확인\n3. 만료/삭제됐으면 새로 발급`);
+            return;
+        }
+        if (!r.ok) { alert(`⚠️ OpenAI API 응답 이상: ${r.status}`); return; }
+        const d = await r.json();
+        const modelCount = d.data?.length || 0;
+        const gptModels = (d.data || []).filter(m => m.id.includes('gpt')).map(m => m.id).slice(0, 8).join('\n  • ');
+        log(`✅ OpenAI 키 유효! 모델 ${modelCount}개`, 'ok');
+        alert(`✅ OpenAI 키 검증 성공!\n\n📊 사용 가능: ${modelCount}개\n\nGPT 모델 (일부):\n  • ${gptModels}\n\n→ 호출 시 404가 뜨면 모델 ID가 위 리스트에 없는 것입니다.`);
+    } catch(e) {
+        log(`❌ OpenAI 검증 오류: ${e.message}`, 'err');
+        alert(`⚠️ 네트워크 오류: ${e.message}`);
+    }
+}
+
+// ★ Cerebras 키 검증 (모델 리스트 API로 확인)
+async function testCerebrasKey() {
+    const key = getKey('cerebras');
+    if (!key) { alert('🔑 Cerebras 키를 먼저 입력해주세요!'); return; }
+    log(`🔍 Cerebras 키 검증 중... (${key.substring(0, 8)}...${key.slice(-4)})`, 'info');
+    try {
+        const r = await fetch('https://api.cerebras.ai/v1/models', {
+            headers: {'Authorization': `Bearer ${key}`}
+        });
+        if (r.status === 401 || r.status === 403) {
+            log(`❌ Cerebras 키 무효: ${r.status}`, 'err');
+            alert(`❌ Cerebras 키 검증 실패! (${r.status})\n\n💡 해결:\n1. cloud.cerebras.ai 접속\n2. API Keys 섹션에서 키 상태 확인\n3. 만료/삭제됐으면 새로 발급\n4. 무료 베타가 종료됐을 수 있음`);
+            return;
+        }
+        if (!r.ok) {
+            alert(`⚠️ Cerebras API 응답 이상: HTTP ${r.status}`);
+            return;
+        }
+        const d = await r.json();
+        const modelCount = d.data?.length || 0;
+        const modelNames = (d.data || []).map(m => m.id).slice(0, 10).join('\n  • ');
+        log(`✅ Cerebras 키 유효! 모델 ${modelCount}개 사용 가능`, 'ok');
+        alert(`✅ Cerebras 키 검증 성공!\n\n📊 사용 가능한 모델: ${modelCount}개\n  • ${modelNames}${modelCount > 10 ? '\n  ... (and more)' : ''}\n\n→ 키는 정상 작동합니다.\n→ 호출 시 404가 뜨면 모델 ID가 위 리스트에 없는 것입니다.`);
+    } catch(e) {
+        log(`❌ Cerebras 검증 네트워크 오류: ${e.message}`, 'err');
+        alert(`⚠️ 네트워크 오류: ${e.message}`);
+    }
+}
+
 async function callCerebras(p, m) { 
+    const key = getKey('cerebras');
+    if (!key) throw new Error('🔑 Cerebras API 키 필요 (key-cerebras)');
     const r = await fetch('https://api.cerebras.ai/v1/chat/completions', { 
         method:'POST', 
-        headers:{'Authorization':`Bearer ${getKey('cerebras')}`,'Content-Type':'application/json'}, 
+        headers:{'Authorization':`Bearer ${key}`,'Content-Type':'application/json'}, 
         body:JSON.stringify({model:m,messages:[{role:'user',content:p}],max_tokens:4000}) 
-    }); 
-    if(!r.ok) throw new Error(`Cerebras ${r.status}: ${r.statusText}`);
+    });
+    if(!r.ok) {
+        const errTxt = await r.text().catch(()=>'');
+        // ★ 에러 코드별 진단
+        if (r.status === 401) {
+            throw new Error(`🔑 Cerebras 인증 실패 (401)\n→ 키 만료/무효. 🔍검증 버튼으로 확인\n→ cloud.cerebras.ai에서 새 키 발급`);
+        }
+        if (r.status === 403) {
+            // GLM 4.7, GPT-OSS 120B는 rate limit 빡셈 (공식 공지)
+            if (m === 'zai-glm-4.7' || m === 'gpt-oss-120b') {
+                throw new Error(`⏳ Cerebras 무료 티어 rate limit (403)\n→ "${m}" 인기 폭발로 무료 한도 임시 축소됨 (공식 공지)\n→ 잠시 후 재시도 또는 다른 Cerebras 모델 사용\n→ 또는 cloud.cerebras.ai에서 크레딧 충전`);
+            }
+            throw new Error(`🚫 Cerebras 권한 거부 (403)\n→ 이 모델 사용 권한 없음. 🔍검증 버튼으로 확인`);
+        }
+        if (r.status === 404) {
+            if (m === 'zai-glm-4.7' || m === 'gpt-oss-120b') {
+                throw new Error(`💸 ${m} 무료 티어 차단 (404)\n→ Cerebras 공지: 인기 폭발로 무료 티어 접근 차단\n→ cloud.cerebras.ai에서 크레딧 충전 (Pro Tier로 승격) 시 사용 가능\n→ 또는 Llama 3.1 8B 사용 (현재 작동)`);
+            }
+            throw new Error(`❌ Cerebras 모델 없음: "${m}"\n→ 🔍검증 버튼으로 사용 가능한 모델 확인`);
+        }
+        if (r.status === 429) {
+            throw new Error(`⏳ Cerebras 요청 제한 (429) — 잠시 후 재시도`);
+        }
+        throw new Error(`Cerebras ${r.status}: ${errTxt.substring(0,200) || r.statusText}`);
+    }
     const d = await r.json(); 
     if(d.error) throw new Error(d.error.message || d.error); 
     if(!d.choices || !d.choices[0]) throw new Error('Cerebras: 응답 없음'); 
@@ -6740,39 +6926,96 @@ async function callGemini(p, m) {
 }
 async function callGroq(p, m) { const r = await fetch('https://api.groq.com/openai/v1/chat/completions', { method:'POST', headers:{'Authorization':`Bearer ${getKey('groq')}`,'Content-Type':'application/json'}, body:JSON.stringify({model:m,messages:[{role:'user',content:p}]}) }); const d = await r.json(); if(d.error) throw new Error(d.error.message); if(!d.choices?.[0]) throw new Error('Groq: 응답 없음'); return d.choices[0].message.content; }
 async function callDeepSeek(p, m) { const r = await fetch('https://api.deepseek.com/chat/completions', { method:'POST', headers:{'Authorization':`Bearer ${getKey('deepseek')}`,'Content-Type':'application/json'}, body:JSON.stringify({model:m,messages:[{role:'user',content:p}]}) }); const d = await r.json(); if(d.error) throw new Error(d.error.message); if(!d.choices?.[0]) throw new Error('DeepSeek: 응답 없음'); return d.choices[0].message.content; }
+// ★ xAI 텍스트 호출 큐 (mutex) — 동시 호출 시 race condition 방지
+let _xaiTextQueue = Promise.resolve();
+const XAI_TEXT_MIN_INTERVAL = 600; // ms — 텍스트는 빠르니 0.6초면 충분
+let _xaiTextLastEnd = 0;
+
 async function callXAI(p, m) {
     const apiUrl = 'https://api.x.ai/v1/chat/completions';
-    const hdrs = {'Authorization':`Bearer ${getKey('xai')}`,'Content-Type':'application/json'};
+    const key = getKey('xai');
+    if (!key) throw new Error('xAI API 키 필요 (key-xai)');
+    
+    // ★★★ 큐 등록
+    const myTurn = _xaiTextQueue;
+    let release;
+    _xaiTextQueue = new Promise(r => { release = r; });
+    
+    try {
+        await myTurn;
+        const sinceLast = Date.now() - _xaiTextLastEnd;
+        if (_xaiTextLastEnd > 0 && sinceLast < XAI_TEXT_MIN_INTERVAL) {
+            await new Promise(r => setTimeout(r, XAI_TEXT_MIN_INTERVAL - sinceLast));
+        }
+        return await _callXAICore(p, m, key, apiUrl);
+    } finally {
+        _xaiTextLastEnd = Date.now();
+        release();
+    }
+}
+
+async function _callXAICore(p, m, key, apiUrl) {
+    const hdrs = {'Authorization':`Bearer ${key}`,'Content-Type':'application/json'};
     const payload = JSON.stringify({model:m,messages:[{role:'user',content:p}],max_tokens:4000});
     // ★ 텍스트 API는 응답 빠름(~5초) → 프록시 OK
     const proxyList = [
         { url: apiUrl, label: '직접' },
         { url: 'https://corsproxy.io/?'+encodeURIComponent(apiUrl), label: 'corsproxy.io' },
     ];
+    // ★ Retry with exponential backoff (429 대응)
+    const MAX_RETRY = 4;
     let lastErr = '';
-    for (const proxy of proxyList) {
-        try {
-            const controller = new AbortController();
-            const tid = setTimeout(() => controller.abort(), 60000);
-            const r = await fetch(proxy.url, {method:'POST', headers:hdrs, body:payload, signal:controller.signal});
-            clearTimeout(tid);
-            const d = await r.json();
-            if(d.error) throw new Error(d.error.message);
-            if(d.choices?.[0]) {
-                log(`✅ xAI (${proxy.label}) 응답 OK`, 'ok');
-                return d.choices[0].message.content;
+    for (let attempt = 0; attempt < MAX_RETRY; attempt++) {
+        for (const proxy of proxyList) {
+            try {
+                const controller = new AbortController();
+                const tid = setTimeout(() => controller.abort(), 120000); // 120초 (추론 모델 대응)
+                const r = await fetch(proxy.url, {method:'POST', headers:hdrs, body:payload, signal:controller.signal});
+                clearTimeout(tid);
+                // ★ 504 타임아웃은 재시도 가능
+                if (r.status === 504) {
+                    const wait = (attempt + 1) * 2000 + Math.floor(Math.random() * 500);
+                    log(`⏳ xAI 504 타임아웃 → ${(wait/1000).toFixed(1)}초 대기 후 재시도 (${attempt+1}/${MAX_RETRY})`, 'warn');
+                    await new Promise(rs => setTimeout(rs, wait));
+                    lastErr = '504 timeout';
+                    break;
+                }
+                // ★ 429 → backoff 후 재시도 (유료 티어 대응)
+                if (r.status === 429) {
+                    const waitSchedule = [1500, 4000, 10000, 25000]; // 1.5s, 4s, 10s, 25s
+                    const wait = waitSchedule[attempt] + Math.floor(Math.random() * 500);
+                    log(`⏳ xAI 429 rate limit → ${(wait/1000).toFixed(1)}초 대기 (재시도 ${attempt+1}/${MAX_RETRY})`, 'warn');
+                    await new Promise(rs => setTimeout(rs, wait));
+                    lastErr = '429 rate limit';
+                    break; // 안쪽 for 탈출 → attempt 증가
+                }
+                if (r.status === 401) throw new Error('🔑 xAI API 키 오류! console.x.ai에서 새 키 발급');
+                if (!r.ok) {
+                    const errTxt = await r.text().catch(()=>''); 
+                    throw new Error(`xAI ${r.status}: ${errTxt.substring(0,200) || '응답 없음'}`);
+                }
+                const d = await r.json();
+                if(d.error) throw new Error(d.error.message || JSON.stringify(d.error));
+                if(d.choices?.[0]?.message?.content?.trim()) {
+                    log(`✅ xAI ${m} (${proxy.label}) 응답 OK`, 'ok');
+                    return d.choices[0].message.content;
+                }
+                // ★ 빈 응답 진단 (모델 ID 잘못된 경우 종종 발생)
+                throw new Error(`xAI: 빈 응답 (모델 "${m}" 확인 필요 — 존재하지 않는 모델 ID일 수 있음)`);
+            } catch(e) {
+                lastErr = e.message;
+                if (e.name === 'AbortError') { log(`⏳ xAI ${proxy.label} 타임아웃`, 'warn'); continue; }
+                if(e.message.includes('Failed to fetch') || e.message.includes('NetworkError') || e.message.includes('Load failed') || e.message.includes('ERR_FAILED')) {
+                    log(`🚫 xAI ${proxy.label} CORS 차단`, 'warn'); continue;
+                }
+                if (e.message.includes('429') || e.message.includes('rate limit')) break;
+                throw e;
             }
-            throw new Error('xAI: 응답 없음');
-        } catch(e) {
-            lastErr = e.message;
-            if (e.name === 'AbortError') { log(`⏳ xAI ${proxy.label} 타임아웃`, 'warn'); continue; }
-            if(e.message.includes('Failed to fetch') || e.message.includes('NetworkError') || e.message.includes('Load failed') || e.message.includes('ERR_FAILED')) {
-                log(`🚫 xAI ${proxy.label} CORS 차단`, 'warn'); continue;
-            }
-            throw e;
         }
+        // 429/504가 아니면 retry 안 함
+        if (!lastErr.includes('429') && !lastErr.includes('rate limit') && !lastErr.includes('504') && !lastErr.includes('timeout')) break;
     }
-    throw new Error(`xAI 텍스트 API 실패: ${lastErr}\n💡 다른 Story AI를 선택하거나, localhost에서 실행해주세요`);
+    throw new Error(`xAI API 실패: ${lastErr} (재시도 ${MAX_RETRY}회 모두 실패)\n💡 504면 서버 일시 장애 — 잠시 후 재시도\n💡 429면 동시 호출 줄이거나 console.x.ai 확인`);
 }
 async function callOpenAI(p, m) { const key = getKey('openai'); if (!key) throw new Error('OpenAI API 키 필요'); const body = {model:m,messages:[{role:'user',content:p}]}; if(m.startsWith('o') || m.startsWith('gpt-5') || m.includes('gpt-4.1')) { body.max_completion_tokens = 4000; } else { body.max_tokens = 4000; } const r = await fetch('https://api.openai.com/v1/chat/completions', { method:'POST', headers:{'Authorization':`Bearer ${key}`,'Content-Type':'application/json'}, body:JSON.stringify(body) }); if(!r.ok) { const errData = await r.json().catch(()=>({})); throw new Error(errData?.error?.message || `OpenAI ${r.status}`); } const d = await r.json(); if(d.error) throw new Error(d.error.message); if(!d.choices?.[0]) throw new Error('OpenAI: 응답 없음'); return d.choices[0].message.content; }
 async function callAnthropic(p, m) { 
@@ -6798,7 +7041,59 @@ async function callAnthropic(p, m) {
         throw new Error(`Claude CORS 제한 - OpenRouter 사용 권장: ${e.message}`);
     }
 }
-async function callOR(p, m) { const r = await fetch('https://openrouter.ai/api/v1/chat/completions', { method:'POST', headers:{'Authorization':`Bearer ${getKey('openrouter')}`,'Content-Type':'application/json','HTTP-Referer':location.href}, body:JSON.stringify({model:m,messages:[{role:'user',content:p}],max_tokens:4000}) }); const d = await r.json(); if(d.error) throw new Error(d.error.message||JSON.stringify(d.error)); if(!d.choices?.[0]) throw new Error('OpenRouter: 응답 없음'); return d.choices[0].message.content; }
+// ★ OpenRouter 키 검증 (key-info API로 계정 + 잔액 확인)
+async function testOpenRouterKey() {
+    const key = getKey('openrouter');
+    if (!key) { alert('🔑 OpenRouter 키를 먼저 입력해주세요!'); return; }
+    log(`🔍 OpenRouter 키 검증 중... (${key.substring(0, 10)}...${key.slice(-4)})`, 'info');
+    try {
+        const r = await fetch('https://openrouter.ai/api/v1/auth/key', {
+            headers: {'Authorization': `Bearer ${key}`}
+        });
+        const d = await r.json();
+        if (!r.ok || d.error) {
+            const msg = d.error?.message || `HTTP ${r.status}`;
+            log(`❌ OpenRouter 키 무효: ${msg}`, 'err');
+            alert(`❌ OpenRouter 키 검증 실패!\n\n에러: ${msg}\n\n💡 해결:\n1. openrouter.ai/keys 에서 키 상태 확인\n2. 키 재발급 후 입력\n3. 다른 계정 키가 들어가있는지 확인`);
+            return;
+        }
+        const info = d.data || {};
+        const usage = info.usage ?? 0;
+        const limit = info.limit ?? 'unlimited';
+        const isFree = info.is_free_tier;
+        const label = info.label || '(no label)';
+        log(`✅ OpenRouter 키 유효: ${label}`, 'ok');
+        log(`💰 사용량: $${usage.toFixed(4)} / 한도: ${limit === null ? '∞' : '$'+limit}`, 'info');
+        alert(`✅ OpenRouter 키 검증 성공!\n\n📛 키 라벨: ${label}\n💰 사용량: $${Number(usage).toFixed(4)}\n📊 한도: ${limit === null || limit === 'unlimited' ? '무제한' : '$'+limit}\n🎫 티어: ${isFree ? '무료' : '유료'}\n\n→ 이 키는 정상 작동해야 합니다.\n→ 호출 시에도 'User not found' 뜨면 캐시 문제 — 페이지 새로고침 권장`);
+    } catch(e) {
+        log(`❌ OpenRouter 키 검증 네트워크 오류: ${e.message}`, 'err');
+        alert(`⚠️ 검증 중 네트워크 오류: ${e.message}`);
+    }
+}
+
+async function callOR(p, m) {
+    const key = getKey('openrouter');
+    if (!key) throw new Error('🔑 OpenRouter API 키 필요!\n→ openrouter.ai/keys 에서 발급 (key-openrouter)');
+    const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method:'POST',
+        headers:{'Authorization':`Bearer ${key}`,'Content-Type':'application/json','HTTP-Referer':location.href},
+        body:JSON.stringify({model:m,messages:[{role:'user',content:p}],max_tokens:4000})
+    });
+    const d = await r.json();
+    if(d.error) {
+        const msg = d.error.message || JSON.stringify(d.error);
+        // ★ 'User not found' = 키 만료/삭제 진단
+        if (msg.includes('User not found') || msg.includes('user not found')) {
+            throw new Error(`🔑 OpenRouter 키 무효 (User not found)\n→ openrouter.ai/keys 에서 키 재발급 필요\n→ 또는 크레딧 충전 확인`);
+        }
+        if (r.status === 401) throw new Error('🔑 OpenRouter API 키 인증 실패! 키 확인 또는 재발급');
+        if (r.status === 402) throw new Error('💸 OpenRouter 크레딧 부족! openrouter.ai/credits 에서 충전');
+        if (r.status === 429) throw new Error('⏳ OpenRouter 요청 제한! 잠시 후 재시도');
+        throw new Error(msg);
+    }
+    if(!d.choices?.[0]) throw new Error('OpenRouter: 응답 없음');
+    return d.choices[0].message.content;
+}
 async function callSambaNova(p, m) { const r = await fetch('https://api.sambanova.ai/v1/chat/completions', { method:'POST', headers:{'Authorization':`Bearer ${getKey('sambanova')}`,'Content-Type':'application/json'}, body:JSON.stringify({model:m,messages:[{role:'user',content:p}],max_tokens:4000}) }); const d = await r.json(); if(d.error) throw new Error(d.error.message); if(!d.choices?.[0]) throw new Error('SambaNova: 응답 없음'); return d.choices[0].message.content; }
 async function callZAI(p, m) { const r = await fetch('https://api.z.ai/api/paas/v4/chat/completions', { method:'POST', headers:{'Authorization':`Bearer ${getKey('zai')}`,'Content-Type':'application/json'}, body:JSON.stringify({model:m,messages:[{role:'user',content:p}],max_tokens:4000}) }); const d = await r.json(); if(d.error) { const msg = d.error.message || JSON.stringify(d.error); if(msg.includes('不安全') || msg.includes('敏感') || msg.includes('sensitive')) throw new Error('🔞 Z.ai 검열 차단! 중국 AI라 민감한 프롬프트 제한. 다른 AI로 재시도'); if(msg.includes('余额不足') || msg.includes('balance')) throw new Error('💸 Z.ai 잔액 부족! 무료 Flash 모델 사용 추천'); throw new Error(msg); } if(!d.choices?.[0]) throw new Error('Z.ai: 응답 없음'); return d.choices[0].message.content; }
 async function callDashScopeText(p, m) {
@@ -7055,12 +7350,29 @@ async function applyNAIReference(params) {
 }
 
 // ★ NAI 동시 호출 방지 뮤텍스
+// ★ NAI 글로벌 락 + 호출 간격 (Concurrent generation lock 대응)
 let _naiLock = Promise.resolve();
+let _naiLastEnd = 0;
+const NAI_MIN_INTERVAL = 1500; // 호출 사이 최소 1.5초
+
 function withNaiLock(fn) {
     const prev = _naiLock;
     let resolve;
     _naiLock = new Promise(r => resolve = r);
-    return prev.then(() => fn().finally(resolve));
+    return prev.then(async () => {
+        // 직전 호출 종료 후 충분한 간격 보장
+        const sinceLast = Date.now() - _naiLastEnd;
+        if (_naiLastEnd > 0 && sinceLast < NAI_MIN_INTERVAL) {
+            const wait = NAI_MIN_INTERVAL - sinceLast;
+            await new Promise(r => setTimeout(r, wait));
+        }
+        try {
+            return await fn();
+        } finally {
+            _naiLastEnd = Date.now();
+            resolve();
+        }
+    });
 }
 
 async function genNovelAI(prompt) {
@@ -7164,19 +7476,41 @@ async function genNovelAI(prompt) {
     
     log(`🎨 NAI: ${s.width}x${s.height}, ${s.steps}steps${artistName ? ', 🎨'+artistName : ''}`, 'img');
     log(`📝 NAI 입력: ${fullPrompt.substring(0, 120)}...`, 'info');
-    const response = await fetch('https://image.novelai.net/ai/generate-image', { 
-        method: 'POST', 
-        headers: { 
-            'Content-Type': 'application/json', 
-            'Authorization': `Bearer ${getKey('novelai')}`, 
-            'Origin': 'https://novelai.net', 
-            'Referer': 'https://novelai.net/' 
-        }, 
-        body: JSON.stringify(requestBody) 
-    });
+    
+    // ★ NAI 429 자동 재시도 (Concurrent generation locked 대응)
+    let response = null;
+    const MAX_NAI_RETRY = 3;
+    for (let attempt = 0; attempt < MAX_NAI_RETRY; attempt++) {
+        response = await fetch('https://image.novelai.net/ai/generate-image', { 
+            method: 'POST', 
+            headers: { 
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${getKey('novelai')}`, 
+                'Origin': 'https://novelai.net', 
+                'Referer': 'https://novelai.net/' 
+            }, 
+            body: JSON.stringify(requestBody) 
+        });
+        if (response.status === 429) {
+            const errText = await response.text().catch(() => '');
+            const wait = (attempt + 1) * 3000 + Math.floor(Math.random() * 1000); // 3s, 6s, 9s
+            if (errText.includes('Concurrent generation') || errText.includes('locked')) {
+                log(`⏳ NAI 동시 생성 락 → ${(wait/1000).toFixed(1)}초 대기 후 재시도 (${attempt+1}/${MAX_NAI_RETRY})`, 'warn');
+            } else {
+                log(`⏳ NAI 429 → ${(wait/1000).toFixed(1)}초 대기 (${attempt+1}/${MAX_NAI_RETRY})`, 'warn');
+            }
+            await new Promise(r => setTimeout(r, wait));
+            continue;
+        }
+        break; // 429 아니면 루프 탈출
+    }
+    
     if (!response.ok) {
         const errText = await response.text().catch(() => '');
         log(`❌ NAI API 에러 ${response.status}: ${errText.substring(0, 200)}`, 'error');
+        if (response.status === 429) {
+            throw new Error(`NAI 429: 동시 생성 한계 (${MAX_NAI_RETRY}회 재시도 실패)\n💡 NAI는 한 번에 1장씩만 생성됩니다. 호출 수를 줄이세요.`);
+        }
         throw new Error(`NAI ${response.status}: ${errText.substring(0, 200)}`);
     }
     const zip = await JSZip.loadAsync(await response.arrayBuffer());
@@ -7511,10 +7845,48 @@ async function genVenice(prompt, model) {
         return `data:image/png;base64,${b64}`;
     }
 }
+// ★ Grok Imagine 글로벌 호출 큐 (mutex) — 동시 호출 시 race condition 방지
+// Promise 체인으로 한 번에 1개씩만 순차 처리
+let _grokImagineQueue = Promise.resolve();
+const GROK_IMAGINE_MIN_INTERVAL = 4000; // ms — 호출 사이 최소 4초 간격
+let _grokImagineLastEnd = 0;
+let _grokImagineQueueLen = 0;
+
 // ★ Grok Imagine (xAI) - 텍스트→이미지 생성
 async function genGrokImagine(prompt, model) {
     const key = getKey('xai');
     if (!key) throw new Error('xAI API 키 필요 (key-xai)');
+    
+    // ★★★ 큐에 등록: 앞 작업이 끝날 때까지 무조건 대기
+    _grokImagineQueueLen++;
+    const myTurn = _grokImagineQueue;
+    let release;
+    _grokImagineQueue = new Promise(r => { release = r; });
+    
+    try {
+        await myTurn; // 앞 차례가 끝날 때까지 대기 (이게 mutex)
+        
+        // 직전 호출 종료 후 충분한 간격 보장
+        const sinceLastEnd = Date.now() - _grokImagineLastEnd;
+        if (_grokImagineLastEnd > 0 && sinceLastEnd < GROK_IMAGINE_MIN_INTERVAL) {
+            const waitMs = GROK_IMAGINE_MIN_INTERVAL - sinceLastEnd;
+            log(`⏸️ Grok Imagine 큐 대기: ${(waitMs/1000).toFixed(1)}초 (큐 ${_grokImagineQueueLen}개 남음)`, 'info');
+            await new Promise(r => setTimeout(r, waitMs));
+        } else if (_grokImagineQueueLen > 1) {
+            log(`📋 Grok Imagine 순차 처리 시작 (큐 ${_grokImagineQueueLen}개)`, 'info');
+        }
+        
+        const result = await _genGrokImagineCore(prompt, model, key);
+        return result;
+    } finally {
+        _grokImagineLastEnd = Date.now();
+        _grokImagineQueueLen--;
+        release(); // 다음 차례에게 양보
+    }
+}
+
+// ★ 실제 호출 로직 (큐와 분리)
+async function _genGrokImagineCore(prompt, model, key) {
     const grokModel = model || 'grok-imagine-image';
     const aspectRatio = document.getElementById('grokAspect')?.value || '16:9';
     const resolution = document.getElementById('grokResolution')?.value || '2k';
@@ -7539,52 +7911,70 @@ async function genGrokImagine(prompt, model) {
         { url: 'https://thingproxy.freeboard.io/fetch/' + apiUrl, label: 'thingproxy', timeout: 90000 },
     ];
     
+    // ★ 429 retry with exponential backoff
+    const MAX_RETRY = 4;
     let d = null, lastErr = '';
-    for (const proxy of proxyConfigs) {
-        try {
-            log(`🚀 Grok Imagine (${proxy.label})...`, 'info');
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), proxy.timeout);
-            
-            const r = await fetch(proxy.url, { 
-                method: 'POST', headers: hdrs, body: payload,
-                signal: controller.signal
-            });
-            clearTimeout(timeoutId);
-            
-            if (!r.ok) {
-                const err = await r.json().catch(() => ({}));
-                const msg = err?.error?.message || err?.error || JSON.stringify(err) || `Grok ${r.status}`;
-                if (r.status === 401) throw new Error('🔑 xAI API 키 오류! console.x.ai에서 새 키 발급');
-                if (r.status === 429) throw new Error('⏳ Grok 요청 제한! 잠시 후 재시도');
-                if (r.status === 400 && (msg.includes('moderation') || msg.includes('content policy'))) {
-                    throw new Error('🔞 Grok 콘텐츠 정책 차단! 프롬프트 수정 필요');
+    
+    retryLoop:
+    for (let attempt = 0; attempt < MAX_RETRY; attempt++) {
+        for (const proxy of proxyConfigs) {
+            try {
+                log(`🚀 Grok Imagine (${proxy.label})${attempt > 0 ? ` [재시도 ${attempt+1}/${MAX_RETRY}]` : ''}...`, 'info');
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), proxy.timeout);
+                
+                const r = await fetch(proxy.url, { 
+                    method: 'POST', headers: hdrs, body: payload,
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+                
+                if (!r.ok) {
+                    const err = await r.json().catch(() => ({}));
+                    const msg = err?.error?.message || err?.error || JSON.stringify(err) || `Grok ${r.status}`;
+                    if (r.status === 401) throw new Error('🔑 xAI API 키 오류! console.x.ai에서 새 키 발급');
+                    // ★ 429 → exponential backoff 후 재시도
+                    if (r.status === 429) {
+                        const wait = Math.pow(2, attempt + 1) * 1000 + Math.floor(Math.random() * 500); // 2s, 4s, 8s, 16s
+                        log(`⏳ Grok 429 → ${(wait/1000).toFixed(1)}초 대기 후 재시도 (${attempt+1}/${MAX_RETRY})`, 'warn');
+                        await new Promise(rs => setTimeout(rs, wait));
+                        lastErr = '⏳ Grok 요청 제한 (재시도 중)';
+                        continue retryLoop; // 바깥 attempt 루프로
+                    }
+                    if (r.status === 400 && (msg.includes('moderation') || msg.includes('content policy'))) {
+                        throw new Error('🔞 Grok 콘텐츠 정책 차단! 프롬프트 수정 필요');
+                    }
+                    if (r.status === 504 || r.status === 502 || r.status === 503) {
+                        log(`⏳ ${proxy.label} 타임아웃(${r.status}), 다음 프록시...`, 'warn');
+                        continue;
+                    }
+                    throw new Error(msg);
                 }
-                if (r.status === 504 || r.status === 502 || r.status === 503) {
-                    log(`⏳ ${proxy.label} 타임아웃(${r.status}), 다음 프록시...`, 'warn');
+                d = await r.json();
+                log(`✅ Grok API 응답 (${proxy.label})`, 'ok');
+                break retryLoop; // 성공 → 모든 루프 탈출
+            } catch(e) {
+                lastErr = e.message;
+                if (e.name === 'AbortError') {
+                    log(`⏳ ${proxy.label} 타임아웃, 다음...`, 'warn');
                     continue;
                 }
-                throw new Error(msg);
+                // CORS/네트워크 에러면 다음 프록시로
+                if (e.message.includes('Failed to fetch') || e.message.includes('NetworkError') || e.message.includes('Load failed') || e.message.includes('ERR_FAILED')) {
+                    log(`🚫 ${proxy.label} CORS/네트워크 차단, 다음...`, 'warn');
+                    continue;
+                }
+                throw e; // 인증/정책 에러는 바로 throw
             }
-            d = await r.json();
-            log(`✅ Grok API 응답 (${proxy.label})`, 'ok');
-            break;
-        } catch(e) {
-            lastErr = e.message;
-            if (e.name === 'AbortError') {
-                log(`⏳ ${proxy.label} 타임아웃, 다음...`, 'warn');
-                continue;
-            }
-            // CORS/네트워크 에러면 다음 프록시로
-            if (e.message.includes('Failed to fetch') || e.message.includes('NetworkError') || e.message.includes('Load failed') || e.message.includes('ERR_FAILED')) {
-                log(`🚫 ${proxy.label} CORS/네트워크 차단, 다음...`, 'warn');
-                continue;
-            }
-            throw e; // 인증/정책 에러는 바로 throw
         }
+        // 모든 프록시 실패 — 429가 아니라면 retry 의미 없음
+        if (!lastErr.includes('429') && !lastErr.includes('Grok 요청 제한')) break;
     }
     
     if (!d) {
+        if (lastErr.includes('429') || lastErr.includes('요청 제한')) {
+            throw new Error(`⏳ Grok 요청 제한 (${MAX_RETRY}회 재시도 후 실패)\n💡 잠시 후 다시 시도하거나 다른 모델 사용`);
+        }
         throw new Error(`Grok CORS/타임아웃 실패!\n💡 해결: 터미널에서 python3 -m http.server 8080\n→ localhost:8080 에서 열면 CORS 없이 직접 연결됩니다.`);
     }
     
@@ -7635,8 +8025,8 @@ async function genGrokImagine(prompt, model) {
         } catch(e) { /* 다음 */ }
     }
     
-    // 폴백: URL 직접 반환
-    log(`⚠️ Grok blob 실패 → URL 직접 사용`, 'warn');
+    // 폴백: URL 직접 반환 (CORS 우회 정상 동작 — 이미지는 정상 표시됨)
+    log(`🖼️ Grok 이미지 URL 직접 사용 (CORS 우회 정상)`, 'info');
     return { url: imageUrl, size: '1024x1024', _external: true };
 }
 // ★ DashScope (Alibaba) — Qwen Image 공식 API
@@ -7694,7 +8084,17 @@ async function genDashScope(prompt, model) {
                 const err = await r.json().catch(() => ({}));
                 const msg = err?.message || err?.error?.message || `DashScope ${r.status}`;
                 if (r.status === 401 || r.status === 403) throw new Error(`🔑 DashScope 키 오류: ${msg}`);
-                if (r.status === 429) throw new Error('⏳ Qwen 요청 제한! 잠시 후 재시도');
+                if (r.status === 429) {
+                    // ★ 429 → 3초 대기 후 1회 재시도
+                    log(`⏳ Qwen 429 → 3초 대기 후 재시도...`, 'warn');
+                    await new Promise(rs => setTimeout(rs, 3000 + Math.floor(Math.random()*1000)));
+                    const r2 = await fetch(proxy.url, {method:'POST', headers:{'Authorization':`Bearer ${key}`,'Content-Type':'application/json','X-DashScope-Async':'enable'}, body:JSON.stringify(requestBody)});
+                    if (r2.status === 429) throw new Error('⏳ Qwen 요청 제한! (재시도 실패) 잠시 후 다시 시도');
+                    if (!r2.ok) throw new Error(`Qwen ${r2.status}`);
+                    data = await r2.json();
+                    log(`✅ Qwen Image 재시도 성공`, 'ok');
+                    break;
+                }
                 throw new Error(msg);
             }
             
@@ -8818,41 +9218,95 @@ async function regenWithNewArtist() {
     }
 }
 function closeDetailModal() { document.getElementById('detailModal').classList.remove('show'); }
-function dlImg(i) { 
+// ★ v0513-1: 외부 URL을 blob으로 강제 흡수 (Grok/DashScope/etc.)
+// 성공 시 generatedImages[idx].url을 사후 교체 → 모든 썸네일 즉시 갱신
+async function rehydrateExternal(idx) {
+    const img = generatedImages[idx];
+    if (!img || !img.url) return false;
+    if (img.url.startsWith('blob:') || img.url.startsWith('data:')) return true; // 이미 안전
+    if (img._rehydrating) return false; // 중복 방지
+    img._rehydrating = true;
+    
+    const origUrl = img.url;
+    const proxies = [
+        u => u,  // 1순위: 직접 시도 (localhost나 CORS 허용 서버면 성공)
+        u => 'https://corsproxy.io/?' + encodeURIComponent(u),
+        u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
+        u => 'https://corsproxy.org/?' + encodeURIComponent(u),
+    ];
+    
+    for (const px of proxies) {
+        try {
+            const r = await fetch(px(origUrl), { mode: 'cors' });
+            if (!r.ok) continue;
+            const b = await r.blob();
+            if (b.size < 1000) continue;
+            const blobUrl = URL.createObjectURL(b);
+            img.url = blobUrl;
+            img._external = false;
+            img._rehydrated = true;
+            img._rehydrating = false;
+            // 화면에 떠있는 모든 썸네일 src 교체
+            document.querySelectorAll(`img[data-gimg="${idx}"]`).forEach(el => el.src = blobUrl);
+            // 모달이 이 이미지를 보고 있으면 그것도 교체
+            if (currentModalIndex === idx) {
+                const mi = document.getElementById('modalImg');
+                if (mi) mi.src = blobUrl;
+            }
+            log(`🔄 ${img.imgAi||'?'} blob화 완료 (${(b.size/1024/1024).toFixed(1)}MB)`, 'ok');
+            return true;
+        } catch(e) { /* 다음 프록시 */ }
+    }
+    img._rehydrating = false;
+    return false;
+}
+
+// ★ v0513-1: 통일된 저장 — blob/data는 즉시, 외부 URL은 rehydrate 시도 후 저장
+async function dlImg(i) { 
     const img = generatedImages[i]; 
     if(!img) return; 
-    const fname = `img_${i+1}_${img.imgAi || 'AI'}_${Date.now()}.png`;
+    const safeName = (img.imgAi || 'AI').replace(/[^a-zA-Z0-9가-힣]/g, '_');
+    const fname = `${img.mode||'img'}_${i+1}_${safeName}_${Date.now()}.png`;
     
+    // CASE 1: 이미 blob/data → 즉시 저장
     if(img.url.startsWith('data:') || img.url.startsWith('blob:')) { 
         const a = document.createElement('a'); 
         a.href = img.url; 
         a.download = fname; 
         a.click(); 
-        log(`💾 ${fname} 저장!`, 'ok');
-    } else if (img._external || img.url.includes('imgen.x.ai') || img.url.includes('dashscope')) {
-        // ★ 외부 URL (CORS 불가) → 바로 새 탭
-        log(`💾 외부 이미지 → 새 탭에서 우클릭→저장`, 'info');
+        log(`💾 ${fname}`, 'ok');
+        return;
+    }
+    
+    // CASE 2: 외부 URL → rehydrate 먼저 시도
+    log(`🔄 외부 이미지 변환 중...`, 'info');
+    const ok = await rehydrateExternal(i);
+    
+    if (ok && img.url.startsWith('blob:')) {
+        // 변환 성공 → 저장
+        const a = document.createElement('a');
+        a.href = img.url;
+        a.download = fname;
+        a.click();
+        log(`💾 ${fname} (변환 후 저장)`, 'ok');
+    } else {
+        // 변환 실패 → 새 탭 폴백 (마지막 보루)
+        log(`⚠️ CORS 차단 → 새 탭에서 우클릭→저장`, 'warn');
         window.open(img.url, '_blank');
-    } else { 
-        fetch(img.url, { mode: 'cors' })
-            .then(r => {
-                if (!r.ok) throw new Error(`HTTP ${r.status}`);
-                return r.blob();
-            })
-            .then(b => {
-                const a = document.createElement('a');
-                a.href = URL.createObjectURL(b);
-                a.download = fname;
-                a.click();
-                log(`💾 ${fname} 저장! (${(b.size/1024/1024).toFixed(1)}MB)`, 'ok');
-            })
-            .catch(e => {
-                log(`⚠️ CORS → 새 탭에서 저장`, 'warn');
-                window.open(img.url, '_blank');
-            }); 
-    } 
+    }
 }
 function dlAll() { generatedImages.forEach((_, i) => setTimeout(() => dlImg(i), i * 400)); }
+
+// ★ v0513-1: 생성 직후 백그라운드 자동 변환 (사용자가 💾 누르기 전에 미리 준비)
+function autoRehydrateRecent(startIdx) {
+    for (let i = startIdx; i < generatedImages.length; i++) {
+        const img = generatedImages[i];
+        if (!img || !img.url) continue;
+        if (img.url.startsWith('blob:') || img.url.startsWith('data:')) continue;
+        // 순차적으로 살짝 늦춰서 발사 (서버 부하 방지)
+        setTimeout(() => rehydrateExternal(i), (i - startIdx) * 300);
+    }
+}
 document.addEventListener('keydown', e => { 
     if(e.key==='Escape') { closeFullscreen(); closeModal(); closeDetailModal(); }
     if(e.key==='ArrowLeft' && document.getElementById('imgModal').style.display==='flex') { e.preventDefault(); navigateModal(-1); }
@@ -8908,7 +9362,7 @@ function updateGallery() {
         const explainSnippet = img.explanation ? img.explanation.substring(0, 80) : '';
         return `<div class="iitem" onclick="openModal(${i})" ondblclick="event.stopPropagation();quickRegen(${i})" title="Click: Expand | Double-click: Regenerate${img.promptAi ? '\nPrompt AI: '+img.promptAi : ''}${img.round ? '\nR'+img.round : ''}${img.refName ? '\n🖼️Ref: '+img.refName : ''}">
             <div class="iimg-wrap">
-                <img src="${img.url}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect fill=%22%23334155%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2212%22>Error</text></svg>'">
+                <img src="${img.url}" data-gimg="${i}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect fill=%22%23334155%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2212%22>Error</text></svg>'">
                 <span class="ptag">${i+1}</span>
                 <span class="mtag">${img.imgAi || 'AI'}</span>
                 ${img.round ? `<span class="ptag" style="left:auto;right:2px;top:2px;background:rgba(139,92,246,0.8)">R${img.round}</span>` : ''}
@@ -9818,6 +10272,202 @@ const JP_CAT_DESC = {
 // ══════════════════════════════════════════════════════════════
 // ★★★ 🎵 SUNO SONG GENERATOR ★★★
 // ══════════════════════════════════════════════════════════════
+// ★ 앨범 커버 전용 모달 (Song 모드용 — 재생성/변형/랜덤작가/저장)
+function showAlbumCoverModal(coverElId) {
+    const coverEl = document.getElementById(coverElId);
+    if (!coverEl) return;
+    const img = coverEl.querySelector('img');
+    if (!img) return;
+    
+    const src = img.src;
+    const coverPrompt = coverEl.dataset.coverPrompt || '';
+    const imgAiId = coverEl.dataset.imgAiId || '';
+    const title = coverEl.dataset.title || 'album_cover';
+    
+    let modal = document.getElementById('albumCoverModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'albumCoverModal';
+        modal.style.cssText = 'display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.95);z-index:99998;justify-content:center;align-items:center;flex-direction:column;backdrop-filter:blur(8px)';
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+        modal.innerHTML = `
+            <button onclick="document.getElementById('albumCoverModal').style.display='none'" style="position:fixed;top:15px;right:20px;width:42px;height:42px;background:rgba(239,68,68,0.9);border:2px solid rgba(255,255,255,0.4);border-radius:50%;color:#fff;font-size:1.3rem;cursor:pointer;font-weight:bold;z-index:100000">✕</button>
+            <img id="albumCoverModalImg" src="" style="max-width:90vw;max-height:70vh;object-fit:contain;border-radius:8px;box-shadow:0 0 60px rgba(245,158,11,0.4)">
+            <div id="albumCoverModalCtrls" style="margin-top:15px;display:flex;gap:8px;align-items:center;background:rgba(20,30,50,0.95);padding:12px 18px;border-radius:12px;border:1px solid #f59e0b;flex-wrap:wrap;justify-content:center;max-width:96vw"></div>
+        `;
+        document.body.appendChild(modal);
+    }
+    
+    document.getElementById('albumCoverModalImg').src = src;
+    
+    const ctrls = document.getElementById('albumCoverModalCtrls');
+    ctrls.innerHTML = `
+        <span style="color:#fbbf24;font-size:0.65rem;font-weight:700;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">🎵 ${escHtml(title)}</span>
+        <button id="acmReseed" style="padding:7px 14px;background:linear-gradient(135deg,#f59e0b,#ef4444);border:none;border-radius:6px;color:#fff;font-size:0.55rem;cursor:pointer;font-weight:700">🔄 같은 설정</button>
+        <button id="acmRandArt" style="padding:7px 14px;background:linear-gradient(135deg,#8b5cf6,#ec4899);border:none;border-radius:6px;color:#fff;font-size:0.55rem;cursor:pointer;font-weight:700">🎨 랜덤 작가</button>
+        <button id="acmRemix" style="padding:7px 14px;background:linear-gradient(135deg,#06b6d4,#3b82f6);border:none;border-radius:6px;color:#fff;font-size:0.55rem;cursor:pointer;font-weight:700">✨ 변형</button>
+        <button id="acmDL" style="padding:7px 14px;background:linear-gradient(135deg,#10b981,#059669);border:none;border-radius:6px;color:#fff;font-size:0.55rem;cursor:pointer;font-weight:700">💾 저장</button>
+        <button onclick="document.getElementById('albumCoverModal').style.display='none'" style="padding:7px 14px;background:#475569;border:none;border-radius:6px;color:#fff;font-size:0.55rem;cursor:pointer">닫기</button>
+    `;
+    
+    // ─── 다운로드 ───
+    document.getElementById('acmDL').onclick = async () => {
+        const dl = document.getElementById('acmDL');
+        try {
+            const fileName = title.replace(/[^a-zA-Z0-9가-힣_-]/g, '_') + '.png';
+            const currentSrc = document.getElementById('albumCoverModalImg').src;
+            if (currentSrc.startsWith('blob:')) {
+                const a = document.createElement('a');
+                a.href = currentSrc; a.download = fileName;
+                document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            } else {
+                dl.textContent = '⏳ 다운중...';
+                const r = await fetch(currentSrc);
+                const blob = await r.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = blobUrl; a.download = fileName;
+                document.body.appendChild(a); a.click(); document.body.removeChild(a);
+                setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+            }
+            dl.textContent = '✅ 저장됨!';
+            setTimeout(() => dl.textContent = '💾 저장', 1500);
+        } catch(e) {
+            dl.textContent = '❌ 실패';
+            try { window.open(document.getElementById('albumCoverModalImg').src, '_blank'); } catch(_) {}
+            setTimeout(() => dl.textContent = '💾 저장', 2000);
+        }
+    };
+    
+    // ─── 같은 설정 재생성 ───
+    document.getElementById('acmReseed').onclick = async () => {
+        await _albumCoverRegen('reseed', coverPrompt, imgAiId, coverElId, title);
+    };
+    
+    // ─── 랜덤 작가 ───
+    document.getElementById('acmRandArt').onclick = async () => {
+        await _albumCoverRegen('random_artist', coverPrompt, imgAiId, coverElId, title);
+    };
+    
+    // ─── 변형 (프롬프트 살짝 변형) ───
+    document.getElementById('acmRemix').onclick = async () => {
+        await _albumCoverRegen('remix', coverPrompt, imgAiId, coverElId, title);
+    };
+    
+    modal.style.display = 'flex';
+}
+
+// ★ 앨범 커버 재생성 핵심 함수 (mode: reseed | random_artist | remix)
+async function _albumCoverRegen(mode, coverPrompt, imgAiId, coverElId, title) {
+    const modeBtn = mode === 'reseed' ? document.getElementById('acmReseed')
+                  : mode === 'random_artist' ? document.getElementById('acmRandArt')
+                  : document.getElementById('acmRemix');
+    const origText = modeBtn?.textContent;
+    if (modeBtn) { modeBtn.textContent = '⏳ 생성중...'; modeBtn.disabled = true; }
+    
+    // 모든 이미지 AI 1:1 강제 (앨범 커버니까)
+    const naiSizeEl = document.getElementById('naiSize');
+    const kreaSizeEl = document.getElementById('kreaSize');
+    const gemAspectEl = document.getElementById('gemAspect');
+    const grokAspectEl = document.getElementById('grokAspect');
+    const origNaiSize = naiSizeEl?.value;
+    const origKreaSize = kreaSizeEl?.value;
+    const origGemAspect = gemAspectEl?.value;
+    const origGrokAspect = grokAspectEl?.value;
+    if (naiSizeEl) naiSizeEl.value = '1024x1024';
+    if (kreaSizeEl) kreaSizeEl.value = '1024x1024';
+    if (gemAspectEl) gemAspectEl.value = '1:1';
+    if (grokAspectEl) grokAspectEl.value = '1:1';
+    
+    // 작가 변경 (random_artist 모드일 때 NAI 작가 변경)
+    const naiArtistEl = document.getElementById('naiArtist');
+    const origArtist = naiArtistEl?.value;
+    if (mode === 'random_artist' && naiArtistEl && typeof NAI_ARTISTS !== 'undefined' && NAI_ARTISTS.length > 0) {
+        // 3개 랜덤 작가 뽑아서 조합
+        const shuffled = [...NAI_ARTISTS].sort(() => Math.random() - 0.5).slice(0, 3);
+        const newTag = shuffled.map((a, i) => {
+            const w = (0.8 - i * 0.1).toFixed(1);
+            return `${w}::artist:${a.id}::`;
+        }).join(', ') + ', year 2024';
+        naiArtistEl.value = newTag;
+        log(`🎨 랜덤 작가 적용: ${shuffled.map(a => a.name).join(' + ')}`, 'info');
+    }
+    
+    // 프롬프트 결정
+    let finalPrompt = coverPrompt;
+    if (mode === 'remix') {
+        // ★ 앨범 자켓 미학에 맞는 변형 (단순/아이코닉 유지)
+        const REMIX_VARIATIONS = [
+            ', stark monochrome palette, high contrast',
+            ', dreamy gradient background, ethereal mood',
+            ', bold single-color background, graphic design',
+            ', moody dark atmosphere, low-key lighting',
+            ', warm sunset gradient, nostalgic mood',
+            ', minimalist line art style, geometric',
+            ', double exposure effect, artistic blend',
+            ', faded vintage film aesthetic, grainy texture',
+            ', neon noir aesthetic, cyberpunk minimal',
+            ', pastel dreamy palette, soft mood',
+        ];
+        const variation = REMIX_VARIATIONS[Math.floor(Math.random() * REMIX_VARIATIONS.length)];
+        finalPrompt = coverPrompt + variation;
+        log(`✨ 자켓 변형: ${variation.trim()}`, 'info');
+    }
+    
+    try {
+        // 이미지 AI 결정
+        let usedImgAi = null;
+        const imgAIs = getSelectedImageAIs();
+        if (mode === 'random_artist' && imgAIs.length > 0) {
+            // random_artist 모드는 이미지 AI도 랜덤
+            usedImgAi = imgAIs[Math.floor(Math.random() * imgAIs.length)];
+        } else {
+            // 같은 imgAi 찾기
+            usedImgAi = imgAIs.find(a => a.id === imgAiId) || imgAIs[0];
+        }
+        
+        let result;
+        if (usedImgAi) {
+            result = await callImg(usedImgAi, finalPrompt);
+        } else {
+            result = await genGeminiFlash(finalPrompt);
+        }
+        
+        let newUrl = '';
+        if (typeof result === 'string') newUrl = result;
+        else if (result?.url) newUrl = result.url;
+        else if (result?.src) newUrl = result.src;
+        
+        if (newUrl) {
+            // 모달 이미지 + 카드 이미지 둘 다 업데이트
+            document.getElementById('albumCoverModalImg').src = newUrl;
+            const coverEl = document.getElementById(coverElId);
+            if (coverEl) {
+                const cardImg = coverEl.querySelector('img');
+                if (cardImg) cardImg.src = newUrl;
+                // imgAi 변경됐으면 데이터도 업데이트
+                if (usedImgAi) coverEl.dataset.imgAiId = usedImgAi.id;
+            }
+            log(`✅ 앨범 커버 ${mode} 재생성 완료 (${usedImgAi?.name || 'Gemini'})`, 'ok');
+            if (modeBtn) { modeBtn.textContent = '✅ 완료!'; setTimeout(() => modeBtn.textContent = origText, 1500); }
+        } else {
+            throw new Error('이미지 URL 없음');
+        }
+    } catch(e) {
+        log(`❌ 앨범 커버 재생성 실패: ${e.message}`, 'err');
+        if (modeBtn) { modeBtn.textContent = '❌ 실패'; setTimeout(() => modeBtn.textContent = origText, 2000); }
+        alert(`재생성 실패: ${e.message}`);
+    } finally {
+        // 사이즈/비율/작가 원복
+        if (naiSizeEl && origNaiSize) naiSizeEl.value = origNaiSize;
+        if (kreaSizeEl && origKreaSize) kreaSizeEl.value = origKreaSize;
+        if (gemAspectEl && origGemAspect) gemAspectEl.value = origGemAspect;
+        if (grokAspectEl && origGrokAspect) grokAspectEl.value = origGrokAspect;
+        if (naiArtistEl && origArtist && mode === 'random_artist') naiArtistEl.value = origArtist;
+        if (modeBtn) modeBtn.disabled = false;
+    }
+}
+
 async function generateSunoSong() {
     const btn = document.getElementById('songGenBtn');
     const topic = document.getElementById('songTopic').value.trim();
@@ -9837,21 +10487,28 @@ async function generateSunoSong() {
 
 THEME: "${topic}"
 GENRE: ${genre === 'auto' ? 'Choose the best genre that fits the theme' : genre}
-LANGUAGE: ${langMap[lang] || '한국어'}
+LYRICS LANGUAGE: ${langMap[lang] || '한국어'}
 MOOD: ${mood === 'auto' ? 'Choose the best mood for this theme' : mood}
+
+⚠️ CRITICAL LANGUAGE RULES (Suno AI compatibility):
+- 🎶 STYLE OF MUSIC tag: MUST be in ENGLISH (genre, vocal type, instruments, tempo, mood keywords)
+- 🎵 TITLE: Match the lyrics language (Korean lyrics → Korean title; English lyrics → English title; Japanese lyrics → Japanese title)
+- 📜 LYRICS: Use ${langMap[lang] || '한국어'} (the chosen lyrics language)
+- 🖼️ ALBUM COVER PROMPT: MUST be in ENGLISH (Danbooru-style tags, square 1:1 album cover composition)
+- [Section] tags like [Intro] [Verse 1] [Chorus]: ALWAYS in English (Suno requires this)
 
 Create a COMPLETE song with Suno-compatible formatting. Output EXACTLY this structure:
 
-🎵 TITLE: [곡 제목]
+🎵 TITLE: [곡 제목 — match lyrics language]
 
-🎶 STYLE OF MUSIC: [Suno style tag - 예: emotional ballad, female vocal, piano, strings, 120bpm]
+🎶 STYLE OF MUSIC: [English Suno style tag — e.g., "emotional ballad, female vocal, piano, strings, 120bpm, melancholic"]
 
 📋 SONG STRUCTURE:
 [Intro]
-(instrumental description)
+(instrumental description in English)
 
 [Verse 1]
-(가사 4-6줄)
+(가사 4-6줄 — in ${langMap[lang] || '한국어'})
 
 [Pre-Chorus]
 (가사 2줄)
@@ -9875,16 +10532,28 @@ Create a COMPLETE song with Suno-compatible formatting. Output EXACTLY this stru
 (변주 후렴)
 
 [Outro]
-(instrumental fade)
+(instrumental fade — English description)
 
 RULES:
-- [Section] tags are REQUIRED for Suno
+- [Section] tags are REQUIRED for Suno (English only!)
 - Lyrics must be emotionally resonant and poetic
-- Style tag should be specific: include vocal type, instruments, tempo, mood keywords
+- Style tag should be specific: include vocal type, instruments, tempo, mood keywords (ALL in English)
 - Make it a REAL song someone would want to listen to
 - Each AI must create a COMPLETELY DIFFERENT song (different melody concept, different lyrics)
 
-🖼️ ALBUM COVER PROMPT: [English Danbooru-style tags for album cover art, 15-20 tags, aesthetic and matching the song mood]`;
+🖼️ ALBUM COVER PROMPT: [English Danbooru-style tags for a REAL ALBUM JACKET design. 
+
+⚠️ CRITICAL — This is NOT a regular illustration. This is a PROFESSIONAL ALBUM COVER. Follow these rules:
+- SQUARE 1:1 composition only
+- ONE strong central subject or iconic visual motif (not a busy scene)
+- Minimalist, graphic, ICONIC aesthetic — like Spotify/Apple Music album covers
+- Clear focal point with negative space
+- Bold mood/atmosphere matching the song genre
+- NO text, NO typography, NO logos, NO watermarks
+- Could be: silhouette, single object, abstract shape, portrait close-up, atmospheric scene
+- Think: Pink Floyd "Dark Side", Joy Division "Unknown Pleasures", Frank Ocean "Blonde", The Weeknd "After Hours" — iconic, simple, memorable
+
+Format: 12-18 comma-separated tags including: "album cover", "minimalist", "iconic", "centered composition", "negative space", + visual elements matching the song mood.]`;
 
     const results = document.getElementById('songResults');
     // ★ 선택된 ALL Text AI가 각각 작곡
@@ -9919,7 +10588,7 @@ RULES:
 
             card.innerHTML = `
                 <div style="display:flex;gap:10px;align-items:flex-start">
-                    <div id="${cardId}-cover" style="width:150px;height:150px;flex-shrink:0;border-radius:8px;overflow:hidden;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;font-size:2rem">🎵</div>
+                    <div id="${cardId}-cover" title="앨범 커버 영역" style="width:150px;height:150px;flex-shrink:0;border-radius:8px;overflow:hidden;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;font-size:2rem;transition:transform 0.2s,box-shadow 0.2s" onmouseenter="if(this.querySelector('img')){this.style.transform='scale(1.05)';this.style.boxShadow='0 0 20px rgba(245,158,11,0.5)'}" onmouseleave="this.style.transform='scale(1)';this.style.boxShadow='none'">🎵</div>
                     <div style="flex:1;min-width:0">
                         <div style="font-size:0.75rem;color:#fbbf24;font-weight:800">${escHtml(title)}</div>
                         <div style="font-size:0.42rem;color:#94a3b8;margin:2px 0">by ${escHtml(ai.name)}</div>
@@ -9940,21 +10609,71 @@ RULES:
             
             log(`🎵 ${ai.name}: "${title}" 작곡 완료!`, 'ok');
             
-            // 앨범 커버 생성
+            // 앨범 커버 생성 (1:1 정사각형 강제)
             if (wantCover && coverPrompt) {
                 const coverEl = document.getElementById(cardId + '-cover');
                 coverEl.innerHTML = '<div style="width:16px;height:16px;border:2px solid #f59e0b;border-top-color:transparent;border-radius:50%;animation:pulse 1.5s infinite"></div>';
+                
+                // ★ 모든 이미지 AI 1:1 정사각 강제 (앨범 자켓이니까)
+                const naiSizeEl = document.getElementById('naiSize');
+                const kreaSizeEl = document.getElementById('kreaSize');
+                const gemAspectEl = document.getElementById('gemAspect');
+                const grokAspectEl = document.getElementById('grokAspect');
+                const origNaiSize = naiSizeEl?.value;
+                const origKreaSize = kreaSizeEl?.value;
+                const origGemAspect = gemAspectEl?.value;
+                const origGrokAspect = grokAspectEl?.value;
+                if (naiSizeEl) naiSizeEl.value = '1024x1024';
+                if (kreaSizeEl) kreaSizeEl.value = '1024x1024';
+                if (gemAspectEl) gemAspectEl.value = '1:1';
+                if (grokAspectEl) grokAspectEl.value = '1:1';
+                
+                // ★ 진짜 앨범 자켓 미학 키워드 (단순/아이코닉/미니멀)
+                const albumJacketStyle = ', album cover, album jacket design, square 1:1 composition, centered subject, minimalist iconic composition, clean negative space, bold visual focus, professional graphic design, vinyl record aesthetic, no text, no typography, no logo, no watermark';
+                const squareCoverPrompt = coverPrompt + albumJacketStyle;
+                
                 try {
                     const imgAIs = getSelectedImageAIs();
+                    let usedImgAi = null;
+                    let result;
                     if (imgAIs.length) {
-                        const imgAi = imgAIs[Math.floor(Math.random() * imgAIs.length)];
-                        const url = await callImg(imgAi, coverPrompt + ', album cover art, music, aesthetic');
-                        coverEl.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover">`;
+                        usedImgAi = imgAIs[Math.floor(Math.random() * imgAIs.length)];
+                        result = await callImg(usedImgAi, squareCoverPrompt);
                     } else {
-                        const url = await genGeminiFlash(coverPrompt + ', album cover art');
-                        coverEl.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover">`;
+                        result = await genGeminiFlash(squareCoverPrompt);
                     }
-                } catch(e) { coverEl.innerHTML = '<div style="font-size:2rem">🎵</div>'; }
+                    // ★ url 정규화 — 객체({url}/{src}) 또는 string 둘 다 처리
+                    let imgUrl = '';
+                    if (typeof result === 'string') imgUrl = result;
+                    else if (result?.url) imgUrl = result.url;
+                    else if (result?.src) imgUrl = result.src;
+                    else if (Array.isArray(result) && result[0]) imgUrl = typeof result[0] === 'string' ? result[0] : (result[0].url || result[0].src || '');
+                    
+                    if (imgUrl) {
+                        // ★ 클릭 시 확대 + 재생성/변형/저장 가능하도록
+                        const safeTitle = (title || 'album_cover').replace(/[^a-zA-Z0-9가-힣]/g, '_').substring(0, 40);
+                        const imgAiId = usedImgAi ? usedImgAi.id : 'gemini-flash';
+                        // 카드 자체에 데이터 저장 (재생성용)
+                        coverEl.dataset.coverPrompt = squareCoverPrompt;
+                        coverEl.dataset.imgAiId = imgAiId;
+                        coverEl.dataset.title = safeTitle;
+                        coverEl.style.cursor = 'pointer';
+                        coverEl.title = '클릭: 확대 + 재생성/변형/저장';
+                        coverEl.innerHTML = `<img src="${imgUrl}" style="width:100%;height:100%;object-fit:cover;display:block" onclick="event.stopPropagation();showAlbumCoverModal('${cardId}-cover')" onerror="this.parentElement.innerHTML='<div style=&quot;font-size:2rem&quot;>🎵</div>'">`;
+                        log(`🖼️ ${title} 앨범 커버 생성 완료 (${usedImgAi?.name || 'Gemini'})`, 'ok');
+                    } else {
+                        throw new Error('이미지 URL 없음');
+                    }
+                } catch(e) {
+                    coverEl.innerHTML = '<div style="font-size:2rem">🎵</div>';
+                    log(`⚠️ ${title} 앨범 커버 실패: ${e.message}`, 'warn');
+                } finally {
+                    // ★ 모든 사이즈/비율 원복
+                    if (naiSizeEl && origNaiSize) naiSizeEl.value = origNaiSize;
+                    if (kreaSizeEl && origKreaSize) kreaSizeEl.value = origKreaSize;
+                    if (gemAspectEl && origGemAspect) gemAspectEl.value = origGemAspect;
+                    if (grokAspectEl && origGrokAspect) grokAspectEl.value = origGrokAspect;
+                }
             }
         } catch(e) {
             card.innerHTML = `<div style="color:#ef4444;font-size:0.45rem;padding:8px">❌ ${ai.name}: ${e.message}</div>`;
@@ -10478,16 +11197,28 @@ async function nlGenerate() {
     const POSES = ['looking over shoulder','lying on bed','sitting cross-legged','leaning against wall','stretching arms up','hand on hip','playing with hair','from behind looking back','close-up portrait','full body standing','kneeling','reclining','walking towards viewer','dance pose','reading a book'];
     const OUTFITS = ['elegant dress','lingerie','swimsuit','school uniform','kimono','off-shoulder sweater','leather jacket','fantasy armor','maid outfit','casual tank top and shorts','wedding dress','chinese dress','nurse uniform','witch costume','naked towel'];
 
+    // ★ 각 Text AI마다 다른 해석 각도 (다양성 강제)
+    const INTERPRETATIONS = [
+        {label:'충실', dir:'STAY FAITHFUL to the user topic. Use it almost as-is, just optimize tags and add quality keywords.'},
+        {label:'변주', dir:'CREATIVELY VARY the user topic — change pose, camera angle, lighting, or setting while keeping the core theme. Make it visually different.'},
+        {label:'대조', dir:'REINTERPRET the user topic with CONTRASTING mood — if user said dark, try bright; if static, try dynamic; if cold, try warm. Bold reinterpretation.'},
+        {label:'클로즈업', dir:'ZOOM IN on the user topic — close-up, intimate, detailed focus on a key element (face, hands, fabric texture). Different framing.'},
+        {label:'환경강조', dir:'EXPAND the environment — add rich background details, atmospheric depth, world-building elements that complement the topic.'},
+        {label:'스타일전환', dir:'SHIFT the artistic style — try a different genre/mood (e.g., cyberpunk → renaissance, modern → fantasy) while keeping the subject.'},
+    ];
+    
     for (var ti = 0; ti < textAIs.length; ti++) {
         var txtAI = textAIs[ti];
         var scenePrompt;
         var randVibe = VIBES[Math.floor(Math.random() * VIBES.length)];
         var randPose = POSES[Math.floor(Math.random() * POSES.length)];
         var randOutfit = OUTFITS[Math.floor(Math.random() * OUTFITS.length)];
+        // ★ AI마다 다른 해석 각도 부여 (인덱스 기반 + 랜덤 섞기)
+        var interp = INTERPRETATIONS[(ti + Math.floor(Math.random()*2)) % INTERPRETATIONS.length];
         
         try {
             var req = userTopic
-                ? 'You are a NovelAI prompt expert. Create Danbooru tags for: "' + userTopic + '"\nArtists being tested: ' + artistStyles + '\nOutput ONLY comma-separated Danbooru tags (30-40 tags). NO sentences.'
+                ? 'You are a NovelAI prompt expert. \nUSER TOPIC: "' + userTopic + '"\nINTERPRETATION DIRECTIVE [' + interp.label + ']: ' + interp.dir + '\nArtists being tested: ' + artistStyles + '\n\nCreate Danbooru tags that follow the interpretation directive above.\nOutput ONLY comma-separated Danbooru tags (30-40 tags). NO sentences.'
                 : 'You are a NovelAI prompt expert creating a scene to SHOWCASE these artists\' signature strengths.\n\nArtists: ' + artistStyles + '\n\nVIBE: ' + randVibe + '\nPOSE: ' + randPose + '\nOUTFIT: ' + randOutfit + '\n\nCreate Danbooru tags that feature an attractive character showing off what these artists are FAMOUS for.\nOutput ONLY comma-separated Danbooru tags (30-40 tags). NO sentences.';
             scenePrompt = await callText(txtAI, req);
             scenePrompt = scenePrompt.replace(/```/g,'').replace(/\n/g,', ').replace(/^[^a-zA-Z0-9{(1]*/,'').trim();
@@ -10496,11 +11227,11 @@ async function nlGenerate() {
         } catch(e) {
             scenePrompt = '1girl, ' + randPose + ', ' + randOutfit + ', beautiful detailed face, ' + randVibe + ', detailed background, cinematic lighting, masterpiece';
         }
-        log('📝 ' + txtAI.name + ': ' + scenePrompt.substring(0,70) + '...', 'info');
+        log('📝 ' + txtAI.name + ' [' + interp.label + ']: ' + scenePrompt.substring(0,60) + '...', 'info');
 
         var promptHeader = document.createElement('div');
         promptHeader.style.cssText = 'grid-column:1/-1;background:linear-gradient(135deg,rgba(139,92,246,0.15),rgba(236,72,153,0.1));border:1px solid rgba(139,92,246,0.4);border-radius:8px;padding:8px 12px;margin-top:6px';
-        promptHeader.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="color:#a78bfa;font-weight:700;font-size:0.5rem">🤖 ' + escHtml(txtAI.name) + '</span><button onclick="navigator.clipboard.writeText(this.dataset.p);this.textContent=\'✅\'" data-p="' + escHtml(scenePrompt).replace(/"/g,'&quot;') + '" style="padding:2px 6px;background:#6366f1;border:none;border-radius:3px;color:#fff;font-size:0.35rem;cursor:pointer">📋 복사</button></div><div style="font-size:0.38rem;color:#94a3b8;line-height:1.4;max-height:3em;overflow:hidden;cursor:pointer" onclick="this.style.maxHeight=this.style.maxHeight===\'none\'?\'3em\':\'none\'">' + escHtml(scenePrompt).substring(0,200) + '...</div>';
+        promptHeader.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="color:#a78bfa;font-weight:700;font-size:0.5rem">🤖 ' + escHtml(txtAI.name) + ' <span style="background:rgba(236,72,153,0.3);padding:1px 6px;border-radius:8px;font-size:0.4rem;color:#fbbf24;margin-left:4px">🎭 ' + escHtml(interp.label) + '</span></span><button onclick="navigator.clipboard.writeText(this.dataset.p);this.textContent=\'✅\'" data-p="' + escHtml(scenePrompt).replace(/"/g,'&quot;') + '" style="padding:2px 6px;background:#6366f1;border:none;border-radius:3px;color:#fff;font-size:0.35rem;cursor:pointer">📋 복사</button></div><div style="font-size:0.38rem;color:#94a3b8;line-height:1.4;max-height:3em;overflow:hidden;cursor:pointer" onclick="this.style.maxHeight=this.style.maxHeight===\'none\'?\'3em\':\'none\'">' + escHtml(scenePrompt).substring(0,200) + '...</div>';
         gallery.appendChild(promptHeader);
 
         for (var ii = 0; ii < imgAIs.length; ii++) {
@@ -10970,6 +11701,21 @@ async function galGenerate() {
     const btn = document.getElementById('galGenBtn');
     btn.disabled = true; btn.textContent = '⏳...';
     
+    // ★ 이전 결과 깨끗이 비우기 (프롬프트 박스 + 갤러리 그리드)
+    // 프롬프트 박스는 galGrid 형제로 박혀있어서 따로 제거 필요
+    const galGrid = document.getElementById('galGrid');
+    const galResults = document.getElementById('galResults');
+    if (galGrid && galResults) {
+        // galGrid의 형제들 중 prompt 박스(galGrid 직전에 삽입된 것들) 모두 제거
+        let prev = galGrid.previousElementSibling;
+        while (prev && prev.innerHTML && prev.innerHTML.includes('의 프롬프트')) {
+            const toRemove = prev;
+            prev = prev.previousElementSibling;
+            toRemove.remove();
+        }
+        galGrid.innerHTML = ''; // 그리드도 비움
+    }
+    
     const tais = getSelectedTextAIs();
     const iais = getSelectedImageAIs();
     if (iais.length === 0) { alert('⚙️ AI설정에서 이미지 AI를 1개 이상 선택해주세요!'); btn.disabled=false; btn.textContent='🖼️ 생성'; return; }
@@ -11019,17 +11765,31 @@ async function galGenerate() {
     document.getElementById('galGrid').insertAdjacentElement('beforebegin', promptDisplay);
     
     let successCount = 0;
+    const galStartIdx = generatedImages.length; // 기존 이미지 뒤에 추가
     const promises = iais.map(async (ai) => {
         try {
             const result = await callImg(ai, artPrompt);
             if (result?.url) {
                 successCount++;
+                // generatedImages에 추가 (openModal 호환)
+                const imgIdx = generatedImages.length;
+                generatedImages.push({
+                    url: result.url,
+                    prompt: artPrompt,
+                    imgAi: ai.name,
+                    promptAi: tai.name,
+                    size: '16:9',
+                    seed: result.seed || null,
+                    artist: result.artist || null,
+                    ts: Date.now(),
+                    mode: 'gallery'
+                });
                 const el = document.getElementById(`gal-${ai.id}`);
                 if (el) el.innerHTML = `
-                    <img src="${result.url}" style="width:100%;border-radius:6px;cursor:pointer" onclick="window.open(this.src,'_blank')" title="클릭→원본 보기">
-                    <div style="display:flex;gap:4px;margin-top:4px;align-items:center">
+                    <img src="${result.url}" data-gimg="${imgIdx}" style="width:100%;border-radius:6px;cursor:pointer" onclick="openModal(${imgIdx})" title="클릭→ 확대 보기">
+                    <div style="display:flex;gap:6px;margin-top:4px;align-items:center;justify-content:space-between;width:100%">
                         <span style="font-size:0.4rem;color:#d4a574">${ai.name}</span>
-                        <a href="${result.url}" download="gallery_${ai.id}_${Date.now()}.png" style="font-size:0.38rem;color:#22c55e;text-decoration:none">💾 저장</a>
+                        <button onclick="dlImg(${imgIdx})" style="padding:2px 8px;background:#22c55e;border:none;border-radius:3px;color:#fff;font-size:0.4rem;cursor:pointer;font-weight:700">💾 저장</button>
                     </div>`;
             }
         } catch(e) {
@@ -11045,6 +11805,8 @@ async function galGenerate() {
     if (document.getElementById('naiSize') && origNaiSize) document.getElementById('naiSize').value = origNaiSize;
     
     log(`🖼️ Gallery 완료! ${successCount}/${iais.length}개 성공`, successCount > 0 ? 'ok' : 'err');
+    // ★ v0513-1: 외부 URL들 백그라운드 blob 변환 시작 (사용자가 💾 누르기 전 미리 준비)
+    if (successCount > 0) autoRehydrateRecent(galStartIdx);
     btn.disabled = false; btn.textContent = '🖼️ 생성';
 }
 
@@ -11116,7 +11878,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0512-1 (20260512) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0505-8 (20260505) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
