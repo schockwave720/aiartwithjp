@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0517-2142 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0519-1 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -224,7 +224,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0517-2142</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0519-1</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -715,11 +715,14 @@
                     </div>
                     <!-- 프롬프트 -->
                     <div style="margin-top:4px">
-                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;gap:4px;flex-wrap:wrap">
                             <label style="font-size:0.42rem;color:#fbbf24;font-weight:700">✍️ 프롬프트</label>
-                            <button onclick="nlAIPrompt()" style="padding:2px 6px;background:#06b6d4;border:none;border-radius:3px;color:#fff;font-size:0.38rem;cursor:pointer">🤖 AI 프롬프트 생성</button>
+                            <div style="display:flex;gap:3px">
+                                <button onclick="nlInstantRoulette()" title="와일드카드 카테고리별 1개씩 즉시 조합 (AI 호출 X)" style="padding:2px 6px;background:linear-gradient(135deg,#f59e0b,#dc2626);border:none;border-radius:3px;color:#fff;font-size:0.38rem;cursor:pointer;font-weight:700">🎲 Instant Roulette</button>
+                                <button onclick="nlAIPrompt()" title="AI가 와일드카드 시드를 받아서 NAI 문법으로 다듬어줌" style="padding:2px 6px;background:#06b6d4;border:none;border-radius:3px;color:#fff;font-size:0.38rem;cursor:pointer">🤖 AI 프롬프트 생성</button>
+                            </div>
                         </div>
-                        <textarea id="nlPrompt" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();nlGenerate()}" placeholder="비우면 작가 특성에 맞게 AI 자동 생성 / Enter=생성!, long hair, blue eyes, school uniform, cherry blossoms&#10;비우면 AI가 작가 특성에 맞는 프롬프트를 자동 생성" style="width:100%;padding:4px 6px;background:#1e293b;border:1px solid #fbbf24;border-radius:4px;color:#f1f5f9;font-size:0.45rem;min-height:45px;resize:vertical"></textarea>
+                        <textarea id="nlPrompt" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();nlGenerate()}" placeholder="비우면 작가 특성에 맞게 AI 자동 생성 / Enter=생성!&#10;🎲 = 와일드카드 즉시조합 (빠름) / 🤖 = AI가 다듬어줌&#10;예: long hair, blue eyes, school uniform, cherry blossoms" style="width:100%;padding:4px 6px;background:#1e293b;border:1px solid #fbbf24;border-radius:4px;color:#f1f5f9;font-size:0.45rem;min-height:45px;resize:vertical"></textarea>
                     </div>
                     <!-- 설정 -->
                     <div style="display:flex;gap:4px;margin-top:4px;flex-wrap:wrap;align-items:center">
@@ -876,7 +879,7 @@
                 <!-- 등장인물 선택 UI는 제거되었습니다. 기본적으로 등장인물 없음으로 설정합니다. -->
                 <input type="hidden" id="charType" value="none">
                 <div id="topicSection">
-                <div class="igrp"><label id="topicLabel">Topic / Description</label><div style="position:relative"><textarea id="topic" placeholder="Enter description or upload files..."></textarea><button onclick="voiceToField('topic')" style="position:absolute;bottom:4px;right:4px;width:28px;height:28px;border-radius:50%;background:#22c55e;border:none;cursor:pointer;font-size:0.7rem;opacity:0.7" title="🎤 음성입력 (OpenAI Whisper)">🎤</button></div></div>
+                <div class="igrp"><label id="topicLabel">Topic / Description <button onclick="imgInstantRoulette()" title="🎲 와일드카드 카테고리별 1개씩 즉시 조합" style="margin-left:6px;padding:1px 6px;background:linear-gradient(135deg,#f59e0b,#dc2626);border:none;border-radius:3px;color:#fff;font-size:0.42rem;cursor:pointer;font-weight:700">🎲 Roulette</button></label><div style="position:relative"><textarea id="topic" placeholder="Enter description or upload files... (🎲 버튼: 와일드카드 즉시조합)"></textarea><button onclick="voiceToField('topic')" style="position:absolute;bottom:4px;right:4px;width:28px;height:28px;border-radius:50%;background:#22c55e;border:none;cursor:pointer;font-size:0.7rem;opacity:0.7" title="🎤 음성입력 (OpenAI Whisper)">🎤</button></div></div>
                 <div class="igrp"><label id="extraLabel">Additional Requirements</label><input type="text" id="extra" placeholder="Style, mood, specific requests..."></div>
                 </div>
                 
@@ -1374,7 +1377,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0517-2142 - 클릭: 확대 | 더블클릭: 재생성 | 모달에서 🔄변형 가능!</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0519-1 - 🎲 Roulette: 와일드카드 카테고리 균형 조합 (NAI Lab + Image 모드) | 🤖 AI 프롬프트: 시드 기반 + 검열 약한 모델 우선</div></div>
             </div>
         </div>
         
@@ -1533,7 +1536,7 @@
 
 <script>
 // ═════════════════════════════════════════════════════════════════
-// 🛡️ AIART 안전 유틸 (v0517-2142) — 모든 함수보다 먼저 정의되어야 함
+// 🛡️ AIART 안전 유틸 (v0519-1) — 모든 함수보다 먼저 정의되어야 함
 // ═════════════════════════════════════════════════════════════════
 const AIART = {
     version: '0517-2142',
@@ -1602,7 +1605,7 @@ const AIART = {
         remove(key) { try { localStorage.removeItem(key); return true; } catch(e) { return false; } }
     },
     
-    // 🆘 글로벌 에러 토스트 — silent fail 방지 (v0517-2142 신규)
+    // 🆘 글로벌 에러 토스트 — silent fail 방지 (v0519-1 신규)
     showError(msg, duration = 5000) {
         let toast = document.getElementById('aiart-err-toast');
         if (!toast) {
@@ -1723,8 +1726,67 @@ function importFavorites(event) {
 }
 
 // 파일 업로드 데이터
-const wildcardData = []; // [{name: '파일명', lines: ['문장1', '문장2', ...]}]
+// wildcardData: [{name, lines, folder?, category}]
+//   category = 'body'|'pose'|'expression'|'setting'|'outfit'|'lighting'|'artist'|'style'|'climax'|'action'|'quality'|'misc'
+const wildcardData = [];
 const storyData = []; // [{name: '파일명', content: '내용' or {stories: [...]}}]
+
+// ═══════════════════════════════════════════════════════════════════
+// 🃏 WILDCARD CATEGORY SYSTEM (v0519-1 Phase 1)
+// 우선순위 배열 — 위에 있는 카테고리가 먼저 매칭됨 (충돌 방지)
+// ═══════════════════════════════════════════════════════════════════
+const WILDCARD_CATEGORIES = [
+    // 1. 작가 — 가장 먼저 잡아야 함 (artist style 같은 단어가 style보다 우선)
+    { id: 'artist',     re: /(?:^|[\b_\-\s])(?:artist|painter|fineart|fine[ _-]?art|artist[ _-]?style|illustrator)/i },
+    // 2. 클라이맥스 / 노골적 nsfw 동작 — 검열 약한 모델에 우선 투입할 핵심 풀
+    { id: 'climax',     re: /(?:climax|orgasm|cum|juice|squirt|creampie|peak|nsfw|lewd|erotic|hardcore|explicit)/i },
+    // 3. 신체 / 해부학
+    { id: 'body',       re: /(?:^|[\b_\-\s])(?:body|anatomy|breast|chest|thigh|hip|ass|butt|figure|physique|torso|waist|nipple|pubic|areola|mound)/i },
+    // 4. 포즈 / 자세 / 체위
+    { id: 'pose',       re: /(?:^|[\b_\-\s])(?:pose|position|stance|spread|kneel|prone|doggy|missionary|mating[ _-]?press|cowgirl|reverse|standing|sitting|lying)/i },
+    // 5. 표정 / 감정 (ahegao 포함)
+    { id: 'expression', re: /(?:express|face|emotion|ahegao|smile|gaze|tongue|drool|flush|tears|blush|eye[ _-]?roll)/i },
+    // 6. 의상 / 노출
+    { id: 'outfit',     re: /(?:outfit|clothes?|cloth(?:ing)?|dress|lingerie|uniform|kimono|fundoshi|stocking|garter|panties|bra|nude|naked|wear|apron)/i },
+    // 7. 장소 / 배경
+    { id: 'setting',    re: /(?:setting|location|place|scene|background|environment|onsen|hanok|hotel|temple|library|classroom|kitchen|bath|veranda|rooftop|elevator|bedroom|hallway)/i },
+    // 8. 조명 / 분위기
+    { id: 'lighting',   re: /(?:lighting|shadow|glow|aura|atmosphere|mood|backlight|rim[ _-]?light|sunset|moonlight|neon|lantern)/i },
+    // 9. 동작 / 행동 (포즈와 구분)
+    { id: 'action',     re: /(?:action|verb|gesture|thrust|grab|grip|lift|push|pull|hold|touch|caress)/i },
+    // 10. 품질 태그
+    { id: 'quality',    re: /(?:quality|masterpiece|best[ _-]?quality|highly[ _-]?detailed|absurdres|ultra[ _-]?detail)/i },
+    // 11. 스타일 / 장르 (artist보다 뒤에 위치 — "artist style"이 먼저 잡히도록)
+    { id: 'style',      re: /(?:style|aesthetic|genre|art|manga|anime|realistic|hentai|hyperreal|cinematic|illustration)/i },
+    // 12. 기타 (catch-all)
+    { id: 'misc',       re: /.*/ }
+];
+
+// 파일명 → 카테고리 분류 (우선순위 순회)
+function classifyWildcardFile(filename) {
+    const fn = (filename || '').toLowerCase();
+    for (const cat of WILDCARD_CATEGORIES) {
+        if (cat.re.test(fn)) return cat.id;
+    }
+    return 'misc';
+}
+
+// 라인 내용 → 카테고리 재분류 (misc fallback용)
+// 파일명이 애매할 때, 실제 내용을 보고 추정
+function classifyWildcardLine(line) {
+    if (!line) return 'misc';
+    const l = line.toLowerCase();
+    // climax 단어가 들어있으면 climax (가장 명확)
+    if (/\b(orgasm|cum|squirt|creampie|climax|ahegao|peak|juice)\b/.test(l)) return 'climax';
+    if (/\b(thigh|breast|ass|hip|pubic|nipple|anatomy|body)\b/.test(l)) return 'body';
+    if (/\b(spread|kneel|doggy|missionary|mating press|cowgirl|prone|standing|sitting|lying|leaning)\b/.test(l)) return 'pose';
+    if (/\b(smile|tongue out|drool|flush|gaze|eye roll|tears|blush)\b/.test(l)) return 'expression';
+    if (/\b(lingerie|kimono|uniform|stocking|nude|naked|dress|skirt|panties|bra)\b/.test(l)) return 'outfit';
+    if (/\b(onsen|hotel|bedroom|kitchen|temple|library|classroom|rooftop|hallway|street|forest)\b/.test(l)) return 'setting';
+    if (/\b(rim light|backlight|moonlight|sunset|neon|lantern|shadow|glow)\b/.test(l)) return 'lighting';
+    if (/^artist:|^by [a-z]/.test(l)) return 'artist';
+    return 'misc';
+}
 
 // ═══════════════════════════════════════
 // 🤖 봇 채팅 시스템 (RisuAI Compatible)
@@ -4625,7 +4687,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0517-2142 모델 가격표</h1>
+<h1>💰 AIARTstudio v0519-1 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.04 기준 | 싱가포르(International) 엔드포인트</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -4694,7 +4756,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 🐉 이미지: <strong style="color:#a78bfa">Qwen Image Plus</strong> (장당 ₩29) + <strong style="color:#a78bfa">Qwen Image Max</strong> (장당 ₩109, 최고 퀄)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0517-2142 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0519-1 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -6321,8 +6383,10 @@ async function handleWildcardUpload(event) {
                 .map(line => line.trim())
                 .filter(line => line && !line.startsWith('#')); // 빈 줄과 주석 제거
             
-            wildcardData.push({ name: file.name, lines });
-            log(`✅ 와일드카드: ${file.name} (${lines.length}줄)`, 'ok');
+            // 🃏 v0519-1: 카테고리 자동 태깅
+            const category = classifyWildcardFile(file.name);
+            wildcardData.push({ name: file.name, lines, category });
+            log(`✅ 와일드카드: ${file.name} [${category}] (${lines.length}줄)`, 'ok');
         } catch(e) {
             log(`❌ ${file.name} 읽기 실패: ${e.message}`, 'err');
         }
@@ -6336,6 +6400,7 @@ async function handleWildcardFolderUpload(event) {
     const files = event.target.files;
     let totalFiles = 0;
     let totalLines = 0;
+    const catStats = {}; // {body: 3, pose: 2, ...}
     
     for (const file of files) {
         // .txt 파일만 처리
@@ -6348,7 +6413,10 @@ async function handleWildcardFolderUpload(event) {
                 .filter(line => line && !line.startsWith('#'));
             
             if (lines.length > 0) {
-                wildcardData.push({ name: file.name, lines, folder: true });
+                // 🃏 v0519-1: 카테고리 자동 태깅
+                const category = classifyWildcardFile(file.name);
+                wildcardData.push({ name: file.name, lines, folder: true, category });
+                catStats[category] = (catStats[category] || 0) + 1;
                 totalFiles++;
                 totalLines += lines.length;
             }
@@ -6358,7 +6426,11 @@ async function handleWildcardFolderUpload(event) {
     }
     
     if (totalFiles > 0) {
-        log(`✅ 폴더: ${totalFiles}개 TXT 파일 (${totalLines}줄)`, 'ok');
+        const statsStr = Object.entries(catStats)
+            .sort((a,b) => b[1] - a[1])
+            .map(([k,v]) => `${k}×${v}`)
+            .join(' ');
+        log(`✅ 폴더: ${totalFiles}개 TXT (${totalLines}줄) → ${statsStr}`, 'ok');
     }
     updateUploadedFilesInfo();
     event.target.value = '';
@@ -6455,6 +6527,26 @@ function updateUploadedFilesInfo() {
             wildcardStr += ` [📂폴더]`;
         }
         parts.push(wildcardStr);
+        
+        // 🃏 v0519-1: 카테고리 분포 표시
+        const catStats = {};
+        wildcardData.forEach(w => {
+            const c = w.category || 'misc';
+            catStats[c] = (catStats[c] || 0) + 1;
+        });
+        const catBadges = Object.entries(catStats)
+            .sort((a,b) => b[1] - a[1])
+            .map(([k,v]) => {
+                const colors = {
+                    body:'#f87171', pose:'#fb923c', expression:'#fbbf24',
+                    setting:'#a3e635', outfit:'#34d399', lighting:'#22d3ee',
+                    artist:'#a78bfa', style:'#c084fc', climax:'#ec4899',
+                    action:'#f472b6', quality:'#94a3b8', misc:'#64748b'
+                };
+                const color = colors[k] || '#64748b';
+                return `<span style="display:inline-block;background:${color}22;color:${color};padding:1px 5px;border-radius:8px;margin:1px 2px;font-size:0.4rem;font-weight:600">${k}×${v}</span>`;
+            }).join('');
+        parts.push(`<div style="margin-top:2px">🃏 ${catBadges}</div>`);
     }
     if (storyData.length > 0) {
         parts.push(`📋 스토리 ${storyData.length}개`);
@@ -6523,7 +6615,48 @@ function removeRef(idx) {
     updateUploadedFilesInfo();
 }
 
-// 랜덤 와일드카드 문장 여러개 선택 (2~4개)
+// ═══════════════════════════════════════════════════════════════════
+// 🃏 와일드카드 라인 필터 (v0519-1: NSFW 친화 완화)
+// ═══════════════════════════════════════════════════════════════════
+function isValidWildcardLine(line) {
+    if (!line || !line.trim()) return false;
+    const t = line.trim();
+    const lower = t.toLowerCase();
+    
+    // ── Length filters (v0519-1: 짧은 nsfw 태그 통과 허용, 2자부터) ──
+    if (t.length < 2 || t.length > 250) return false;
+    
+    // ── Code/data junk ──
+    if (/[{}<>;=\[\]]/.test(t)) return false; // ()는 NAI 가중치 문법이라 허용
+    if (/\b(function|const|let|var|if|else|return|class|import|export|null|undefined|true|false)\b/.test(lower)) return false;
+    if (/['"`]\s*:/.test(t)) return false;  // JSON-like
+    if (/^\d+[\.\)]\s/.test(t) && t.length < 15) return false;  // "1. " stub
+    if (/^(#|\/\/|\/\*)/.test(t)) return false;
+    if (/\b(total_requests|http|www\.|\.js|\.py)\b/i.test(t)) return false;
+    
+    // ── Non-visual abstract junk ──
+    if (/^\w+\s+(absent|present|demonstrated|questioning|extracted|mirroring)$/i.test(t)) return false;
+    if (/^(rules? strict|cause effect|real fake|dead alive|visible hidden|balanced imbalanced|specific exact|large tiny|new old|proving disproving|revealed concealed|focal point clear)$/i.test(t)) return false;
+    
+    // ── Visual signal 체크 (v0519-1: NSFW 어휘 대폭 확장) ──
+    const hasVisualSignal = 
+        // 일반 시각 단어
+        /\b(girl|boy|woman|man|hair|eye|dress|light|dark|night|sky|water|fire|blood|flower|street|room|body|pose|style|color|skin|face|arm|leg|chest|back|wear|cloth|scene|background|foreground|quality|detail|anime|manga|art|photo|painting)\b/i.test(lower)
+        // NSFW / 신체 / 클라이맥스 어휘 (v0519-1 신규)
+        || /\b(nude|naked|sexy|cute|beautiful|breast|nipple|thigh|hip|ass|butt|pubic|areola|mound|pussy|vagina|cock|penis|cum|juice|squirt|orgasm|climax|ahegao|drool|tongue|lewd|erotic|nsfw|wet|sweat|flush|blush|moan|peak)\b/i.test(lower)
+        || t.includes(',')  // tag-list
+        || /^artist:/i.test(t)
+        || /^by [a-z]/i.test(lower)
+        || /\b(masterpiece|best quality|ultra detailed|absurdres|highres)\b/i.test(lower)
+        || /\b(standing|sitting|lying|walking|running|leaning|kneeling|looking|holding|spread|riding|grinding|thrusting|grabbing)\b/i.test(lower)
+        || /\b(indoor|outdoor|urban|nature|fantasy|sci-fi|gothic|modern|ancient|luxury|bedroom|onsen|hotel|temple|kitchen|bath)\b/i.test(lower)
+        // 짧은 단일 단어 태그 — 콤마 없는 한 단어/두 단어짜리 키워드도 허용
+        || (t.length <= 30 && /^[a-z][a-z _\-]*$/i.test(t));
+    
+    return hasVisualSignal;
+}
+
+// 랜덤 와일드카드 문장 여러개 선택 (구버전 호환 — 평탄 추출)
 function getRandomWildcards(count = 3) {
     if (wildcardData.length === 0) return [];
     
@@ -6531,48 +6664,102 @@ function getRandomWildcards(count = 3) {
     wildcardData.forEach(w => {
         w.lines.forEach(line => allLines.push(line));
     });
-    const validLines = allLines.filter(line => {
-        if (!line || !line.trim()) return false;
-        const t = line.trim();
-        const lower = t.toLowerCase();
-        
-        // ── Length filters ──
-        if (t.length < 4 || t.length > 200) return false;
-        
-        // ── Code/data junk ──
-        if (/[{}()<>;=\[\]]/.test(t)) return false;
-        if (/\b(function|const|let|var|if|else|return|class|import|export|null|undefined|true|false)\b/.test(lower)) return false;
-        if (/['"`]\s*:/.test(t)) return false;  // JSON-like: 'key': value
-        if (/^\d+[\.\)]\s/.test(t) && t.length < 15) return false;  // numbered list stub "1. "
-        if (/^(#|\/\/|\/\*)/.test(t)) return false;  // comments
-        if (/\b(total_requests|http|www\.|\.com|\.js|\.py|\.txt)\b/i.test(t)) return false;  // URLs/files
-        
-        // ── Non-visual abstract junk ──
-        if (/^\w+\s+(absent|present|demonstrated|questioning|extracted|mirroring)$/i.test(t)) return false;
-        if (/^(rules? strict|cause effect|real fake|dead alive|visible hidden|balanced imbalanced|specific exact|large tiny|new old|proving disproving|revealed concealed|focal point clear)$/i.test(t)) return false;
-        
-        // ── Must look like visual content ──
-        // At least one visual-ish word OR has comma (tag-like) OR has "artist:" prefix
-        const hasVisualSignal = /\b(girl|boy|woman|man|hair|eye|dress|light|dark|night|sky|water|fire|blood|flower|street|room|body|pose|style|color|skin|face|arm|leg|chest|back|wear|cloth|nude|sexy|cute|beautiful|scene|background|foreground|quality|detail|anime|manga|art|photo|painting)\b/i.test(lower)
-            || t.includes(',')  // comma-separated tags
-            || /^artist:/i.test(t)  // artist tag
-            || /\b(masterpiece|best quality|ultra detailed|absurdres)\b/i.test(lower)  // quality tags
-            || /\b(standing|sitting|lying|walking|running|leaning|kneeling|looking|holding)\b/i.test(lower)  // pose tags
-            || /\b(indoor|outdoor|urban|nature|fantasy|sci-fi|gothic|modern|ancient|luxury)\b/i.test(lower);  // setting tags
-        
-        return hasVisualSignal;
-    });
-    const candidates = validLines.length > 0 ? validLines : allLines.filter(l => l && l.trim().length > 5);
+    const validLines = allLines.filter(isValidWildcardLine);
+    const candidates = validLines.length > 0 ? validLines : allLines.filter(l => l && l.trim().length > 3);
     if (candidates.length === 0) return [];
     
-    // Deduplicate + shuffle
     const unique = [...new Set(candidates)];
     const shuffled = unique.sort(() => Math.random() - 0.5);
-    const picked = shuffled.slice(0, Math.min(count, shuffled.length));
-    return picked;
+    return shuffled.slice(0, Math.min(count, shuffled.length));
 }
 
-// 하위 호환 - 단일 와일드카드 (기존 호출용)
+// ═══════════════════════════════════════════════════════════════════
+// 🎯 카테고리 균형 추출 (v0519-1 Phase 1 핵심)
+// 각 카테고리에서 1개씩 뽑아 균형 잡힌 조합 생성
+// ═══════════════════════════════════════════════════════════════════
+function getRandomWildcardsBalanced(opts = {}) {
+    // opts: { count?, prefer?, nsfwBoost?, includeArtist? }
+    //   count: 총 추출 개수 (기본 6)
+    //   prefer: 우선 카테고리 배열, 예: ['body', 'pose', 'setting', 'climax']
+    //   nsfwBoost: true면 climax/body 가중치 ↑
+    //   includeArtist: false면 artist 카테고리 제외 (NAI Lab에선 작가는 별도 UI로 받으니 false)
+    
+    if (wildcardData.length === 0) return { picks: [], byCategory: {} };
+    
+    const count = opts.count || 6;
+    const prefer = opts.prefer || ['body', 'pose', 'expression', 'setting', 'outfit', 'climax'];
+    const includeArtist = opts.includeArtist !== false;
+    
+    // 카테고리별로 라인 풀 구성
+    const pools = {}; // {body: [...lines], pose: [...lines], ...}
+    wildcardData.forEach(w => {
+        const cat = w.category || 'misc';
+        if (!includeArtist && cat === 'artist') return;
+        if (!pools[cat]) pools[cat] = [];
+        w.lines.forEach(line => {
+            if (isValidWildcardLine(line)) {
+                pools[cat].push(line);
+            }
+        });
+    });
+    
+    // misc 풀은 라인 내용으로 재분류 시도
+    if (pools.misc && pools.misc.length > 0) {
+        const reclassified = pools.misc.slice();
+        pools.misc = [];
+        reclassified.forEach(line => {
+            const reCat = classifyWildcardLine(line);
+            if (reCat === 'misc') {
+                pools.misc.push(line);
+            } else {
+                if (!includeArtist && reCat === 'artist') return;
+                if (!pools[reCat]) pools[reCat] = [];
+                pools[reCat].push(line);
+            }
+        });
+    }
+    
+    // 추출 순서: prefer에 있는 카테고리 먼저, 그 다음 나머지
+    const allCats = Object.keys(pools).filter(c => pools[c].length > 0);
+    const orderedCats = [
+        ...prefer.filter(c => allCats.includes(c)),
+        ...allCats.filter(c => !prefer.includes(c))
+    ];
+    
+    const picks = [];
+    const byCategory = {};
+    
+    // 1차: 각 카테고리에서 1개씩 (균형 보장)
+    for (const cat of orderedCats) {
+        if (picks.length >= count) break;
+        const pool = pools[cat];
+        if (!pool || pool.length === 0) continue;
+        const line = pool[Math.floor(Math.random() * pool.length)];
+        picks.push(line);
+        byCategory[cat] = line;
+    }
+    
+    // 2차: 부족하면 nsfwBoost 시 climax/body에서 추가, 아니면 모든 풀에서
+    if (picks.length < count) {
+        const boostCats = opts.nsfwBoost
+            ? ['climax', 'body', 'pose', 'expression']
+            : orderedCats;
+        const extraPool = [];
+        boostCats.forEach(c => {
+            if (pools[c]) extraPool.push(...pools[c]);
+        });
+        const remaining = extraPool.filter(l => !picks.includes(l));
+        const shuffled = remaining.sort(() => Math.random() - 0.5);
+        for (const line of shuffled) {
+            if (picks.length >= count) break;
+            picks.push(line);
+        }
+    }
+    
+    return { picks, byCategory };
+}
+
+// 하위 호환 - 단일 와일드카드
 function getRandomWildcard() {
     const picks = getRandomWildcards(1);
     return picks.length > 0 ? picks[0] : '';
@@ -8068,7 +8255,7 @@ async function regenWithModalSettings() {
             const s = getNaiSettings();
             const steps = parseInt(document.getElementById('modalSteps').value) || s.steps;
             const scale = parseFloat(document.getElementById('modalScale').value) || s.scale;
-            // ★ v0517-2142 FIX: width/height 변수 누락으로 ReferenceError 나던 버그 수정
+            // ★ v0519-1 FIX: width/height 변수 누락으로 ReferenceError 나던 버그 수정
             let width = s.width, height = s.height;
             if (img.size) {
                 const sp = img.size.split('x').map(Number);
@@ -8343,7 +8530,7 @@ async function regenUnified() {
             const cleanPrompt = finalPrompt.replace(/artist:[a-zA-Z0-9_-]+,?\s*/gi, '').trim();
             const fullPrompt = [artistTag, s.quality, cleanPrompt].filter(Boolean).join(', ');
             
-            // ★ v0517-2142 FIX: width/height 변수 누락으로 ReferenceError 나던 버그 수정
+            // ★ v0519-1 FIX: width/height 변수 누락으로 ReferenceError 나던 버그 수정
             let width = s.width, height = s.height;
             if (img.size) {
                 const sp = img.size.split('x').map(Number);
@@ -9137,15 +9324,22 @@ async function generateImage() {
         // ★ 각 AI가 프롬프트 완성하는 즉시 → 화면 표시 + 이미지 생성 시작 (선착순!)
         await Promise.all(tais.map(async (ai) => { 
             try { 
-                // 와일드카드
+                // 🃏 와일드카드 (v0519-1: 카테고리 균형 추출)
                 let wcKeywordsStr = '';
                 let aiWcPicks = [];
                 if (wildcardData.length > 0) {
-                    const aiWildcards = getRandomWildcards(parseInt(document.getElementById('wcCount').value) || 3);
+                    const wcCount = parseInt(document.getElementById('wcCount').value) || 6;
+                    const balanced = getRandomWildcardsBalanced({
+                        count: wcCount,
+                        nsfwBoost: true,
+                        includeArtist: true
+                    });
+                    const aiWildcards = balanced.picks;
                     if (aiWildcards.length > 0) {
                         aiWcPicks = aiWildcards;
-                        wcKeywordsStr = `\n=== 🃏 OPTIONAL FLAVOR (tiny garnish ONLY — ignore if it conflicts with user theme!) ===\n${aiWildcards.map((w, i) => `${i+1}. ${w}`).join('\n')}\nThese are optional texture/flavor words. Use at most 1-2 IF they naturally fit. SKIP ALL if they distract from the user's request.\n`;
-                        log(`🃏 ${ai.name}용 키워드: ${aiWildcards.map(w => w.substring(0, 30)).join(' | ')}`, 'info');
+                        const catList = Object.keys(balanced.byCategory).join('+');
+                        wcKeywordsStr = `\n=== 🃏 BALANCED INSPIRATION (one from each: ${catList}) ===\n${aiWildcards.map((w, i) => `${i+1}. ${w}`).join('\n')}\nThese cover different aspects (body, pose, setting, etc). Weave 2-4 of them naturally into the prompt — pick the ones that fit the user's theme best, skip what doesn't fit.\n`;
+                        log(`🃏 ${ai.name} [${catList}]: ${aiWildcards.map(w => w.substring(0, 30)).join(' | ')}`, 'info');
                     }
                 }
                 // 골든 프롬프트
@@ -10706,10 +10900,54 @@ function nlEditCard(cardId) {
 // ★ AI 프롬프트 생성 (이미지 모드와 동일 수준!)
 // userTopic 있으면 → 그 주제를 작가 스타일로 확장
 // 없으면 → 작가 특성이 가장 잘 드러나는 장면을 AI가 창작
+// ═══════════════════════════════════════════════════════════════════
+// 🎯 검열 약한 Text AI 우선 선택 (v0519-1)
+// nsfw 플래그가 true인 모델을 우선, 없으면 fallback
+// ═══════════════════════════════════════════════════════════════════
+function pickNsfwFriendlyTextAI(textAIs) {
+    if (!textAIs || textAIs.length === 0) return null;
+    // 검열 약한 키워드가 모델명에 포함된 AI 우선
+    const friendlyKeywords = /deepseek|qwen|llama|mistral|grok|nvi|cerebras|sambanova/i;
+    const friendly = textAIs.filter(ai => {
+        const txt = (ai.name + ' ' + (ai.m || '') + ' ' + (ai.id || '')).toLowerCase();
+        return friendlyKeywords.test(txt) && !/gpt|claude|gemini/i.test(txt);
+    });
+    if (friendly.length > 0) {
+        return friendly[Math.floor(Math.random() * friendly.length)];
+    }
+    // fallback: 아무거나
+    return textAIs[Math.floor(Math.random() * textAIs.length)];
+}
+
 async function nlGenerateScenePrompt(artists, userTopic, orientation) {
     const textAIs = getSelectedTextAIs();
     if (!textAIs.length) return '1girl, long hair, beautiful detailed eyes, standing, wind blowing hair, sunlit meadow, golden hour, detailed background';
-    const ai = textAIs[Math.floor(Math.random() * textAIs.length)];
+    // 🎯 v0519-1: 검열 약한 모델 우선 선택
+    const ai = pickNsfwFriendlyTextAI(textAIs);
+    
+    // 🃏 v0519-1: 와일드카드 시드 추출 (있을 때만)
+    let wildcardSeedBlock = '';
+    if (wildcardData.length > 0) {
+        const balanced = getRandomWildcardsBalanced({
+            count: 5,
+            prefer: ['body', 'pose', 'expression', 'setting', 'climax'],
+            nsfwBoost: true,
+            includeArtist: false // NAI Lab은 작가 별도 입력
+        });
+        if (balanced.picks.length > 0) {
+            const catList = Object.keys(balanced.byCategory).join('+');
+            const seedLines = Object.entries(balanced.byCategory)
+                .map(([cat, line]) => `  [${cat}] ${line}`)
+                .join('\n');
+            wildcardSeedBlock = `\n=== 🃏 WILDCARD SEED INGREDIENTS (${catList}) ===
+The user has loaded wildcards. Use these as RAW INGREDIENTS — extract their visual essence and weave them naturally into the scene. Don't paste them verbatim; transform them into Danbooru tags that fit:
+${seedLines}
+
+Use 3-5 of these ingredients. Skip any that clash with the artists' style or the user's theme.
+`;
+            log(`🃏 NAI Seed [${catList}]: ${balanced.picks.length}개 카테고리`, 'info');
+        }
+    }
     
     const topicPart = userTopic 
         ? `The user wants this theme/scene: "${userTopic}". Expand this into a rich visual scene that showcases the artists' style.`
@@ -10721,7 +10959,7 @@ async function nlGenerateScenePrompt(artists, userTopic, orientation) {
 
 Artists: ${artists.join(', ')}
 ${topicPart}
-
+${wildcardSeedBlock}
 RULES:
 - Output ONLY comma-separated Danbooru tags. NO sentences, NO explanations.
 - 30-50 tags maximum
@@ -10731,6 +10969,7 @@ RULES:
 - Vary shot types: wide shot, cowboy shot, from behind, dutch angle, etc.
 - NEVER output artist tags (those are added separately)
 - Each generation must be UNIQUE and DIFFERENT
+- If wildcard seeds are provided, draw inspiration from their body/pose/setting/climax keywords
 
 Output tags now:`;
 
@@ -10740,7 +10979,7 @@ Output tags now:`;
         // 문장이 섞여있으면 제거
         cleaned = cleaned.replace(/[.!?]\s+[A-Z]/g, ',').replace(/Here are.*?:/gi,'').replace(/Tags?:/gi,'').trim();
         if (cleaned.length < 20) throw new Error('too short');
-        log(`🤖 AI 프롬프트: ${cleaned.substring(0,80)}...`, 'info');
+        log(`🤖 AI 프롬프트 (${ai.name}): ${cleaned.substring(0,80)}...`, 'info');
         return cleaned;
     } catch(e) {
         // fallback: 랜덤 프롬프트
@@ -10753,6 +10992,94 @@ Output tags now:`;
         ];
         return fallbacks[Math.floor(Math.random() * fallbacks.length)];
     }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// 🎲 INSTANT ROULETTE (v0519-1 Phase 2)
+// AI 호출 0회, 즉시 카테고리별 1개씩 뽑아 NAI 문법으로 합성
+// ═══════════════════════════════════════════════════════════════════
+function buildInstantRoulettePrompt(opts = {}) {
+    // opts: { nsfw?: boolean, includeQuality?: boolean }
+    const nsfw = opts.nsfw !== false; // 기본 nsfw 모드 ON
+    
+    if (wildcardData.length === 0) {
+        // 와일드카드 없을 때 — 내장 fallback
+        const fallbacks = nsfw ? NL_NSFW_TEMPLATES : NL_SFW_TEMPLATES;
+        return fallbacks[Math.floor(Math.random() * fallbacks.length)];
+    }
+    
+    const balanced = getRandomWildcardsBalanced({
+        count: 8,
+        prefer: nsfw 
+            ? ['body', 'pose', 'climax', 'expression', 'setting', 'outfit', 'lighting']
+            : ['body', 'pose', 'expression', 'setting', 'outfit', 'lighting', 'style'],
+        nsfwBoost: nsfw,
+        includeArtist: false
+    });
+    
+    if (balanced.picks.length === 0) {
+        return nsfw 
+            ? NL_NSFW_TEMPLATES[Math.floor(Math.random() * NL_NSFW_TEMPLATES.length)]
+            : NL_SFW_TEMPLATES[Math.floor(Math.random() * NL_SFW_TEMPLATES.length)];
+    }
+    
+    // NAI 문법으로 조립: 품질태그 → 캐릭터 카운트 → 카테고리별 추출 → 클라이맥스 강조
+    const parts = [];
+    
+    // 품질 태그 (옵션)
+    if (opts.includeQuality !== false) {
+        parts.push('{{masterpiece, best quality, highres, ultra detailed}}');
+    }
+    
+    parts.push('1girl');
+    
+    // 카테고리별로 정렬해서 자연스러운 NAI 태그 순서로
+    const order = ['body', 'outfit', 'pose', 'expression', 'climax', 'setting', 'lighting', 'action'];
+    const seen = new Set();
+    for (const cat of order) {
+        if (balanced.byCategory[cat] && !seen.has(balanced.byCategory[cat])) {
+            // 카테고리별 NAI 가중치
+            const weight = (cat === 'climax' || cat === 'body') ? '{' : '';
+            const closeW = weight ? '}' : '';
+            // 라인을 NAI 태그처럼 정리 — 마침표 제거, 길면 처음 부분만
+            let frag = balanced.byCategory[cat].replace(/[.!?]+$/, '').substring(0, 120);
+            parts.push(`${weight}${frag}${closeW}`);
+            seen.add(balanced.byCategory[cat]);
+        }
+    }
+    
+    // 추가 카테고리(misc 등)
+    balanced.picks.forEach(p => {
+        if (!seen.has(p) && parts.length < 12) {
+            parts.push(p.replace(/[.!?]+$/, '').substring(0, 100));
+            seen.add(p);
+        }
+    });
+    
+    return parts.join(', ');
+}
+
+// NAI Lab 버튼용 핸들러 — Instant Roulette
+function nlInstantRoulette() {
+    const prompt = buildInstantRoulettePrompt({ nsfw: true });
+    const ta = document.getElementById('nlPrompt');
+    if (ta) {
+        ta.value = prompt;
+        ta.style.background = '#1e293b';
+    }
+    const wcCount = wildcardData.length;
+    log(`🎲 Instant Roulette: ${wcCount > 0 ? `${wcCount}개 와일드카드 조합` : '내장 템플릿'}`, 'ok');
+}
+
+// Image 모드 (Topic 입력란)용 핸들러
+function imgInstantRoulette() {
+    const prompt = buildInstantRoulettePrompt({ nsfw: true });
+    const ta = document.getElementById('topic');
+    if (ta) {
+        ta.value = prompt;
+    }
+    const wcCount = wildcardData.length;
+    log(`🎲 Image Topic Roulette: ${wcCount > 0 ? `${wcCount}개 와일드카드 조합` : '내장 템플릿'}`, 'ok');
 }
 
 // 기존 호환용
@@ -11230,7 +11557,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0517-2142 (20260517-2142) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0519-1 (20260519-1) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
