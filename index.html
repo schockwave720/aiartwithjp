@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0601-1545 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0601-1640 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -224,7 +224,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0601-1545</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0601-1640</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -1043,7 +1043,7 @@
                         <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
                             <div style="display:flex;align-items:center;gap:2px">
                                 <label style="font-size:0.45rem;color:#c084fc;font-weight:700;white-space:nowrap">🎯 장/프롬프트</label>
-                                <input type="number" id="totalImg" value="3" min="1" max="50" style="width:32px;font-size:0.55rem;padding:2px;text-align:center;font-weight:700">
+                                <input type="number" id="totalImg" value="2" min="1" max="50" style="width:32px;font-size:0.55rem;padding:2px;text-align:center;font-weight:700">
                             </div>
                             <div style="display:flex;align-items:center;gap:2px">
                                 <label style="font-size:0.45rem;color:#fbbf24;font-weight:700;white-space:nowrap">🔄 라운드</label>
@@ -1170,8 +1170,8 @@
                         <!-- Content Rating Mode -->
                         <div class="srow"><label>Rating:</label>
                             <select id="nsfwMode" onchange="updateNSFWMode()" style="font-size:0.5rem">
-                                <option value="sfw" selected>🟢 SFW (Safe)</option>
-                                <option value="ecchi">🟡 Ecchi (Suggestive)</option>
+                                <option value="sfw">🟢 SFW (Safe)</option>
+                                <option value="ecchi" selected>🟡 Ecchi (Suggestive)</option>
                                 <option value="nsfw">🔴 NSFW (Explicit)</option>
                             </select>
                         </div>
@@ -1377,7 +1377,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0601-1545 - Civitai Pony 모델 6종 장착 (Pony Realism v2.2/v2.3, Prefect Pony XL, CyberRealistic Pony) | Cerebras 카탈로그 정리 완료</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0601-1640 - 🚀 이미지 병렬 생성 (모든 AI 동시 발사, 도착순 갤러리 표시) | 기본값: 2장 + Ecchi(Suggestive) 모드</div></div>
             </div>
         </div>
         
@@ -4687,7 +4687,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0601-1545 모델 가격표</h1>
+<h1>💰 AIARTstudio v0601-1640 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.05 기준 | 싱가포르(International) 엔드포인트</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -4753,7 +4753,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 🐉 이미지: <strong style="color:#a78bfa">Qwen Image Plus</strong> (장당 ₩29) + <strong style="color:#a78bfa">Qwen Image Max</strong> (장당 ₩109, 최고 퀄)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0601-1545 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0601-1640 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -4824,7 +4824,7 @@ function updateNSFWMode() {
 
 // Get current rating context for prompt AI instruction
 function getRatingDirective() {
-    const mode = document.getElementById('nsfwMode')?.value || 'sfw';
+    const mode = document.getElementById('nsfwMode')?.value || 'ecchi';
     if (mode === 'nsfw') {
         return `=== 🔴 EXPLICIT MODE ACTIVE ===
 The user has set EXPLICIT/NSFW mode. You MUST generate adult content tags!
@@ -5126,6 +5126,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('infInfinite')?.addEventListener('change', updateGenCalc);
     // ★ 실시간 환율 로드
     fetchExchangeRate();
+    // ★ Civitai 모델 style 메타 자동 매핑 빌드
+    buildCivitaiStyleMap();
 });
 
 
@@ -5136,7 +5138,7 @@ async function runOneRound(topic, style, textAIs, iais, roundNum, totalRounds) {
     // ═══════════════════════════════════════════════════════
     // PRE-FILTER: Skip NSFW-incompatible models automatically
     // ═══════════════════════════════════════════════════════
-    const rMode = document.getElementById('nsfwMode')?.value || 'sfw';
+    const rMode = document.getElementById('nsfwMode')?.value || 'ecchi';
     if (rMode === 'nsfw' || rMode === 'ecchi') {
         const before = textAIs.length;
         textAIs = textAIs.filter(ai => {
@@ -5195,7 +5197,7 @@ async function runOneRound(topic, style, textAIs, iais, roundNum, totalRounds) {
         const places = ['ancient Roman bathhouse, marble, steam','Tokyo convenience store 3AM, fluorescent','moving train, blurring landscapes outside','rooftop skyscraper, city lights below, wind','abandoned greenhouse, overgrown, sunbeams','backstage theater, costumes, mirror bulbs','underwater ruins, light from above, fish','snow-covered onsen, steam, cold mountain','giant library, endless bookshelves, dust in light','neon back alley, puddles, laundry lines','boat on misty lake at dawn','inside clock tower, gears and mechanisms','art gallery after hours, marble floor','giant fantasy tree canopy, forest below','space station, Earth through window','rainy Paris cafe, wet cobblestone, warm light','Viking longship, stormy sea, lightning','abandoned subway, graffiti, single spotlight','floating market Southeast Asia, morning mist','volcanic landscape, glowing lava, ash in air'];
         const narrs = ['Tell a STORY — what just happened?','CONTRAST — beauty in ugly place','MYSTERY — something hidden, unexplained','SOLITUDE — vast empty space, silence','POWER — dominant pose, intense','INTIMACY — private moment, vulnerable','REBELLION — breaking rules, defiant','TENSION — something about to happen','FREEDOM — wind, open sky, liberation','NOSTALGIA — bittersweet, memory-like'];
         
-        const rm = document.getElementById('nsfwMode')?.value || 'sfw';
+        const rm = document.getElementById('nsfwMode')?.value || 'ecchi';
         if (rm === 'nsfw') {
             sits.push('provocative pose, clothes disheveled','shower or bath, water streaming, steam','bed with tangled sheets','bending over, rear view emphasized','stretching sensually, back arched, arms up','removing clothing, garment halfway off','lying on stomach, looking back, legs up','straddling chair, dominant position','pressed against glass or wall','in front of mirror, admiring own body');
             places.push('luxury hotel suite, silk sheets, dim lighting','private onsen, wooden deck, mountain view','artist studio, paint everywhere','dimly lit bedroom, candles, shadows','beach sunset, isolated cove, golden light','locker room, mirror wall, after hours');
@@ -5645,8 +5647,10 @@ const IMG_PRICE_USD = {
     'nai': 0, 'gem-3-pro': 0, 'gem-31-flash': 0, 'gem-flash': 0, 'gem-imagen4': 0, 'gem-imagen4f': 0,
     'zai-cogview4': 0, 'zai-glmimg': 0,
     // Civitai (Buzz 기반, 1장 약 5-10 Buzz ≈ $0.005-0.01)
-    'civ-pr22': 0.005, 'civ-pr23': 0.005, 'civ-pr23u': 0.005, 'civ-pr22h': 0.003,
-    'civ-prfct': 0.005, 'civ-crp': 0.008,
+    'civ-pdv6': 0.005, 'civ-wai16': 0.005, 'civ-wai15': 0.005,
+    'civ-amc': 0.005, 'civ-amp': 0.005, 'civ-mklan': 0.005,
+    'civ-prfct': 0.005, 'civ-pv7': 0.008,
+    'civ-pr22': 0.005, 'civ-pr23u': 0.005, 'civ-crp': 0.012,
     // Poe (포인트→달러 환산)
     'poe-fluxsch': 0.001, 'poe-sdxl': 0.002, 'poe-gptimg': 0.012, 'poe-dalle3': 0.015,
     'poe-fluxdev': 0.017, 'poe-flux11': 0.024, 'poe-recraft': 0.015, 'poe-ideogram': 0.015,
@@ -5730,12 +5734,19 @@ const IMG_PROVIDERS = {
         {id:'poe-ideogram',name:'Ideogram V2',m:'Ideogram-v2'},
     ]},
     civitai: { name:'🎭 Civitai', color:'civitai', models:[
-        {id:'civ-pr22',name:'Pony Realism v2.2 ⭐15K리뷰',m:'urn:air:sdxl:checkpoint:civitai:372465@914390',tag:'best'},
-        {id:'civ-pr23',name:'Pony Realism v2.3 Main',m:'urn:air:sdxl:checkpoint:civitai:372465@1763661',tag:'new'},
-        {id:'civ-pr23u',name:'Pony Realism v2.3 ULTRA',m:'urn:air:sdxl:checkpoint:civitai:372465@1920896',tag:'hot'},
-        {id:'civ-pr22h',name:'Pony Realism v2.2 Hyper 8s ⚡',m:'urn:air:sdxl:checkpoint:civitai:372465@987238',tag:'fast'},
-        {id:'civ-prfct',name:'Prefect Pony XL v6 (애니)',m:'urn:air:sdxl:checkpoint:civitai:439889@2114187'},
-        {id:'civ-crp',name:'CyberRealistic Pony v18 ⚠EarlyAccess',m:'urn:air:sdxl:checkpoint:civitai:443821@2884631'},
+        // ═══ 🔥 NSFW Anime/Hentai (애니) ═══
+        {id:'civ-pdv6',name:'🏆 Pony Diffusion V6 XL ⭐72K리뷰',m:'urn:air:sdxl:checkpoint:civitai:257749@290640',style:'anime',tag:'best'},
+        {id:'civ-wai16',name:'🔥 WAI-NSFW Illustrious v16 (캐릭5K+)',m:'urn:air:sdxl:checkpoint:civitai:827184@2514310',style:'anime',eco:'illustrious',tag:'hot'},
+        {id:'civ-wai15',name:'WAI-NSFW Illustrious v15 안정판',m:'urn:air:sdxl:checkpoint:civitai:827184@2167369',style:'anime',eco:'illustrious'},
+        {id:'civ-amc',name:'AutismMix Confetti (애니, 깔끔한 손)',m:'urn:air:sdxl:checkpoint:civitai:288584@324524',style:'anime'},
+        {id:'civ-amp',name:'AutismMix Pony (애니, LoRA호환)',m:'urn:air:sdxl:checkpoint:civitai:288584@324619',style:'anime'},
+        {id:'civ-mklan',name:'Mklan ANIME Hentai 🔞전용',m:'urn:air:sdxl:checkpoint:civitai:324431@812350',style:'hentai',tag:'new'},
+        {id:'civ-prfct',name:'Prefect Pony XL v6 (애니)',m:'urn:air:sdxl:checkpoint:civitai:439889@2114187',style:'anime'},
+        {id:'civ-pv7',name:'🆕 Pony V7 base (AuraFlow ⚠실험)',m:'urn:air:auraflow:checkpoint:civitai:1901521@2152373',style:'mix',eco:'auraflow',tag:'new'},
+        // ═══ 📸 Realistic (실사) ═══
+        {id:'civ-pr22',name:'Pony Realism v2.2 ⭐15K리뷰',m:'urn:air:sdxl:checkpoint:civitai:372465@914390',style:'realistic'},
+        {id:'civ-pr23u',name:'Pony Realism v2.3 ULTRA',m:'urn:air:sdxl:checkpoint:civitai:372465@1920896',style:'realistic'},
+        {id:'civ-crp',name:'CyberRealistic Pony v18 ⚠EarlyAccess',m:'urn:air:sdxl:checkpoint:civitai:443821@2884631',style:'realistic'},
     ]},
     // ═══ 💸 중간 ═══
     dashscope: { name:'🐉 Qwen', color:'dashscope', models:[
@@ -7658,24 +7669,53 @@ async function genKrea(prompt, model) {
 async function genCivitai(prompt, modelUrn) {
     const key = getKey('civitai');
     if (!key) throw new Error('Civitai API 키 필요');
-    // 기본값: Pony Realism v2.2 (15K리뷰 검증판)
-    const air = modelUrn || 'urn:air:sdxl:checkpoint:civitai:372465@914390';
-    // Pony 계열 검출 → score_9 트리거 자동 주입 (이미 있으면 skip)
-    const isPony = /pony|sdxl:checkpoint:civitai:(372465|439889|443821|631811|845836)/i.test(air);
-    const hasScoreTag = /score_\d/i.test(prompt);
-    const finalPrompt = (isPony && !hasScoreTag)
-        ? `score_9, score_8_up, score_7_up, ${prompt}`
-        : `masterpiece, best quality, ${prompt}`;
-    const negPrompt = isPony
-        ? 'score_6, score_5, score_4, worst quality, low quality, normal quality, lowres, bad anatomy, bad hands, signature, watermark, ugly, deformed'
-        : 'worst quality, low quality, bad anatomy, ugly';
+    // 기본값: Pony Diffusion V6 XL (NSFW 애니 절대표준)
+    const air = modelUrn || 'urn:air:sdxl:checkpoint:civitai:257749@290640';
+    
+    // ── 모델 메타 추출: ecosystem + style ──
+    // ecosystem: URN 두번째 토큰 (sdxl/illustrious/auraflow)
+    const ecoMatch = air.match(/urn:air:([a-z0-9_]+):/i);
+    const eco = ecoMatch ? ecoMatch[1].toLowerCase() : 'sdxl';
+    // style: ai 객체 → modelMeta lookup (CIV_MODEL_STYLE에서)
+    const style = (window.__civModelStyle && window.__civModelStyle[air]) || 'anime';
+    
+    // ── prompt/negative 빌드 (모델별 트리거 자동 적용) ──
+    const hasScore = /score_\d/i.test(prompt);
+    let prefix = '', neg = '';
+    
+    if (eco === 'illustrious') {
+        // Illustrious: masterpiece 트리거
+        prefix = 'masterpiece, best quality, highres, ';
+        if (style === 'anime') prefix += 'anime coloring, ';
+        else if (style === 'hentai') prefix += 'anime coloring, nsfw, ';
+        neg = 'lowres, worst quality, bad quality, bad anatomy, sketch, jpeg artifacts, signature, watermark, artist name, old, oldest';
+    } else if (eco === 'auraflow') {
+        // Pony V7 (AuraFlow): 자연어 위주, 트리거 약함
+        prefix = ''; // V7는 score_ 영향력 거의 없음
+        neg = 'lowres, blurry, deformed, ugly, bad anatomy';
+    } else {
+        // SDXL/Pony 계열 (기본)
+        if (!hasScore) prefix += 'score_9, score_8_up, score_7_up, ';
+        if (style === 'anime') prefix += 'source_anime, ';
+        else if (style === 'hentai') prefix += 'source_anime, rating_explicit, nsfw, ';
+        else if (style === 'realistic') prefix += 'photorealistic, realistic, ';
+        // mix는 트리거 추가 안 함 (모델에 위임)
+        neg = 'score_6, score_5, score_4, worst quality, low quality, lowres, bad anatomy, bad hands, signature, watermark, ugly, deformed';
+        if (style === 'anime' || style === 'hentai') neg += ', monochrome, sketch, 3d, photo, realistic';
+        else if (style === 'realistic') neg += ', cartoon, anime, sketch, 3d render';
+    }
+    const finalPrompt = prefix + prompt;
+    
+    // ── API baseModel 결정 (Illustrious도 SDXL 기반이라 SDXL로 통일, AuraFlow는 별도) ──
+    const apiBase = (eco === 'auraflow') ? 'AuraFlow' : 'SDXL';
+    
     const body = {
         "$type": "textToImage",
-        "baseModel": "SDXL",
+        "baseModel": apiBase,
         "model": air,
         "params": {
             "prompt": finalPrompt,
-            "negativePrompt": negPrompt,
+            "negativePrompt": neg,
             "scheduler": "EulerA",
             "steps": 30,
             "cfgScale": 6,
@@ -7703,7 +7743,7 @@ async function genCivitai(prompt, modelUrn) {
     const d = await r.json();
     const token = d.token || d.jobs?.[0]?.jobId;
     if (!token) throw new Error('Civitai: 작업ID 없음 (응답 형식 변경 가능)');
-    // 폴링 60회 × 3초 = 최대 180초 (기존 90초에서 2배 ↑)
+    // 폴링 60회 × 3초 = 최대 180초
     for (let i = 0; i < 60; i++) {
         await new Promise(rs => setTimeout(rs, 3000));
         let sr, sd;
@@ -7721,6 +7761,17 @@ async function genCivitai(prompt, modelUrn) {
         }
     }
     throw new Error('Civitai: Timeout (3분 폴링 초과)');
+}
+
+// ── Civitai 모델 style 메타 자동 빌드 (init 시점에 호출) ──
+function buildCivitaiStyleMap() {
+    try {
+        if (typeof IMG_PROVIDERS === 'undefined' || !IMG_PROVIDERS.civitai) return;
+        window.__civModelStyle = {};
+        IMG_PROVIDERS.civitai.models.forEach(m => {
+            if (m.m && m.style) window.__civModelStyle[m.m] = m.style;
+        });
+    } catch(_) {}
 }
 
 async function genZAI(prompt, model) {
@@ -10017,52 +10068,72 @@ async function genImagesFromResult(idx) {
 }
 
 async function genImagesWithPrompt(prompt, iais, promptAiName) { 
-    // 기본 이미지 수를 3장으로 설정합니다. 만약 사용자가 지정한 값이 있다면 해당 값을 사용합니다.
-    const imgPerModel = parseInt(document.getElementById('totalImg').value) || 3; 
+    // 기본값: 사용자 입력 → 2장
+    const imgPerModel = parseInt(document.getElementById('totalImg').value) || 2; 
     const failedModels = [];
     
     // ★ 이 프롬프트 배치에 사용할 레퍼런스 이미지 랜덤 할당 (이전 배치와 다르게)
     await assignBatchRefImage();
     
+    // ═══════════════════════════════════════════════════════════
+    // ★★★ 병렬 생성 (v0601-1640~) — 모든 AI × N장을 동시에 발사
+    //     먼저 끝나는 놈부터 갤러리에 즉시 푸시. 느린 놈 기다리지 않음.
+    // ═══════════════════════════════════════════════════════════
+    const totalJobs = iais.length * imgPerModel;
+    log(`🚀 병렬 발사: ${iais.length}개 모델 × ${imgPerModel}장 = ${totalJobs}건 동시 진행`, 'info');
+    
+    let doneCount = 0;
+    const modelStats = {}; // { 'NAI V4.5': { success: 0, failed: 0 } }
+    iais.forEach(ai => { modelStats[ai.name] = { success: 0, failed: 0, firstErr: null }; });
+    
+    // 모든 job을 평탄화: [(imgAi, slotIdx), ...]
+    const jobs = [];
     for (const imgAi of iais) {
-        let successCount = 0;
-        let modelFailed = false;
-        
-        for (let n = 0; n < imgPerModel; n++) {
-            prog(50 + (generatedImages.length / (iais.length * imgPerModel)) * 45, `🎨 ${imgAi.name} ${n+1}/${imgPerModel}`);
-            try {
-                log(`🎨 ${imgAi.name} [${n+1}/${imgPerModel}]...`, imgAi.p === 'gemini' ? 'gem' : 'info');
-                const result = await callImg(imgAi, prompt);
-                const refInfo = getCurrentRefInfo();
-                
-                // NAI는 객체 반환 { url, artist, size }, 나머지는 URL 문자열
-                if (typeof result === 'object' && result.url) {
-                    generatedImages.push({ url: result.url, prompt, imgAi: imgAi.name, promptAi: promptAiName || '', artist: result.artist, size: result.size, ...refInfo });
-                } else {
-                    generatedImages.push({ url: result, prompt, imgAi: imgAi.name, promptAi: promptAiName || '', ...refInfo });
-                }
-                
-                updateGallery();
-                successCount++;
-                await new Promise(r => setTimeout(r, 600));
-            } catch(e) {
-                log(`❌ ${imgAi.name}: ${e.message}`, 'err');
-                if (!modelFailed) {
-                    failedModels.push({ name: imgAi.name, error: e.message });
-                    modelFailed = true;
-                }
-                break;
-            }
-        }
-        
-        if (successCount > 0) {
-            log(`✅ ${imgAi.name}: ${successCount}장 완료`, 'ok');
-        }
+        for (let n = 0; n < imgPerModel; n++) jobs.push({ imgAi, n });
     }
+    
+    // 진행률 안내 (느린 모델이 카운트 깎아 보이지 않도록 doneCount 기반)
+    const tick = () => prog(50 + (doneCount / totalJobs) * 45, `🎨 ${doneCount}/${totalJobs} (병렬)`);
+    tick();
+    
+    // 각 job을 async 함수로 변환, 즉시 발사
+    const promises = jobs.map(({ imgAi, n }) => (async () => {
+        try {
+            log(`🚀 ${imgAi.name} [${n+1}/${imgPerModel}] 발사`, imgAi.p === 'gemini' ? 'gem' : 'info');
+            const result = await callImg(imgAi, prompt);
+            const refInfo = getCurrentRefInfo();
+            // NAI는 객체 반환 { url, artist, size }, 나머지는 URL 문자열
+            if (typeof result === 'object' && result.url) {
+                generatedImages.push({ url: result.url, prompt, imgAi: imgAi.name, promptAi: promptAiName || '', artist: result.artist, size: result.size, ...refInfo });
+            } else {
+                generatedImages.push({ url: result, prompt, imgAi: imgAi.name, promptAi: promptAiName || '', ...refInfo });
+            }
+            updateGallery(); // ★ 도착 즉시 갤러리 반영 — 다른 놈들 기다리지 않음
+            modelStats[imgAi.name].success++;
+            doneCount++;
+            tick();
+            log(`✅ ${imgAi.name} [${n+1}/${imgPerModel}] 도착 (${doneCount}/${totalJobs})`, 'ok');
+        } catch(e) {
+            modelStats[imgAi.name].failed++;
+            if (!modelStats[imgAi.name].firstErr) modelStats[imgAi.name].firstErr = e.message;
+            doneCount++;
+            tick();
+            log(`❌ ${imgAi.name} [${n+1}/${imgPerModel}]: ${e.message.substring(0,60)}`, 'err');
+        }
+    })());
+    
+    await Promise.allSettled(promises);
+    
+    // 모델별 결산
+    iais.forEach(ai => {
+        const s = modelStats[ai.name];
+        if (s.success > 0) log(`✅ ${ai.name}: ${s.success}/${imgPerModel}장 완료`, 'ok');
+        if (s.failed === imgPerModel) failedModels.push({ name: ai.name, error: s.firstErr || '알수없음' });
+    });
     
     if (failedModels.length > 0) {
         log(`━━━━━━━━━━━━━━━━━━━━`, 'warn');
-        log(`⚠️ 실패한 모델 ${failedModels.length}개:`, 'err');
+        log(`⚠️ 전부 실패한 모델 ${failedModels.length}개:`, 'err');
         failedModels.forEach(f => {
             log(`   ❌ ${f.name}: ${f.error.substring(0, 50)}`, 'err');
         });
@@ -11628,7 +11699,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0601-1545 (20260601-1545) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0601-1640 (20260601-1640) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
