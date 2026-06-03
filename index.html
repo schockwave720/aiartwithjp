@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0602-0125 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0603-1345 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -224,7 +224,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0602-0125</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0603-1345</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -1084,6 +1084,27 @@
                         </div>
                     </div>
                     
+                    <!-- 📐 이미지 비율 + 🧬 Civitai LoRA/VAE (v0602-0250+) -->
+                    <div style="padding:4px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:4px;margin-bottom:3px">
+                        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+                            <span style="font-size:0.42rem;color:#22c55e;font-weight:700">📐 비율</span>
+                            <label style="font-size:0.45rem;color:#a7f3d0;display:flex;align-items:center;gap:2px;cursor:pointer"><input type="radio" name="imgAspect" value="random" checked style="width:10px;height:10px"> 🎲랜덤</label>
+                            <label style="font-size:0.45rem;color:#a7f3d0;display:flex;align-items:center;gap:2px;cursor:pointer"><input type="radio" name="imgAspect" value="portrait" style="width:10px;height:10px"> 📱세로</label>
+                            <label style="font-size:0.45rem;color:#a7f3d0;display:flex;align-items:center;gap:2px;cursor:pointer"><input type="radio" name="imgAspect" value="landscape" style="width:10px;height:10px"> 🖼️가로</label>
+                            <label style="font-size:0.45rem;color:#a7f3d0;display:flex;align-items:center;gap:2px;cursor:pointer"><input type="radio" name="imgAspect" value="square" style="width:10px;height:10px"> ⬜1:1</label>
+                        </div>
+                        <div style="font-size:0.38rem;color:#64748b;margin-top:2px;line-height:1.3">Civitai 우선 적용 · 832×1216 / 1216×832 / 1024² / 896×1152 / 1152×896 풀에서 선택</div>
+                    </div>
+                    
+                    <details style="padding:4px;background:rgba(251,113,133,0.08);border:1px solid rgba(251,113,133,0.2);border-radius:4px;margin-bottom:3px">
+                        <summary style="font-size:0.45rem;color:#fb7185;font-weight:700;cursor:pointer;user-select:none">🧬 Civitai LoRA / VAE (선택, 최대 5개) — 클릭해서 펴기</summary>
+                        <textarea id="civLorasInput" placeholder="한 줄에 하나씩 입력. 예:&#10;https://civitai.com/models/82098?modelVersionId=87153 :0.8&#10;urn:air:sdxl:lora:civitai:12345@67890 :1.0&#10;urn:air:sdxl:vae:civitai:11111@22222&#10;# 주석은 # 또는 // 로 시작" style="width:100%;min-height:60px;font-size:0.5rem;padding:4px;margin-top:4px;font-family:monospace;background:rgba(0,0,0,0.3);color:#e2e8f0;border:1px solid rgba(251,113,133,0.3);border-radius:3px;resize:vertical"></textarea>
+                        <div style="font-size:0.38rem;color:#64748b;margin-top:2px;line-height:1.4">
+                            형식: <code style="color:#fb7185">URL :강도</code> 또는 <code style="color:#fb7185">URN :강도</code> · 강도 0.0~2.0 (생략시 1.0) · <strong>modelVersionId 필수</strong>
+                        </div>
+                        <div style="font-size:0.38rem;color:#94a3b8;margin-top:2px">VAE는 보통 모델에 내장되어 있어서 굳이 추가 안해도 됨. LoRA만 입력해도 OK.</div>
+                    </details>
+                    
                     <div style="display:flex;gap:3px">
                         <button class="btn btn-img" id="imgBtn" onclick="generateImage()" style="flex:1">🎨 Generate!</button>
                         <button id="infStopBtn" onclick="stopInfiniteGen()" style="display:none;flex:1;padding:7px;background:#ef4444;color:#fff;border:none;border-radius:4px;font-size:0.7rem;font-weight:600;cursor:pointer">⏹ 중지</button>
@@ -1377,7 +1398,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0602-0125 - Civitai 14종 라인업 (Pony V6 + WAI v16 + Hassaku Illustrious + iLustMix v11.1 + LUSTIFY V7 + CyberRealistic XL v7 등 발달된 SDXL/Illustrious 다수)</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0603-1345 - 💳 Krea API 잔액 부족 자동 가드 (402 감지 → 세션 비활성화 + 토스트 1회) | 📐 비율 + 🧬 LoRA/VAE 유지</div></div>
             </div>
         </div>
         
@@ -4687,7 +4708,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0602-0125 모델 가격표</h1>
+<h1>💰 AIARTstudio v0603-1345 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.05 기준 | 싱가포르(International) 엔드포인트</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -4753,7 +4774,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 🐉 이미지: <strong style="color:#a78bfa">Qwen Image Plus</strong> (장당 ₩29) + <strong style="color:#a78bfa">Qwen Image Max</strong> (장당 ₩109, 최고 퀄)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0602-0125 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0603-1345 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -5128,6 +5149,32 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchExchangeRate();
     // ★ Civitai 모델 style 메타 자동 매핑 빌드
     buildCivitaiStyleMap();
+    
+    // ★ 비율 + LoRA 입력 localStorage 저장/복원 ──────────────────
+    try {
+        // 비율 복원
+        const savedAspect = localStorage.getItem('aiart_img_aspect') || 'random';
+        const ar = document.querySelector(`input[name="imgAspect"][value="${savedAspect}"]`);
+        if (ar) ar.checked = true;
+        // 비율 변경 시 저장
+        document.querySelectorAll('input[name="imgAspect"]').forEach(rd => {
+            rd.addEventListener('change', () => {
+                if (rd.checked) localStorage.setItem('aiart_img_aspect', rd.value);
+            });
+        });
+        // LoRA 텍스트 복원
+        const civInput = document.getElementById('civLorasInput');
+        if (civInput) {
+            const saved = localStorage.getItem('aiart_civ_loras') || '';
+            if (saved) civInput.value = saved;
+            // 변경 시 저장 (debounce 800ms)
+            let lt = null;
+            civInput.addEventListener('input', () => {
+                clearTimeout(lt);
+                lt = setTimeout(() => localStorage.setItem('aiart_civ_loras', civInput.value), 800);
+            });
+        }
+    } catch(e) { console.warn('aspect/LoRA persistence skip:', e); }
 });
 
 
@@ -7616,7 +7663,27 @@ async function genPoe(prompt, model) {
 }
 
 // Krea
+// ═══════════════════════════════════════════════════════════
+// 💳 Krea API 잔액 부족 토스트 (세션당 1회) + 세션 가드
+// ═══════════════════════════════════════════════════════════
+window.__kreaDisabledSession = false;
+window.__kreaWarningShown = false;
+function showKreaInsufficientToast() {
+    if (window.__kreaWarningShown) return;
+    window.__kreaWarningShown = true;
+    const t = document.createElement('div');
+    t.id = 'kreaInsufToast';
+    t.style.cssText = 'position:fixed;top:20px;right:20px;z-index:99999;background:linear-gradient(135deg,#7c2d12,#9a3412);color:#fed7aa;padding:14px 18px;border:1px solid #fb923c;border-radius:8px;font-size:0.72rem;max-width:340px;box-shadow:0 6px 30px rgba(0,0,0,0.6);line-height:1.5;font-family:inherit';
+    t.innerHTML = '💳 <strong style="color:#fbbf24">Krea API 잔액 부족</strong><br>이번 세션 동안 Krea 호출 자동 차단됨.<br><small style="color:#fdba74">Pro 구독 토큰 ≠ API 잔액 (서로 다른 지갑).<br>충전: <a href="https://krea.ai/dashboard" target="_blank" style="color:#fbbf24;text-decoration:underline">krea.ai/dashboard</a></small><br><span onclick="document.getElementById(\'kreaInsufToast\').remove()" style="cursor:pointer;color:#fdba74;font-size:0.6rem;float:right;margin-top:4px">[닫기]</span>';
+    document.body.appendChild(t);
+    setTimeout(() => { if (t.parentNode) { t.style.opacity = '0'; t.style.transition = 'opacity 0.5s'; setTimeout(() => t.remove(), 500); } }, 10000);
+}
+
 async function genKrea(prompt, model) {
+    // ★ 세션 가드: 이전에 402 떨어졌으면 즉시 단락 (무의미한 호출/로그 방지)
+    if (window.__kreaDisabledSession) {
+        throw new Error('💳 Krea 비활성화 (API 잔액 부족 - krea.ai/dashboard 충전 필요)');
+    }
     const kreaKey = getKey('krea');
     if (!kreaKey) throw new Error('Krea API 키 필요');
     const kreaModel = model || document.getElementById('kreaModel')?.value || 'flux-1-dev';
@@ -7648,6 +7715,13 @@ async function genKrea(prompt, model) {
             break;
         }
         const errMsg = createData.error?.message || createData.message || '';
+        // ★ 402 또는 balance 메시지 감지 → 세션 비활성화 + 토스트 1회
+        if (createResponse.status === 402 || /balance|payment.required/i.test(errMsg)) {
+            window.__kreaDisabledSession = true;
+            if (typeof showKreaInsufficientToast === 'function') showKreaInsufficientToast();
+            if (typeof log === 'function') log('💳 Krea API 잔액 부족 감지 → 이번 세션 동안 Krea 호출 자동 차단 (충전: krea.ai/dashboard)', 'err');
+            throw new Error('💳 Krea 잔액 부족 - 충전 필요 (Pro 구독 ≠ API 잔액)');
+        }
         if (errMsg.includes('not found') || errMsg.includes('Not Found') || errMsg.includes('Endpoint') || createResponse.status === 404 || createResponse.status === 400) {
             log(`⚠️ Krea ${ep} → ${createResponse.status}, 다음 경로 시도...`, 'warn');
             continue;
@@ -7669,6 +7743,84 @@ async function genKrea(prompt, model) {
     }
     throw new Error('Krea: Timeout (3분)');
 }
+
+// ═══════════════════════════════════════════════════════════
+// 📐 이미지 비율 리졸버 (Civitai 우선 적용, 안전 fallback)
+// ═══════════════════════════════════════════════════════════
+function resolveCivitaiSize() {
+    const sel = document.querySelector('input[name="imgAspect"]:checked')?.value || 'random';
+    const presets = {
+        portrait:  [832, 1216],
+        landscape: [1216, 832],
+        square:    [1024, 1024],
+    };
+    if (presets[sel]) {
+        const [w, h] = presets[sel];
+        return { width: w, height: h, picked: sel };
+    }
+    // random: SDXL 권장 해상도 풀
+    const pool = [[832,1216],[1216,832],[1024,1024],[896,1152],[1152,896],[768,1344],[1344,768]];
+    const pick = pool[Math.floor(Math.random()*pool.length)];
+    return { width: pick[0], height: pick[1], picked: 'random' };
+}
+
+// ═══════════════════════════════════════════════════════════
+// 🧬 Civitai LoRA/VAE 텍스트 파서 (URL 또는 URN, strength 옵션)
+//    안전 정책:
+//    - modelVersionId 누락 시 스킵 (안 박는 게 에러보다 안전)
+//    - strength 0.0~2.0 클램프
+//    - 최대 5개 (Civitai 보통 한계)
+//    - 빈 입력 → null 반환 → 호출자가 additionalNetworks 키 자체를 안 박음
+// ═══════════════════════════════════════════════════════════
+function parseCivitaiAuxResources(text, modelEcosystem) {
+    if (!text || !text.trim()) return null;
+    const eco = (modelEcosystem || 'sdxl').toLowerCase();
+    const lines = text.split('\n').map(s => s.trim()).filter(Boolean);
+    const out = {};
+    let count = 0, skipped = 0;
+
+    for (const raw of lines) {
+        if (count >= 5) break;
+        if (raw.startsWith('#') || raw.startsWith('//')) continue;
+
+        // strength 분리: "REF :0.8" 또는 "REF |0.8" 또는 "REF @0.8" (마지막 공백+숫자)
+        let ref = raw, strength = 1.0;
+        const sm = raw.match(/^(.+?)\s+[:|@]\s*([\d.]+)\s*$/);
+        if (sm) {
+            ref = sm[1].trim();
+            const s = parseFloat(sm[2]);
+            if (!isNaN(s)) strength = Math.max(0, Math.min(2.0, s));
+        }
+
+        let urn = null, type = 'Lora';
+
+        if (ref.startsWith('urn:air:')) {
+            urn = ref;
+            if (/:vae:/i.test(urn)) type = 'VAE';
+            else if (/:embedding:/i.test(urn) || /:textualinversion:/i.test(urn)) type = 'TextualInversion';
+            else if (/:locon:/i.test(urn)) type = 'LoCon';
+            else if (/:hypernet/i.test(urn)) type = 'Hypernetwork';
+        } else {
+            // URL: civitai.com / civitai.red / civitai.green / civarchive 모두 허용
+            const urlMatch = ref.match(/civitai\.(?:com|red|green)\/models\/(\d+)/i);
+            if (!urlMatch) { skipped++; continue; }
+            const mid = urlMatch[1];
+            const vidMatch = ref.match(/modelVersionId=(\d+)/i);
+            if (!vidMatch) { skipped++; continue; }
+            const vid = vidMatch[1];
+            urn = `urn:air:${eco}:lora:civitai:${mid}@${vid}`;
+            type = 'Lora';
+        }
+
+        if (urn) {
+            out[urn] = { type, strength };
+            count++;
+        }
+    }
+
+    return { networks: count > 0 ? out : null, count, skipped };
+}
+
 
 async function genCivitai(prompt, modelUrn) {
     const key = getKey('civitai');
@@ -7713,6 +7865,9 @@ async function genCivitai(prompt, modelUrn) {
     // ── API baseModel 결정 (Illustrious도 SDXL 기반이라 SDXL로 통일, AuraFlow는 별도) ──
     const apiBase = (eco === 'auraflow') ? 'AuraFlow' : 'SDXL';
     
+    // ── 📐 비율 적용 (UI에서 선택된 aspect ratio → width/height) ──
+    const sizeInfo = resolveCivitaiSize();
+    
     const body = {
         "$type": "textToImage",
         "baseModel": apiBase,
@@ -7723,12 +7878,27 @@ async function genCivitai(prompt, modelUrn) {
             "scheduler": "EulerA",
             "steps": 30,
             "cfgScale": 6,
-            "width": 832,
-            "height": 1216,
+            "width": sizeInfo.width,
+            "height": sizeInfo.height,
             "clipSkip": 2,
             "seed": -1
         }
     };
+    
+    // ── 🧬 LoRA / VAE 적용 (UI 텍스트박스 입력 파싱) ──
+    // URN ecosystem은 체크포인트와 동일하게 (sdxl/illustrious/auraflow)
+    const loraText = document.getElementById('civLorasInput')?.value || '';
+    const parsed = parseCivitaiAuxResources(loraText, eco);
+    if (parsed && parsed.networks) {
+        body.additionalNetworks = parsed.networks;
+        const types = Object.values(parsed.networks).map(n => n.type);
+        const tCount = types.reduce((a,t) => (a[t]=(a[t]||0)+1,a), {});
+        const summary = Object.entries(tCount).map(([t,c]) => `${t}×${c}`).join(', ');
+        if (typeof log === 'function') log(`🧬 Civitai 추가 리소스: ${summary} (${sizeInfo.width}×${sizeInfo.height} ${sizeInfo.picked})`, 'info');
+    } else if (parsed && parsed.skipped > 0 && typeof log === 'function') {
+        log(`⚠️ LoRA ${parsed.skipped}건 스킵 (modelVersionId 누락 또는 URL 형식 오류)`, 'warn');
+    }
+    
     let r;
     try {
         r = await fetch('https://orchestration.civitai.com/v1/consumer/jobs', {
@@ -10080,7 +10250,7 @@ async function genImagesWithPrompt(prompt, iais, promptAiName) {
     await assignBatchRefImage();
     
     // ═══════════════════════════════════════════════════════════
-    // ★★★ 병렬 생성 (v0602-0125~) — 모든 AI × N장을 동시에 발사
+    // ★★★ 병렬 생성 (v0603-1345~) — 모든 AI × N장을 동시에 발사
     //     먼저 끝나는 놈부터 갤러리에 즉시 푸시. 느린 놈 기다리지 않음.
     // ═══════════════════════════════════════════════════════════
     const totalJobs = iais.length * imgPerModel;
@@ -11703,7 +11873,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0602-0125 (20260602-0125) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0603-1345 (20260603-1345) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
