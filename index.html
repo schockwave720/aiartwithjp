@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0603-1410 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0610-1130 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -224,7 +224,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0603-1410</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0610-1130</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -881,6 +881,41 @@
                 <div id="topicSection">
                 <div class="igrp"><label id="topicLabel">Topic / Description <button onclick="imgInstantRoulette()" title="🎲 와일드카드 카테고리별 1개씩 즉시 조합" style="margin-left:6px;padding:1px 6px;background:linear-gradient(135deg,#f59e0b,#dc2626);border:none;border-radius:3px;color:#fff;font-size:0.42rem;cursor:pointer;font-weight:700">🎲 Roulette</button></label><div style="position:relative"><textarea id="topic" placeholder="Enter description or upload files... (🎲 버튼: 와일드카드 즉시조합)"></textarea><button onclick="voiceToField('topic')" style="position:absolute;bottom:4px;right:4px;width:28px;height:28px;border-radius:50%;background:#22c55e;border:none;cursor:pointer;font-size:0.7rem;opacity:0.7" title="🎤 음성입력 (OpenAI Whisper)">🎤</button></div></div>
                 <div class="igrp"><label id="extraLabel">Additional Requirements</label><input type="text" id="extra" placeholder="Style, mood, specific requests..."></div>
+
+                <!-- 🎬 AI 총감독 (Director Mode) v0610 -->
+                <div class="card" id="directorCard" style="background:linear-gradient(135deg,rgba(99,102,241,0.10),rgba(236,72,153,0.08));border:1px solid rgba(139,92,246,0.4);padding:6px;margin:4px 0">
+                    <h2 onclick="document.getElementById('directorPanel').classList.toggle('hidden')" style="color:#a78bfa;cursor:pointer">🎬 AI 총감독 <span style="font-size:0.4rem;color:var(--tm)">(클릭 접기/펼치기)</span> <span id="dirBadge" style="font-size:0.4rem;color:#22c55e"></span></h2>
+                    <div id="directorPanel" class="hidden">
+                        <div style="display:flex;gap:4px;flex-wrap:wrap;align-items:center;margin-bottom:4px">
+                            <div style="flex:2;min-width:140px">
+                                <label style="font-size:0.4rem;color:#a78bfa">👔 총감독 모델</label>
+                                <select id="dirModel" style="width:100%;font-size:0.48rem;padding:3px"></select>
+                            </div>
+                            <div style="flex:1;min-width:60px">
+                                <label style="font-size:0.4rem;color:#a78bfa">👥 팀 크기</label>
+                                <input type="number" id="dirTeamSize" value="3" min="1" max="8" style="width:100%;font-size:0.48rem;padding:3px">
+                            </div>
+                            <div style="flex:1;min-width:60px">
+                                <label style="font-size:0.4rem;color:#a78bfa">🖼️ 장/모델</label>
+                                <input type="number" id="dirImgPer" value="2" min="1" max="6" style="width:100%;font-size:0.48rem;padding:3px">
+                            </div>
+                            <div style="flex:1;min-width:80px">
+                                <label style="font-size:0.4rem;color:#a78bfa">🎨 이미지 AI</label>
+                                <select id="dirImgPref" style="width:100%;font-size:0.48rem;padding:3px">
+                                    <option value="nai" selected>NAI 우선</option>
+                                    <option value="all">선택된 전부</option>
+                                </select>
+                            </div>
+                            <button onclick="dirReset()" title="대화 초기화" style="padding:4px 8px;background:#475569;border:none;border-radius:4px;color:#fff;font-size:0.45rem;cursor:pointer;align-self:flex-end">🗑️</button>
+                        </div>
+                        <div id="dirChatLog" style="max-height:220px;overflow-y:auto;background:rgba(0,0,0,0.25);border-radius:6px;padding:6px;margin-bottom:4px;font-size:0.5rem;line-height:1.45;display:none"></div>
+                        <div style="display:flex;gap:4px">
+                            <textarea id="dirInput" placeholder="총감독에게 지시... 예: 네 마음에 드는 모델 3개 골라서 각자 다른 컨셉으로 프롬프트 짜게 하고, NAI로 모델당 2장씩 뽑아라" style="flex:1;min-height:44px;font-size:0.5rem;padding:5px" onkeydown="if(event.key==='Enter'&&(event.ctrlKey||event.metaKey)){event.preventDefault();dirSend();}"></textarea>
+                            <button id="dirSendBtn" onclick="dirSend()" style="padding:6px 12px;background:linear-gradient(135deg,#8b5cf6,#ec4899);border:none;border-radius:6px;color:#fff;font-weight:700;font-size:0.55rem;cursor:pointer;white-space:nowrap">🎬 지시</button>
+                        </div>
+                        <div style="font-size:0.38rem;color:#64748b;margin-top:3px">총감독이 ⚙️AI설정에서 체크된 Text AI 중에서 팀을 직접 선발 → 각 모델이 서로 다른 컨셉의 프롬프트 작성 → 이미지 생성. Ctrl+Enter로 전송. 대화로 계속 디렉팅 가능 ("2번 컨셉만 다시", "더 어둡게" 등)</div>
+                    </div>
+                </div>
                 </div>
                 
                 <!-- 🌐 Commentary Language Selector -->
@@ -1398,7 +1433,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0603-1410 - 💾 스마트 파일명 (프롬프트+모델+시간) + 📦 ZIP 일괄 다운로드 (모델별 폴더 + _metadata.json) | Krea 잔액 가드 유지</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0610-1130 - 🎬 AI 총감독 모드 신설 (감독 AI와 대화 → 팀 선발 → 모델별 브리프 → NAI 우선 생성) | ZIP/스마트파일명/Krea가드 유지</div></div>
             </div>
         </div>
         
@@ -4708,7 +4743,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0603-1410 모델 가격표</h1>
+<h1>💰 AIARTstudio v0610-1130 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.05 기준 | 싱가포르(International) 엔드포인트</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -4774,7 +4809,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 🐉 이미지: <strong style="color:#a78bfa">Qwen Image Plus</strong> (장당 ₩29) + <strong style="color:#a78bfa">Qwen Image Max</strong> (장당 ₩109, 최고 퀄)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0603-1410 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0610-1130 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -6977,6 +7012,7 @@ function generateTopicFromFiles() {
 }
 
 function init() {
+    dirInit(); // 🎬 총감독 패널 초기화
     // ★ API 키 자동 로드 (localStorage → input 필드)
     const keyIds = ['cerebras','gemini','openrouter','groq','deepseek','xai','openai','anthropic','novelai','poe','krea','civitai','dashscope','sambanova','zai'];
     keyIds.forEach(id => {
@@ -9527,7 +9563,7 @@ async function downloadGalleryZip() {
         total: total,
         included: ok,
         excluded: fail,
-        app_version: 'v0603-1410',
+        app_version: 'v0610-1130',
         items: metaList
     }, null, 2));
     
@@ -9654,6 +9690,258 @@ function updateGallery() {
 }
 
 // IMAGE MODE
+// ════════════════════════════════════════════════════════════
+// 🎬 AI 총감독 (Director Mode) — v0610
+//   사용자 ↔ 총감독 대화 → 총감독이 Text AI 팀 선발 + 모델별 브리프 작성
+//   → 각 모델이 프롬프트 생성 → NAI(우선) 이미지 생성
+//   기존 파이프라인(results / renderPromptCards / genImagesWithPrompt) 재사용
+// ════════════════════════════════════════════════════════════
+const dirState = { history: [], busy: false };
+
+function dirInit() {
+    const sel = document.getElementById('dirModel');
+    if (!sel || sel.options.length > 0) return;
+    const opts = [];
+    Object.entries(TEXT_PROVIDERS).forEach(([pk, prov]) => {
+        prov.models.forEach(m => {
+            opts.push(`<option value="${m.id}">${prov.name.replace(/^[^\s]+\s/, '')} · ${m.name}</option>`);
+        });
+    });
+    sel.innerHTML = opts.join('');
+    // 기본값: GPT-5.4 → 없으면 첫 모델
+    const saved = localStorage.getItem('aias_dirModel');
+    if (saved && [...sel.options].some(o => o.value === saved)) sel.value = saved;
+    else if ([...sel.options].some(o => o.value === 'oai-gpt54')) sel.value = 'oai-gpt54';
+    sel.addEventListener('change', () => localStorage.setItem('aias_dirModel', sel.value));
+}
+
+function dirResolveModel(id) {
+    for (const [pk, prov] of Object.entries(TEXT_PROVIDERS)) {
+        const m = prov.models.find(x => x.id === id);
+        if (m) return { ...m, p: pk };
+    }
+    return null;
+}
+
+function dirAddMsg(role, text) {
+    const logEl = document.getElementById('dirChatLog');
+    if (!logEl) return;
+    logEl.style.display = 'block';
+    const div = document.createElement('div');
+    const isUser = role === 'user';
+    div.style.cssText = `margin-bottom:5px;padding:5px 7px;border-radius:6px;background:${isUser ? 'rgba(99,102,241,0.18)' : 'rgba(236,72,153,0.12)'};border-left:2px solid ${isUser ? '#6366f1' : '#ec4899'}`;
+    div.innerHTML = `<b style="color:${isUser ? '#a5b4fc' : '#f9a8d4'};font-size:0.42rem">${isUser ? '🧑 나' : '🎬 총감독'}</b><br>${String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}`;
+    logEl.appendChild(div);
+    logEl.scrollTop = logEl.scrollHeight;
+}
+
+function dirReset() {
+    dirState.history = [];
+    const logEl = document.getElementById('dirChatLog');
+    if (logEl) { logEl.innerHTML = ''; logEl.style.display = 'none'; }
+    document.getElementById('dirBadge').textContent = '';
+    log('🎬 총감독 대화 초기화', 'info');
+}
+
+function dirBuildSystemPrompt(pool, teamSize, imgPer) {
+    const modelList = pool.map(m => `- id:"${m.id}" | ${m.name} (provider:${m.p})`).join('\n');
+    return `You are the CREATIVE DIRECTOR of a multi-AI art studio. The user speaks to you in natural language (usually Korean); you command a team of prompt-writer AI models.
+
+AVAILABLE PROMPT-WRITER MODELS (you may ONLY pick from these exact ids):
+${modelList}
+
+YOUR JOB:
+1. Understand the user's creative direction (theme, mood, style, composition, goal).
+2. If the user wants images generated: select the most suitable models (default team size ${teamSize}, default ${imgPer} images per model — but obey the user's numbers if they specify any), and write each selected model a DIFFERENT, specific creative brief in English (1-3 sentences). Briefs must diverge: different concept / angle / mood / setting per model so the final set is diverse.
+3. If the user is just chatting, asking questions, or refining direction without wanting generation yet: reply conversationally and do NOT produce a plan.
+4. In follow-up turns, use the conversation so far: the user may ask to redo one concept, swap a model, change mood, etc. Produce an updated plan covering ONLY what should be (re)generated.
+
+RESPOND WITH ONLY THIS JSON — no markdown fences, no extra text:
+{"action":"plan","reply":"짧은 한국어로 너의 결정/연출 의도 설명","team":[{"id":"model-id","brief":"specific English creative brief"}],"imagesPer":${imgPer}}
+or
+{"action":"chat","reply":"짧은 한국어 답변"}
+
+RULES:
+- "team" ids MUST come from the list above. Never invent ids.
+- Every brief must be distinct.
+- "reply" is shown to the user — keep it short, confident, in Korean.`;
+}
+
+function dirParseJson(raw) {
+    if (!raw) return null;
+    let t = raw.trim().replace(/```json/gi, '').replace(/```/g, '').trim();
+    // 가장 바깥 { ... } 추출
+    const start = t.indexOf('{');
+    const end = t.lastIndexOf('}');
+    if (start === -1 || end === -1 || end <= start) return null;
+    t = t.slice(start, end + 1);
+    try { return JSON.parse(t); } catch (e) { /* fallthrough */ }
+    // 흔한 깨짐 보정: 잘린 문자열 등은 포기
+    try { return AIART.safeJsonParse ? AIART.safeJsonParse(t, null) : null; } catch (e) { return null; }
+}
+
+async function dirSend() {
+    if (dirState.busy) return alert('총감독이 작업 중입니다. 잠시 대기.');
+    const input = document.getElementById('dirInput');
+    const userMsg = input.value.trim();
+    if (!userMsg) return;
+
+    const pool = getSelectedTextAIs();
+    if (!pool.length) return alert('⚙️ AI설정에서 Text AI를 먼저 선택하세요! (총감독의 선발 대상)');
+    const allImgAIs = getSelectedImageAIs();
+    if (!allImgAIs.length) return alert('⚙️ AI설정에서 이미지 AI를 선택하세요! (NAI 권장)');
+
+    const director = dirResolveModel(document.getElementById('dirModel').value);
+    if (!director) return alert('총감독 모델을 선택하세요!');
+
+    const teamSize = parseInt(document.getElementById('dirTeamSize').value) || 3;
+    const imgPer = parseInt(document.getElementById('dirImgPer').value) || 2;
+
+    dirState.busy = true;
+    const btn = document.getElementById('dirSendBtn');
+    btn.disabled = true; btn.textContent = '⏳';
+    document.getElementById('dirBadge').textContent = '🤔 총감독 구상 중...';
+    input.value = '';
+    dirAddMsg('user', userMsg);
+    dirState.history.push({ role: 'user', text: userMsg });
+
+    try {
+        // 히스토리 직렬화 (최근 12개)
+        const hist = dirState.history.slice(-12).map(h =>
+            (h.role === 'user' ? 'USER: ' : 'DIRECTOR: ') + h.text).join('\n');
+        const fullPrompt = dirBuildSystemPrompt(pool, teamSize, imgPer) +
+            `\n\n=== CONVERSATION SO FAR ===\n${hist}\n\n=== RESPOND NOW (JSON ONLY) ===`;
+
+        log(`🎬 총감독 [${director.name}] 호출...`, 'info');
+        const raw = await callText(director, fullPrompt);
+        const plan = dirParseJson(raw);
+
+        if (!plan || !plan.reply) {
+            // JSON 실패 → 원문을 대화로 표시
+            dirAddMsg('assistant', raw.substring(0, 600));
+            dirState.history.push({ role: 'assistant', text: raw.substring(0, 600) });
+            log('⚠️ 총감독 응답 JSON 파싱 실패 — 원문 표시', 'warn');
+            return;
+        }
+
+        dirAddMsg('assistant', plan.reply);
+        dirState.history.push({ role: 'assistant', text: plan.reply });
+
+        if (plan.action !== 'plan' || !Array.isArray(plan.team) || !plan.team.length) {
+            document.getElementById('dirBadge').textContent = '💬 대화 모드';
+            return; // 순수 대화
+        }
+
+        // ── 팀 검증 ──
+        const team = plan.team
+            .map(t => ({ ai: pool.find(m => m.id === t.id), brief: t.brief || '' }))
+            .filter(t => !!t.ai);
+        if (!team.length) {
+            dirAddMsg('assistant', '⚠️ 총감독이 목록에 없는 모델만 골랐습니다. 다시 지시해 주세요.');
+            log('❌ 총감독 팀 선발 실패 (유효 id 없음)', 'err');
+            return;
+        }
+        const imagesPer = Math.max(1, Math.min(6, parseInt(plan.imagesPer) || imgPer));
+
+        // ── 이미지 AI 결정: NAI 우선 ──
+        const pref = document.getElementById('dirImgPref').value;
+        let iais = allImgAIs;
+        if (pref === 'nai') {
+            const nai = allImgAIs.filter(a => a.p === 'nai');
+            if (nai.length) iais = nai;
+            else log('⚠️ NAI가 선택 안 됨 → 선택된 이미지 AI 전부 사용', 'warn');
+        }
+
+        await dirExecutePlan(team, imagesPer, iais, userMsg);
+
+        // 실행 결과를 히스토리에 시스템 노트로 추가 → 후속 디렉팅 가능
+        const note = `(시스템: 계획 실행 완료 — 팀 ${team.map(t => t.ai.name).join(', ')} / 모델당 ${imagesPer}장 / 이미지AI ${iais.map(a => a.name).join(',')})`;
+        dirState.history.push({ role: 'assistant', text: note });
+
+    } catch (e) {
+        dirAddMsg('assistant', `❌ 오류: ${e.message}`);
+        log(`❌ 총감독: ${e.message}`, 'err');
+    } finally {
+        dirState.busy = false;
+        btn.disabled = false; btn.textContent = '🎬 지시';
+        if (!document.getElementById('dirBadge').textContent.startsWith('💬'))
+            document.getElementById('dirBadge').textContent = '';
+    }
+}
+
+async function dirExecutePlan(team, imagesPer, iais, userMsg) {
+    document.getElementById('dirBadge').textContent = `🎬 ${team.length}모델 × ${imagesPer}장 진행 중...`;
+    log(`🎬 총감독 계획 실행: ${team.length}개 모델 × ${imagesPer}장 (이미지AI: ${iais.map(a => a.name).join(', ')})`, 'gold');
+    team.forEach((t, i) => log(`  📋 ${i + 1}. ${t.ai.name} ← "${t.brief.substring(0, 90)}"`, 'info'));
+
+    // 기존 결과 위에 누적 (갤러리 유지)
+    let completed = 0;
+
+    // totalImg 임시 변경 (genImagesWithPrompt가 읽음) — 전체 실행 동안 고정 후 복원
+    const totalImgEl = document.getElementById('totalImg');
+    const origTotal = totalImgEl ? totalImgEl.value : null;
+    if (totalImgEl) totalImgEl.value = imagesPer;
+
+    try {
+        await Promise.allSettled(team.map(async (t) => {
+            try {
+                const subPrompt = `You are an elite image-prompt engineer on a creative team.
+
+YOUR DIRECTOR'S BRIEF (follow this — it is YOUR unique angle, different from your teammates):
+${t.brief}
+
+USER'S ORIGINAL REQUEST (context):
+${userMsg}
+
+Write ONE masterpiece-level Danbooru-style tag prompt (comma-separated English tags) for NovelAI. Cover: subject, composition, pose, lighting, atmosphere, background, fine details, quality tags. 120-220 words of tags. No artist names.
+
+FORMAT (exactly):
+[PROMPT]
+tags here
+[EXPLAIN]
+한국어 한 문장으로 컨셉 설명`;
+
+                const raw = await callText(t.ai, subPrompt);
+                let promptText = raw.trim();
+                let explanation = '';
+                const pm = raw.match(/\[PROMPT\]\s*([\s\S]*?)(?:\[EXPLAIN\]|$)/i);
+                const em = raw.match(/\[EXPLAIN\]\s*([\s\S]*?)$/i);
+                if (pm) promptText = pm[1].trim();
+                if (em) explanation = em[1].trim();
+
+                const isRejected = checkRejection(promptText) && promptText.length < 200;
+                completed++;
+                results.push({
+                    id: t.ai.id, aiName: `🎬 ${t.ai.name}`, ai: t.ai,
+                    text: promptText, order: completed,
+                    reason: isRejected ? '❌ 거절' : `#${completed} 도착`,
+                    rejected: isRejected,
+                    explanation: explanation ? `[감독 브리프] ${t.brief}\n${explanation}` : `[감독 브리프] ${t.brief}`,
+                    wildcards: [], aiSettings: null
+                });
+                renderPromptCards();
+
+                if (isRejected) {
+                    log(`🚫 🎬 ${t.ai.name}: 프롬프트 거절`, 'err');
+                    return;
+                }
+                log(`🏁 🎬 ${t.ai.name}: 프롬프트 도착 → 즉시 이미지 생성`, 'ok');
+                await genImagesWithPrompt(promptText, iais, `🎬${t.ai.name}`);
+            } catch (e) {
+                completed++;
+                log(`❌ 🎬 ${t.ai.name}: ${e.message}`, 'err');
+            }
+        }));
+    } finally {
+        if (totalImgEl && origTotal !== null) totalImgEl.value = origTotal;
+    }
+
+    renderPromptCards();
+    if (generatedImages.length > 0) updateGallery();
+    document.getElementById('dirBadge').textContent = `✅ ${generatedImages.length}장 완료`;
+    log(`🎉 총감독 작업 완료! 총 ${generatedImages.length}장`, 'gold');
+}
+
 async function generateImage() { 
     // ★ 라운드 > 1 또는 무한이면 멀티라운드 모드
     const rounds = parseInt(document.getElementById('totalRounds')?.value) || 1;
@@ -12002,7 +12290,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0603-1410 (20260603-1410) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0610-1130 (20260610-1130) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
