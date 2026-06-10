@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0610-1300 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0610-1345 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -224,7 +224,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0610-1300</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0610-1345</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -886,41 +886,19 @@
                 <div class="card" id="directorCard" style="background:linear-gradient(135deg,rgba(99,102,241,0.10),rgba(236,72,153,0.08));border:1px solid rgba(139,92,246,0.4);padding:6px;margin:4px 0">
                     <h2 onclick="document.getElementById('directorPanel').classList.toggle('hidden')" style="color:#a78bfa;cursor:pointer">🎬 AI 총감독 <span style="font-size:0.4rem;color:var(--tm)">(클릭 접기/펼치기)</span> <span id="dirBadge" style="font-size:0.4rem;color:#22c55e"></span></h2>
                     <div id="directorPanel" class="hidden">
-                        <div style="display:flex;gap:4px;flex-wrap:wrap;align-items:center;margin-bottom:4px">
-                            <div style="flex:2;min-width:140px">
+                        <div style="display:flex;gap:4px;align-items:flex-end;margin-bottom:4px">
+                            <div style="flex:1;min-width:140px">
                                 <label style="font-size:0.4rem;color:#a78bfa">👔 총감독 모델</label>
                                 <select id="dirModel" style="width:100%;font-size:0.48rem;padding:3px"></select>
                             </div>
-                            <div style="flex:1;min-width:60px">
-                                <label style="font-size:0.4rem;color:#a78bfa">👥 팀 크기</label>
-                                <input type="number" id="dirTeamSize" value="3" min="1" max="8" style="width:100%;font-size:0.48rem;padding:3px">
-                            </div>
-                            <div style="flex:1;min-width:60px">
-                                <label style="font-size:0.4rem;color:#a78bfa">🖼️ 장/모델</label>
-                                <input type="number" id="dirImgPer" value="2" min="1" max="6" style="width:100%;font-size:0.48rem;padding:3px">
-                            </div>
-                            <div style="flex:1;min-width:70px">
-                                <label style="font-size:0.4rem;color:#fbbf24">🃏 와일드카드만</label>
-                                <div style="display:flex;gap:3px;align-items:center">
-                                    <input type="checkbox" id="dirWcOnly" checked style="width:14px;height:14px">
-                                    <input type="number" id="dirWcCount" value="10" min="4" max="20" title="모델당 단어 수" style="width:42px;font-size:0.48rem;padding:3px">
-                                </div>
-                            </div>
-                            <div style="flex:1;min-width:80px">
-                                <label style="font-size:0.4rem;color:#a78bfa">🎨 이미지 AI</label>
-                                <select id="dirImgPref" style="width:100%;font-size:0.48rem;padding:3px">
-                                    <option value="nai" selected>NAI 우선</option>
-                                    <option value="all">선택된 전부</option>
-                                </select>
-                            </div>
-                            <button onclick="dirReset()" title="대화 초기화" style="padding:4px 8px;background:#475569;border:none;border-radius:4px;color:#fff;font-size:0.45rem;cursor:pointer;align-self:flex-end">🗑️</button>
+                            <button onclick="dirReset()" title="대화 초기화" style="padding:4px 8px;background:#475569;border:none;border-radius:4px;color:#fff;font-size:0.45rem;cursor:pointer">🗑️</button>
                         </div>
                         <div id="dirChatLog" style="max-height:220px;overflow-y:auto;background:rgba(0,0,0,0.25);border-radius:6px;padding:6px;margin-bottom:4px;font-size:0.5rem;line-height:1.45;display:none"></div>
                         <div style="display:flex;gap:4px">
-                            <textarea id="dirInput" placeholder="총감독에게 지시... 예: 네 마음에 드는 모델 3개 골라서 각자 다른 컨셉으로 프롬프트 짜게 하고, NAI로 모델당 2장씩 뽑아라" style="flex:1;min-height:44px;font-size:0.5rem;padding:5px" onkeydown="if(event.key==='Enter'&&(event.ctrlKey||event.metaKey)){event.preventDefault();dirSend();}"></textarea>
+                            <textarea id="dirInput" placeholder="총감독에게 지시 (그냥 말로 다 됨)... 예: 멋진 이미지 뽑아 / 5개 모델로 4장씩 / 와일드카드 빼고 / Civitai도 같이 써서" style="flex:1;min-height:44px;font-size:0.5rem;padding:5px" onkeydown="if(event.key==='Enter'&&(event.ctrlKey||event.metaKey)){event.preventDefault();dirSend();}"></textarea>
                             <button id="dirSendBtn" onclick="dirSend()" style="padding:6px 12px;background:linear-gradient(135deg,#8b5cf6,#ec4899);border:none;border-radius:6px;color:#fff;font-weight:700;font-size:0.55rem;cursor:pointer;white-space:nowrap">🎬 지시</button>
                         </div>
-                        <div style="font-size:0.38rem;color:#64748b;margin-top:3px">총감독이 체크된 Text AI 중에서 팀 선발 → 모델별 브리프 → 이미지 생성. 🃏 체크 시: 업로드된 와일드카드에서 모델마다 단어 자동 샘플링(작가 포함) → 그 단어만으로 프롬프트 구성, 작가 태그가 맨 앞. Ctrl+Enter 전송. 후속 디렉팅 가능 ("2번만 다시" 등)</div>
+                        <div style="font-size:0.38rem;color:#64748b;margin-top:3px"><b style="color:#a78bfa">기본 세팅 자동:</b> 팀 3모델 · 모델당 2장 · 와일드카드 자동 사용(업로드 시, 작가 태그 맨앞) · NAI 우선. 바꾸고 싶으면 그냥 지시문에 쓰면 감독이 알아듣는다 — "5개 모델", "4장씩", "와일드카드 쓰지 마", "단어 15개씩", "선택된 이미지 AI 전부 써". Ctrl+Enter 전송. 후속 디렉팅 가능 ("2번만 다시", "더 어둡게")</div>
                     </div>
                 </div>
                 </div>
@@ -1440,7 +1418,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0610-1300 - 🎬 총감독 + 🃏 와일드카드 연동 + 🗑️ 갤러리 Clear 버튼 (이미지만 비움, 대화·프롬프트·즐겨찾기 유지, blob 메모리 회수)</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0610-1345 - 🎬 총감독 자연어 통제 일원화 — 레버 제거, 기본세팅 내장(팀3·2장·와일드카드ON·NAI우선), 모든 변경은 지시문으로 ("5개 모델 4장씩 와일드카드 빼고")</div></div>
             </div>
         </div>
         
@@ -4750,7 +4728,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0610-1300 모델 가격표</h1>
+<h1>💰 AIARTstudio v0610-1345 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.05 기준 | 싱가포르(International) 엔드포인트</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -4816,7 +4794,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 🐉 이미지: <strong style="color:#a78bfa">Qwen Image Plus</strong> (장당 ₩29) + <strong style="color:#a78bfa">Qwen Image Max</strong> (장당 ₩109, 최고 퀄)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0610-1300 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0610-1345 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -9570,7 +9548,7 @@ async function downloadGalleryZip() {
         total: total,
         included: ok,
         excluded: fail,
-        app_version: 'v0610-1300',
+        app_version: 'v0610-1345',
         items: metaList
     }, null, 2));
     
@@ -9766,33 +9744,41 @@ function dirReset() {
     log('🎬 총감독 대화 초기화', 'info');
 }
 
-function dirBuildSystemPrompt(pool, teamSize, imgPer) {
+function dirBuildSystemPrompt(pool) {
     const modelList = pool.map(m => `- id:"${m.id}" | ${m.name} (provider:${m.p})`).join('\n');
     // 🃏 와일드카드 인지: 감독이 "폴더 못 본다"며 붙여넣기를 요구하지 않도록
-    const wcOnly = document.getElementById('dirWcOnly')?.checked && wildcardData.length > 0;
     const wcCats = wildcardData.length ? [...new Set(wildcardData.map(w => w.category || 'misc'))].join(', ') : '';
     const wcInfo = wildcardData.length
-        ? `\n🃏 WILDCARD DATA: ${wildcardData.length} wildcard file(s) are ALREADY LOADED in the app (categories: ${wcCats}). The system will AUTO-SAMPLE words from them and hand each team member their own word set${wcOnly ? ' — wildcard-only mode is ON: prompts will be composed ONLY from sampled words, with an artist tag placed FIRST' : ''}. NEVER ask the user to paste wildcard contents — you already have access through the system. Just acknowledge and plan.\n`
+        ? `\n🃏 WILDCARD DATA: ${wildcardData.length} wildcard file(s) are ALREADY LOADED in the app (categories: ${wcCats}). The system AUTO-SAMPLES words and hands each team member their own word set (artist tag placed FIRST in prompts). This is ON by default. NEVER ask the user to paste wildcard contents — you already have access through the system. Just acknowledge and plan.\n`
         : '';
     return `You are the CREATIVE DIRECTOR of a multi-AI art studio. The user speaks to you in natural language (usually Korean); you command a team of prompt-writer AI models.
 
 AVAILABLE PROMPT-WRITER MODELS (you may ONLY pick from these exact ids):
 ${modelList}
 ${wcInfo}
+DEFAULT SETTINGS (use these unless the user's words override them):
+- team size: 3 models
+- imagesPer: 2 per model
+- useWildcards: true if wildcard data is loaded (false otherwise)
+- wildcardCount: 10 words per model
+- imgPref: "nai" (NovelAI first)
+The user controls EVERYTHING through natural language. Examples of overrides you must detect: "5개 모델" → team of 5 · "4장씩" → imagesPer 4 · "와일드카드 빼/쓰지 마" → useWildcards false · "단어 15개" → wildcardCount 15 · "이미지 AI 전부/Civitai도" → imgPref "all". If the user says nothing about a setting, keep the default.
+
 YOUR JOB:
 1. Understand the user's creative direction (theme, mood, style, composition, goal).
-2. If the user wants images generated: select the most suitable models (default team size ${teamSize}, default ${imgPer} images per model — but obey the user's numbers if they specify any), and write each selected model a DIFFERENT, specific creative brief in English (1-3 sentences). Briefs must diverge: different concept / angle / mood / setting per model so the final set is diverse.
+2. If the user wants images generated: select the most suitable models and write each one a DIFFERENT, specific creative brief in English (1-3 sentences). Briefs must diverge: different concept / angle / mood / setting per model so the final set is diverse.
 3. If the user is just chatting, asking questions, or refining direction without wanting generation yet: reply conversationally and do NOT produce a plan.
 4. In follow-up turns, use the conversation so far: the user may ask to redo one concept, swap a model, change mood, etc. Produce an updated plan covering ONLY what should be (re)generated.
 
 RESPOND WITH ONLY THIS JSON — no markdown fences, no extra text:
-{"action":"plan","reply":"짧은 한국어로 너의 결정/연출 의도 설명","team":[{"id":"model-id","brief":"specific English creative brief"}],"imagesPer":${imgPer}}
+{"action":"plan","reply":"짧은 한국어로 너의 결정/연출 의도 설명","team":[{"id":"model-id","brief":"specific English creative brief"}],"imagesPer":2,"useWildcards":true,"wildcardCount":10,"imgPref":"nai"}
 or
 {"action":"chat","reply":"짧은 한국어 답변"}
 
 RULES:
 - "team" ids MUST come from the list above. Never invent ids.
 - Every brief must be distinct.
+- Always include imagesPer / useWildcards / wildcardCount / imgPref in a plan (defaults if not overridden).
 - "reply" is shown to the user — keep it short, confident, in Korean.`;
 }
 
@@ -9823,9 +9809,6 @@ async function dirSend() {
     const director = dirResolveModel(document.getElementById('dirModel').value);
     if (!director) return alert('총감독 모델을 선택하세요!');
 
-    const teamSize = parseInt(document.getElementById('dirTeamSize').value) || 3;
-    const imgPer = parseInt(document.getElementById('dirImgPer').value) || 2;
-
     dirState.busy = true;
     const btn = document.getElementById('dirSendBtn');
     btn.disabled = true; btn.textContent = '⏳';
@@ -9838,7 +9821,7 @@ async function dirSend() {
         // 히스토리 직렬화 (최근 12개)
         const hist = dirState.history.slice(-12).map(h =>
             (h.role === 'user' ? 'USER: ' : 'DIRECTOR: ') + h.text).join('\n');
-        const fullPrompt = dirBuildSystemPrompt(pool, teamSize, imgPer) +
+        const fullPrompt = dirBuildSystemPrompt(pool) +
             `\n\n=== CONVERSATION SO FAR ===\n${hist}\n\n=== RESPOND NOW (JSON ONLY) ===`;
 
         log(`🎬 총감독 [${director.name}] 호출...`, 'info');
@@ -9870,21 +9853,24 @@ async function dirSend() {
             log('❌ 총감독 팀 선발 실패 (유효 id 없음)', 'err');
             return;
         }
-        const imagesPer = Math.max(1, Math.min(6, parseInt(plan.imagesPer) || imgPer));
+        // ── 세팅 해석: 감독의 계획(=사용자 자연어 반영)에서 읽고, 없으면 기본값 ──
+        const imagesPer = Math.max(1, Math.min(6, parseInt(plan.imagesPer) || 2));
+        const useWildcards = (plan.useWildcards !== false) && wildcardData.length > 0;
+        const wcCount = Math.max(4, Math.min(20, parseInt(plan.wildcardCount) || 10));
 
-        // ── 이미지 AI 결정: NAI 우선 ──
-        const pref = document.getElementById('dirImgPref').value;
+        // 이미지 AI: 기본 NAI 우선, 감독 계획이 "all"이면 선택된 전부
         let iais = allImgAIs;
-        if (pref === 'nai') {
+        if (plan.imgPref !== 'all') {
             const nai = allImgAIs.filter(a => a.p === 'nai');
             if (nai.length) iais = nai;
             else log('⚠️ NAI가 선택 안 됨 → 선택된 이미지 AI 전부 사용', 'warn');
         }
+        log(`⚙️ 세팅: 팀 ${team.length} · ${imagesPer}장/모델 · 와일드카드 ${useWildcards ? 'ON(' + wcCount + '단어)' : 'OFF'} · 이미지AI ${plan.imgPref === 'all' ? '전부' : 'NAI우선'}`, 'info');
 
-        await dirExecutePlan(team, imagesPer, iais, userMsg);
+        await dirExecutePlan(team, imagesPer, iais, userMsg, useWildcards, wcCount);
 
         // 실행 결과를 히스토리에 시스템 노트로 추가 → 후속 디렉팅 가능
-        const note = `(시스템: 계획 실행 완료 — 팀 ${team.map(t => t.ai.name).join(', ')} / 모델당 ${imagesPer}장 / 이미지AI ${iais.map(a => a.name).join(',')})`;
+        const note = `(시스템: 계획 실행 완료 — 팀 ${team.map(t => t.ai.name).join(', ')} / 모델당 ${imagesPer}장 / 와일드카드 ${useWildcards ? 'ON' : 'OFF'} / 이미지AI ${iais.map(a => a.name).join(',')})`;
         dirState.history.push({ role: 'assistant', text: note });
 
     } catch (e) {
@@ -9912,10 +9898,10 @@ function dirSampleWildcards(count) {
     return { artist, words };
 }
 
-async function dirExecutePlan(team, imagesPer, iais, userMsg) {
+async function dirExecutePlan(team, imagesPer, iais, userMsg, useWildcards, wcCount) {
     document.getElementById('dirBadge').textContent = `🎬 ${team.length}모델 × ${imagesPer}장 진행 중...`;
     // ⚠️ NAI 설정의 작가 필드가 채워져 있으면 genNovelAI가 프롬프트 내 artist 태그를 제거함 → 충돌 경고
-    if (document.getElementById('dirWcOnly')?.checked && wildcardData.length > 0) {
+    if (useWildcards) {
         const appArtist = document.getElementById('naiArtist')?.value?.trim();
         if (appArtist) log(`⚠️ NAI 설정의 작가 필드("${appArtist.substring(0,30)}")가 프롬프트 맨앞 작가를 덮어씁니다. 와일드카드 작가를 쓰려면 비우세요!`, 'warn');
     }
@@ -9933,9 +9919,8 @@ async function dirExecutePlan(team, imagesPer, iais, userMsg) {
     try {
         await Promise.allSettled(team.map(async (t) => {
             try {
-                // 🃏 와일드카드 전용 모드: 모델마다 다른 단어 세트 샘플링
-                const wcOnly = document.getElementById('dirWcOnly')?.checked && wildcardData.length > 0;
-                const wcCount = parseInt(document.getElementById('dirWcCount')?.value) || 10;
+                // 🃏 와일드카드 모드: 모델마다 다른 단어 세트 샘플링 (감독 계획에서 결정됨)
+                const wcOnly = useWildcards;
                 let wcBlock = '';
                 let wcSample = null;
                 if (wcOnly) {
@@ -12353,7 +12338,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0610-1300 (20260610-1300) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0610-1345 (20260610-1345) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
