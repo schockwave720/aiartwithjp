@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0610-1130 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0610-1215 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
@@ -224,7 +224,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0610-1130</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0610-1215</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -899,6 +899,13 @@
                                 <label style="font-size:0.4rem;color:#a78bfa">🖼️ 장/모델</label>
                                 <input type="number" id="dirImgPer" value="2" min="1" max="6" style="width:100%;font-size:0.48rem;padding:3px">
                             </div>
+                            <div style="flex:1;min-width:70px">
+                                <label style="font-size:0.4rem;color:#fbbf24">🃏 와일드카드만</label>
+                                <div style="display:flex;gap:3px;align-items:center">
+                                    <input type="checkbox" id="dirWcOnly" checked style="width:14px;height:14px">
+                                    <input type="number" id="dirWcCount" value="10" min="4" max="20" title="모델당 단어 수" style="width:42px;font-size:0.48rem;padding:3px">
+                                </div>
+                            </div>
                             <div style="flex:1;min-width:80px">
                                 <label style="font-size:0.4rem;color:#a78bfa">🎨 이미지 AI</label>
                                 <select id="dirImgPref" style="width:100%;font-size:0.48rem;padding:3px">
@@ -913,7 +920,7 @@
                             <textarea id="dirInput" placeholder="총감독에게 지시... 예: 네 마음에 드는 모델 3개 골라서 각자 다른 컨셉으로 프롬프트 짜게 하고, NAI로 모델당 2장씩 뽑아라" style="flex:1;min-height:44px;font-size:0.5rem;padding:5px" onkeydown="if(event.key==='Enter'&&(event.ctrlKey||event.metaKey)){event.preventDefault();dirSend();}"></textarea>
                             <button id="dirSendBtn" onclick="dirSend()" style="padding:6px 12px;background:linear-gradient(135deg,#8b5cf6,#ec4899);border:none;border-radius:6px;color:#fff;font-weight:700;font-size:0.55rem;cursor:pointer;white-space:nowrap">🎬 지시</button>
                         </div>
-                        <div style="font-size:0.38rem;color:#64748b;margin-top:3px">총감독이 ⚙️AI설정에서 체크된 Text AI 중에서 팀을 직접 선발 → 각 모델이 서로 다른 컨셉의 프롬프트 작성 → 이미지 생성. Ctrl+Enter로 전송. 대화로 계속 디렉팅 가능 ("2번 컨셉만 다시", "더 어둡게" 등)</div>
+                        <div style="font-size:0.38rem;color:#64748b;margin-top:3px">총감독이 체크된 Text AI 중에서 팀 선발 → 모델별 브리프 → 이미지 생성. 🃏 체크 시: 업로드된 와일드카드에서 모델마다 단어 자동 샘플링(작가 포함) → 그 단어만으로 프롬프트 구성, 작가 태그가 맨 앞. Ctrl+Enter 전송. 후속 디렉팅 가능 ("2번만 다시" 등)</div>
                     </div>
                 </div>
                 </div>
@@ -1433,7 +1440,7 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0610-1130 - 🎬 AI 총감독 모드 신설 (감독 AI와 대화 → 팀 선발 → 모델별 브리프 → NAI 우선 생성) | ZIP/스마트파일명/Krea가드 유지</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0610-1215 - 🎬 총감독 모드 + 🃏 와일드카드 자동 연동 (모델별 단어 샘플링, 작가 태그 맨앞 고정, 감독이 데이터 인지) | ZIP/Krea가드 유지</div></div>
             </div>
         </div>
         
@@ -4743,7 +4750,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0610-1130 모델 가격표</h1>
+<h1>💰 AIARTstudio v0610-1215 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.05 기준 | 싱가포르(International) 엔드포인트</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -4809,7 +4816,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 🐉 이미지: <strong style="color:#a78bfa">Qwen Image Plus</strong> (장당 ₩29) + <strong style="color:#a78bfa">Qwen Image Max</strong> (장당 ₩109, 최고 퀄)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0610-1130 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0610-1215 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -9563,7 +9570,7 @@ async function downloadGalleryZip() {
         total: total,
         included: ok,
         excluded: fail,
-        app_version: 'v0610-1130',
+        app_version: 'v0610-1215',
         items: metaList
     }, null, 2));
     
@@ -9745,11 +9752,17 @@ function dirReset() {
 
 function dirBuildSystemPrompt(pool, teamSize, imgPer) {
     const modelList = pool.map(m => `- id:"${m.id}" | ${m.name} (provider:${m.p})`).join('\n');
+    // 🃏 와일드카드 인지: 감독이 "폴더 못 본다"며 붙여넣기를 요구하지 않도록
+    const wcOnly = document.getElementById('dirWcOnly')?.checked && wildcardData.length > 0;
+    const wcCats = wildcardData.length ? [...new Set(wildcardData.map(w => w.category || 'misc'))].join(', ') : '';
+    const wcInfo = wildcardData.length
+        ? `\n🃏 WILDCARD DATA: ${wildcardData.length} wildcard file(s) are ALREADY LOADED in the app (categories: ${wcCats}). The system will AUTO-SAMPLE words from them and hand each team member their own word set${wcOnly ? ' — wildcard-only mode is ON: prompts will be composed ONLY from sampled words, with an artist tag placed FIRST' : ''}. NEVER ask the user to paste wildcard contents — you already have access through the system. Just acknowledge and plan.\n`
+        : '';
     return `You are the CREATIVE DIRECTOR of a multi-AI art studio. The user speaks to you in natural language (usually Korean); you command a team of prompt-writer AI models.
 
 AVAILABLE PROMPT-WRITER MODELS (you may ONLY pick from these exact ids):
 ${modelList}
-
+${wcInfo}
 YOUR JOB:
 1. Understand the user's creative direction (theme, mood, style, composition, goal).
 2. If the user wants images generated: select the most suitable models (default team size ${teamSize}, default ${imgPer} images per model — but obey the user's numbers if they specify any), and write each selected model a DIFFERENT, specific creative brief in English (1-3 sentences). Briefs must diverge: different concept / angle / mood / setting per model so the final set is diverse.
@@ -9869,8 +9882,27 @@ async function dirSend() {
     }
 }
 
+// 🃏 모델 1명분 와일드카드 샘플 (작가 1 + 일반 단어 N) — 균형 추출
+function dirSampleWildcards(count) {
+    if (wildcardData.length === 0) return null;
+    const r = getRandomWildcardsBalanced({
+        count: count + 1,
+        prefer: ['artist', 'body', 'pose', 'expression', 'setting', 'outfit', 'lighting', 'style'],
+        includeArtist: true
+    });
+    if (!r.picks.length) return null;
+    const artist = r.byCategory.artist || null;
+    const words = r.picks.filter(p => p !== artist).slice(0, count);
+    return { artist, words };
+}
+
 async function dirExecutePlan(team, imagesPer, iais, userMsg) {
     document.getElementById('dirBadge').textContent = `🎬 ${team.length}모델 × ${imagesPer}장 진행 중...`;
+    // ⚠️ NAI 설정의 작가 필드가 채워져 있으면 genNovelAI가 프롬프트 내 artist 태그를 제거함 → 충돌 경고
+    if (document.getElementById('dirWcOnly')?.checked && wildcardData.length > 0) {
+        const appArtist = document.getElementById('naiArtist')?.value?.trim();
+        if (appArtist) log(`⚠️ NAI 설정의 작가 필드("${appArtist.substring(0,30)}")가 프롬프트 맨앞 작가를 덮어씁니다. 와일드카드 작가를 쓰려면 비우세요!`, 'warn');
+    }
     log(`🎬 총감독 계획 실행: ${team.length}개 모델 × ${imagesPer}장 (이미지AI: ${iais.map(a => a.name).join(', ')})`, 'gold');
     team.forEach((t, i) => log(`  📋 ${i + 1}. ${t.ai.name} ← "${t.brief.substring(0, 90)}"`, 'info'));
 
@@ -9885,6 +9917,21 @@ async function dirExecutePlan(team, imagesPer, iais, userMsg) {
     try {
         await Promise.allSettled(team.map(async (t) => {
             try {
+                // 🃏 와일드카드 전용 모드: 모델마다 다른 단어 세트 샘플링
+                const wcOnly = document.getElementById('dirWcOnly')?.checked && wildcardData.length > 0;
+                const wcCount = parseInt(document.getElementById('dirWcCount')?.value) || 10;
+                let wcBlock = '';
+                let wcSample = null;
+                if (wcOnly) {
+                    wcSample = dirSampleWildcards(wcCount);
+                    if (wcSample) {
+                        wcBlock = `\n=== 🃏 STRICT WORD POOL (wildcard-only mode) ===\n` +
+                            (wcSample.artist ? `ARTIST (this MUST be the very FIRST token of your prompt): ${wcSample.artist}\n` : '') +
+                            `WORDS — compose the prompt using ONLY these words/phrases. You may add minimal connective tags (1girl/1boy, quality tags, simple composition glue) but the creative substance must come from this pool:\n` +
+                            wcSample.words.map((w, i) => `${i + 1}. ${w}`).join('\n') + `\n`;
+                        log(`🃏 🎬 ${t.ai.name} 단어풀: ${wcSample.artist ? '🖌' + wcSample.artist.substring(0, 25) + ' + ' : ''}${wcSample.words.length}개`, 'info');
+                    }
+                }
                 const subPrompt = `You are an elite image-prompt engineer on a creative team.
 
 YOUR DIRECTOR'S BRIEF (follow this — it is YOUR unique angle, different from your teammates):
@@ -9892,8 +9939,8 @@ ${t.brief}
 
 USER'S ORIGINAL REQUEST (context):
 ${userMsg}
-
-Write ONE masterpiece-level Danbooru-style tag prompt (comma-separated English tags) for NovelAI. Cover: subject, composition, pose, lighting, atmosphere, background, fine details, quality tags. 120-220 words of tags. No artist names.
+${wcBlock}
+Write ONE masterpiece-level Danbooru-style tag prompt (comma-separated English tags) for NovelAI. Cover: subject, composition, pose, lighting, atmosphere, background, fine details, quality tags. 120-220 words of tags.${wcOnly ? ' Stay inside the word pool above; the artist tag goes FIRST.' : ' No artist names.'}
 
 FORMAT (exactly):
 [PROMPT]
@@ -9917,7 +9964,7 @@ tags here
                     reason: isRejected ? '❌ 거절' : `#${completed} 도착`,
                     rejected: isRejected,
                     explanation: explanation ? `[감독 브리프] ${t.brief}\n${explanation}` : `[감독 브리프] ${t.brief}`,
-                    wildcards: [], aiSettings: null
+                    wildcards: wcSample ? [...(wcSample.artist ? [wcSample.artist] : []), ...wcSample.words] : [], aiSettings: null
                 });
                 renderPromptCards();
 
@@ -12290,7 +12337,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0610-1130 (20260610-1130) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0610-1215 (20260610-1215) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
