@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIARTstudio + 日本語 v0610-1345 | aiartwithjp</title>
+    <title>AIARTstudio + 日本語 v0610-1430 | aiartwithjp</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exifreader@4.23.0/dist/exif-reader.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap">
     <style>
         :root{--p:#8b5cf6;--s:#ec4899;--bg:#0f172a;--card:#1e293b;--input:#334155;--t:#f1f5f9;--tm:#94a3b8;--ok:#22c55e;--warn:#f59e0b;--err:#ef4444;--gold:#ffd700;--img:#ff69b4;--story:#06b6d4;--song:#a855f7;--poe:#22d3ee;--krea:#a78bfa;--gem:#4285f4;--grok:#1da1f2;--arcee:#ff6b35}
@@ -224,7 +226,7 @@
     <div style="text-align:center;padding:6px 0 4px">
         <span style="display:inline-block;padding:4px 16px;background:linear-gradient(135deg,#1a0533,#2d1b69,#4a1a8a);border-radius:20px;border:1px solid rgba(139,92,246,0.4);box-shadow:0 2px 12px rgba(139,92,246,0.2)">
             <span style="font-size:0.8rem;font-weight:800;background:linear-gradient(135deg,#c084fc,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent">🌙 aiartwithjp</span>
-            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0610-1345</span>
+            <span style="font-size:0.45rem;color:#fbbf24;margin-left:6px;font-weight:700;background:rgba(251,191,36,0.15);padding:2px 6px;border-radius:8px" id="verBadge">v0610-1430</span>
         </span>
     </div>
     <div class="mode-tabs" style="margin-top:0">
@@ -1418,11 +1420,28 @@
             <div class="card">
                 <h2>📊 진행</h2>
                 <div class="pcon"><div class="ptxt" id="ptxt">대기중...</div><div class="pbar"><div class="pfill" id="pfill"></div></div></div>
-                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0610-1345 - 🎬 총감독 자연어 통제 일원화 — 레버 제거, 기본세팅 내장(팀3·2장·와일드카드ON·NAI우선), 모든 변경은 지시문으로 ("5개 모델 4장씩 와일드카드 빼고")</div></div>
+                <div class="logc" id="logc"><div class="log info">🎨 AIARTstudio v0610-1430 - 🔍 EXIF/PNG 메타 리더 신설 (NAI/ComfyUI/A1111 프롬프트·시드·모델 추출, 드래그앤드롭, "이 프롬프트로 생성") | 총감독 자연어통제 유지</div></div>
             </div>
         </div>
         
         <div class="results" id="res"></div>
+    </div>
+</div>
+
+<!-- 🔍 EXIF/PNG 메타 리더 v0610 -->
+<div id="metaModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:99998;justify-content:center;align-items:center" onclick="if(event.target===this)closeMetaReader()">
+    <div style="background:#0f172a;border:1px solid #0e7490;border-radius:12px;width:94%;max-width:760px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column" onclick="event.stopPropagation()">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #1e293b">
+            <h3 style="color:#22d3ee;margin:0;font-size:0.85rem">🔍 이미지 메타데이터 리더</h3>
+            <button onclick="closeMetaReader()" style="background:#334155;border:none;border-radius:6px;color:#fff;width:28px;height:28px;cursor:pointer;font-size:1rem">✕</button>
+        </div>
+        <div id="metaDrop" style="margin:14px 16px;padding:24px;border:2px dashed #0e7490;border-radius:10px;text-align:center;color:#94a3b8;cursor:pointer;transition:all .15s;background:rgba(14,116,144,0.05)">
+            <div style="font-size:1.6rem;margin-bottom:6px">🖼️📥</div>
+            <div style="font-size:0.62rem">PNG / JPG 이미지를 여기로 드래그하거나 <b style="color:#22d3ee">클릭해서 선택</b></div>
+            <div style="font-size:0.48rem;color:#64748b;margin-top:5px">NovelAI · ComfyUI · A1111(WebUI) 생성정보를 읽습니다</div>
+            <input type="file" id="metaFileInput" accept="image/png,image/jpeg" multiple style="display:none">
+        </div>
+        <div id="metaResults" style="flex:1;overflow-y:auto;padding:0 16px 16px"></div>
     </div>
 </div>
 
@@ -4728,7 +4747,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 .note{background:#1e1b4b;border:1px solid #ffd70040;border-radius:6px;padding:10px;margin:8px 0;font-size:12px;line-height:1.6}
 .note strong{color:#ffd700}
 </style></head><body>
-<h1>💰 AIARTstudio v0610-1345 모델 가격표</h1>
+<h1>💰 AIARTstudio v0610-1430 모델 가격표</h1>
 <p style="text-align:center;color:#94a3b8;font-size:11px;margin-bottom:10px">환율: $1 = ₩1,450 | 2026.05 기준 | 싱가포르(International) 엔드포인트</p>
 <h2 style="color:#8b5cf6;font-size:14px;margin:8px 0">🧠 텍스트 AI 모델</h2>
 <table><tr><th>모델</th><th>제공</th><th>Input $/1M</th><th>Output $/1M</th><th>비고</th></tr>
@@ -4794,7 +4813,7 @@ td{padding:4px;border-bottom:1px solid #1e293b;font-size:11px}.section{color:#ff
 🐉 이미지: <strong style="color:#a78bfa">Qwen Image Plus</strong> (장당 ₩29) + <strong style="color:#a78bfa">Qwen Image Max</strong> (장당 ₩109, 최고 퀄)<br>
 → 총 <strong style="color:#ffd700">월 ₩36,250</strong>으로 최강속도 + 프로급 AI 아트 워크플로우! 👊
 </div>
-<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0610-1345 | 가격은 수시 변동 가능</p>
+<p style="text-align:center;color:#475569;font-size:10px;margin-top:12px">AIARTstudio v0610-1430 | 가격은 수시 변동 가능</p>
 </body></html>`);
     w.document.close();
 }
@@ -9548,7 +9567,7 @@ async function downloadGalleryZip() {
         total: total,
         included: ok,
         excluded: fail,
-        app_version: 'v0610-1345',
+        app_version: 'v0610-1430',
         items: metaList
     }, null, 2));
     
@@ -9640,6 +9659,260 @@ function renderResultCards() {
     res.appendChild(card); 
 }
 
+// ════════════════════════════════════════════════════════════
+// 🔍 EXIF/PNG 메타데이터 리더 — v0610
+//   NovelAI(alpha-stealth + tEXt) / ComfyUI / A1111(WebUI) 생성정보 추출
+//   외부 라이브러리: pako(zlib), exifreader (JPG EXIF용)
+// ════════════════════════════════════════════════════════════
+// 간단 토스트 (메타 리더 피드백용) — 없으면 log로 폴백
+function showToast(msg) {
+    try {
+        let t = document.getElementById('_metaToast');
+        if (!t) {
+            t = document.createElement('div');
+            t.id = '_metaToast';
+            t.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(15,23,42,0.96);border:1px solid #22d3ee;color:#e2e8f0;padding:8px 16px;border-radius:8px;font-size:0.6rem;z-index:100002;transition:opacity .3s;pointer-events:none';
+            document.body.appendChild(t);
+        }
+        t.textContent = msg;
+        t.style.opacity = '1';
+        clearTimeout(t._timer);
+        t._timer = setTimeout(() => { t.style.opacity = '0'; }, 1800);
+    } catch (e) {}
+    if (typeof log === 'function') log(msg, 'info');
+}
+
+function openMetaReader() {
+    document.getElementById('metaModal').style.display = 'flex';
+    document.getElementById('metaResults').innerHTML = '';
+    const drop = document.getElementById('metaDrop');
+    const input = document.getElementById('metaFileInput');
+    // 핸들러 1회만 부착
+    if (!drop.dataset.bound) {
+        drop.dataset.bound = '1';
+        drop.onclick = () => input.click();
+        input.onchange = (e) => { [...e.target.files].forEach(metaReadFile); input.value = ''; };
+        drop.ondragover = (e) => { e.preventDefault(); drop.style.background = 'rgba(14,116,144,0.18)'; };
+        drop.ondragleave = () => { drop.style.background = 'rgba(14,116,144,0.05)'; };
+        drop.ondrop = (e) => {
+            e.preventDefault();
+            drop.style.background = 'rgba(14,116,144,0.05)';
+            [...e.dataTransfer.files].filter(f => /image\/(png|jpeg)/.test(f.type)).forEach(metaReadFile);
+        };
+    }
+}
+function closeMetaReader() { document.getElementById('metaModal').style.display = 'none'; }
+
+async function metaReadFile(file) {
+    const resBox = document.getElementById('metaResults');
+    const card = document.createElement('div');
+    card.style.cssText = 'background:#1e293b;border:1px solid #334155;border-radius:8px;padding:10px;margin-bottom:10px;font-size:0.55rem';
+    card.innerHTML = `<div style="color:#22d3ee;font-weight:700;margin-bottom:6px">📄 ${file.name} <span style="color:#64748b;font-weight:400">(${(file.size/1024).toFixed(0)}KB)</span> — 분석 중...</div>`;
+    resBox.prepend(card);
+    try {
+        const buf = await file.arrayBuffer();
+        let meta;
+        if (file.type === 'image/png') meta = metaParsePNG(new Uint8Array(buf));
+        else meta = await metaParseJPG(buf);
+        metaRenderCard(card, file, meta);
+    } catch (e) {
+        card.innerHTML = `<div style="color:#f87171">❌ ${file.name}: ${e.message}</div>`;
+    }
+}
+
+// ── PNG: tEXt/iTXt/zTXt 청크 파싱 ──
+function metaParsePNG(bytes) {
+    if (bytes[0] !== 0x89 || bytes[1] !== 0x50) throw new Error('PNG 시그니처 아님');
+    const chunks = {};
+    let p = 8; // PNG 시그니처 8바이트 스킵
+    const td = new TextDecoder('utf-8');
+    const ascii = new TextDecoder('latin1');
+    while (p < bytes.length) {
+        const len = (bytes[p] << 24) | (bytes[p+1] << 16) | (bytes[p+2] << 8) | bytes[p+3];
+        const type = ascii.decode(bytes.subarray(p+4, p+8));
+        const dataStart = p + 8;
+        const data = bytes.subarray(dataStart, dataStart + len);
+        if (type === 'tEXt') {
+            const nul = data.indexOf(0);
+            const key = ascii.decode(data.subarray(0, nul));
+            chunks[key] = ascii.decode(data.subarray(nul + 1));
+        } else if (type === 'iTXt') {
+            const nul = data.indexOf(0);
+            const key = ascii.decode(data.subarray(0, nul));
+            const compFlag = data[nul + 1];
+            // skip: compFlag(1) compMethod(1) langTag(\0) translatedKey(\0)
+            let q = nul + 3;
+            q = data.indexOf(0, q) + 1; // langTag 끝
+            q = data.indexOf(0, q) + 1; // translatedKey 끝
+            const payload = data.subarray(q);
+            try {
+                chunks[key] = compFlag === 1
+                    ? td.decode(window.pako.inflate(payload))
+                    : td.decode(payload);
+            } catch (e) { chunks[key] = td.decode(payload); }
+        } else if (type === 'zTXt') {
+            const nul = data.indexOf(0);
+            const key = ascii.decode(data.subarray(0, nul));
+            try { chunks[key] = td.decode(window.pako.inflate(data.subarray(nul + 2))); }
+            catch (e) { /* skip */ }
+        }
+        if (type === 'IEND') break;
+        p = dataStart + len + 4; // +4 CRC
+    }
+    return metaNormalize(chunks);
+}
+
+// ── JPG: ExifReader로 UserComment/parameters 추출 ──
+async function metaParseJPG(buf) {
+    const chunks = {};
+    try {
+        const tags = window.ExifReader.load(buf, { expanded: true });
+        const grab = (v) => v && (v.description || v.value);
+        if (tags.exif) {
+            const uc = grab(tags.exif.UserComment);
+            if (uc) chunks.parameters = String(uc);
+            const desc = grab(tags.exif.ImageDescription);
+            if (desc && !chunks.parameters) chunks.parameters = String(desc);
+            const sw = grab(tags.exif.Software);
+            if (sw) chunks.Software = String(sw);
+        }
+    } catch (e) { /* exifreader 실패해도 진행 */ }
+    return metaNormalize(chunks);
+}
+
+// ── 청크 → 통일된 메타 구조로 정규화 ──
+function metaNormalize(chunks) {
+    const out = { source: '?', prompt: '', negative: '', params: {}, raw: chunks };
+
+    // NovelAI: Comment 키에 JSON
+    if (chunks.Comment && (chunks.Software || '').toLowerCase().includes('novelai') || chunks.Comment) {
+        try {
+            const j = JSON.parse(chunks.Comment);
+            if (j.prompt !== undefined || j.steps !== undefined || j.sampler !== undefined) {
+                out.source = 'NovelAI';
+                out.prompt = j.prompt || chunks.Description || '';
+                out.negative = j.uc || '';
+                ['steps','sampler','scale','seed','height','width','cfg_rescale','noise_schedule'].forEach(k => {
+                    if (j[k] !== undefined) out.params[k] = j[k];
+                });
+                return out;
+            }
+        } catch (e) { /* not NAI json */ }
+    }
+    if (chunks.Description && chunks.Software && chunks.Software.toLowerCase().includes('novelai')) {
+        out.source = 'NovelAI';
+        out.prompt = chunks.Description;
+        return out;
+    }
+
+    // ComfyUI: workflow / prompt 키에 JSON 그래프
+    if (chunks.prompt && chunks.prompt.trim().startsWith('{') || chunks.workflow) {
+        try {
+            JSON.parse(chunks.prompt || chunks.workflow);
+            out.source = 'ComfyUI';
+            out.prompt = metaExtractComfyText(chunks.prompt || chunks.workflow);
+            out.params = { note: 'ComfyUI 노드 그래프 — 아래 원본 참조' };
+            return out;
+        } catch (e) { /* not comfy */ }
+    }
+
+    // A1111 / WebUI: parameters 키 (프롬프트\nNegative prompt:\n...\nSteps: ...)
+    const paramText = chunks.parameters || chunks.Comment || '';
+    if (paramText) {
+        out.source = 'A1111/WebUI';
+        const negIdx = paramText.indexOf('Negative prompt:');
+        const stepsM = paramText.match(/\n(Steps:[\s\S]*)$/);
+        const settingsStart = stepsM ? paramText.indexOf(stepsM[1]) : -1;
+        if (negIdx !== -1) {
+            out.prompt = paramText.substring(0, negIdx).trim();
+            const negEnd = settingsStart !== -1 ? settingsStart : paramText.length;
+            out.negative = paramText.substring(negIdx + 16, negEnd).trim();
+        } else {
+            out.prompt = settingsStart !== -1 ? paramText.substring(0, settingsStart).trim() : paramText.trim();
+        }
+        if (stepsM) {
+            stepsM[1].split(',').forEach(pair => {
+                const i = pair.indexOf(':');
+                if (i > 0) out.params[pair.substring(0, i).trim()] = pair.substring(i + 1).trim();
+            });
+        }
+        return out;
+    }
+
+    // 아무 키나 있으면 원본으로
+    const keys = Object.keys(chunks);
+    if (keys.length) { out.source = '기타/Unknown'; out.prompt = chunks[keys[0]] || ''; }
+    else throw new Error('생성 메타데이터를 찾지 못했습니다 (스크린샷이거나 메타가 제거된 파일일 수 있음)');
+    return out;
+}
+
+// ── ComfyUI 그래프에서 텍스트 인코더 입력 긁기 ──
+function metaExtractComfyText(jsonStr) {
+    try {
+        const g = JSON.parse(jsonStr);
+        const texts = [];
+        const nodes = g.nodes || Object.values(g);
+        const scan = (obj) => {
+            if (!obj || typeof obj !== 'object') return;
+            if (obj.inputs && typeof obj.inputs.text === 'string' && obj.inputs.text.length > 3)
+                texts.push(obj.inputs.text);
+            if (obj.widgets_values && Array.isArray(obj.widgets_values))
+                obj.widgets_values.forEach(v => { if (typeof v === 'string' && v.length > 8 && /[a-zA-Z]/.test(v)) texts.push(v); });
+            Object.values(obj).forEach(scan);
+        };
+        (Array.isArray(nodes) ? nodes : Object.values(nodes)).forEach(scan);
+        return [...new Set(texts)].slice(0, 4).join('\n──\n') || '(텍스트 노드를 찾지 못함 — 원본 참조)';
+    } catch (e) { return '(파싱 실패)'; }
+}
+
+// ── 결과 카드 렌더 ──
+function metaRenderCard(card, file, meta) {
+    const esc = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const paramRows = Object.entries(meta.params).map(([k, v]) =>
+        `<span style="display:inline-block;background:#0f172a;border:1px solid #334155;border-radius:4px;padding:2px 6px;margin:2px;font-size:0.48rem"><b style="color:#22d3ee">${esc(k)}</b>: ${esc(v)}</span>`).join('');
+    const srcColor = { 'NovelAI': '#10b981', 'ComfyUI': '#8b5cf6', 'A1111/WebUI': '#f59e0b' }[meta.source] || '#64748b';
+    const promptId = 'mp_' + Math.random().toString(36).slice(2, 8);
+
+    card.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <div style="color:#e2e8f0;font-weight:700">📄 ${esc(file.name)} <span style="color:#64748b;font-weight:400">(${(file.size/1024).toFixed(0)}KB)</span></div>
+            <span style="background:${srcColor};color:#fff;border-radius:999px;padding:2px 9px;font-size:0.48rem;font-weight:700">${meta.source}</span>
+        </div>
+        ${meta.prompt ? `
+        <div style="margin-bottom:6px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
+                <b style="color:#86efac;font-size:0.5rem">✅ PROMPT</b>
+                <div style="display:flex;gap:4px">
+                    <button onclick="navigator.clipboard.writeText(document.getElementById('${promptId}').textContent);showToast('📋 프롬프트 복사됨')" style="background:#334155;border:none;border-radius:4px;color:#fff;padding:2px 8px;font-size:0.45rem;cursor:pointer">📋 복사</button>
+                    <button onclick="metaUsePrompt('${promptId}')" style="background:linear-gradient(135deg,#8b5cf6,#ec4899);border:none;border-radius:4px;color:#fff;padding:2px 8px;font-size:0.45rem;cursor:pointer">🎨 이 프롬프트로 생성</button>
+                </div>
+            </div>
+            <div id="${promptId}" style="background:#0f172a;border-radius:6px;padding:7px;max-height:140px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;color:#cbd5e1;line-height:1.5">${esc(meta.prompt)}</div>
+        </div>` : '<div style="color:#94a3b8">프롬프트 텍스트 없음</div>'}
+        ${meta.negative ? `<div style="margin-bottom:6px"><b style="color:#fca5a5;font-size:0.5rem">🚫 NEGATIVE</b><div style="background:#0f172a;border-radius:6px;padding:7px;max-height:90px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;color:#94a3b8;line-height:1.5;margin-top:3px">${esc(meta.negative)}</div></div>` : ''}
+        ${paramRows ? `<div style="margin-top:6px">${paramRows}</div>` : ''}
+    `;
+}
+
+// ── "이 프롬프트로 생성": Image 모드 프롬프트 입력에 채우기 ──
+function metaUsePrompt(promptId) {
+    const txt = document.getElementById(promptId)?.textContent || '';
+    if (!txt) return;
+    // 토픽 입력란에 주입 (Image 모드)
+    const topic = document.getElementById('topic');
+    if (topic) {
+        topic.value = txt;
+        closeMetaReader();
+        if (typeof setMode === 'function') setMode('image');
+        showToast('🎨 프롬프트를 입력란에 넣었습니다 — 생성 버튼을 누르세요');
+        topic.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        topic.focus();
+    } else {
+        navigator.clipboard.writeText(txt);
+        showToast('📋 입력란을 못 찾아 클립보드에 복사했습니다');
+    }
+}
+
 // 🗑️ 갤러리 이미지만 비우기 — 총감독 대화, 프롬프트 카드, 즐겨찾기, 히스토리는 전부 유지
 //    (새로고침 없이 화면만 정리. blob: URL은 메모리 회수)
 function clearGalleryImages() {
@@ -9665,7 +9938,7 @@ function updateGallery() {
         card.className = 'rcard'; 
         res.appendChild(card); 
     } 
-    card.innerHTML = `<div class="rhead"><h3>🎬 Gallery <b>${generatedImages.length}</b></h3><div style="display:flex;gap:4px"><button class="cpbtn" onclick="dlAll()">💾 Save All</button><button class="cpbtn" style="background:linear-gradient(135deg,#ef4444,#b91c1c)" onclick="clearGalleryImages()" title="화면의 이미지만 비웁니다. 대화·지시·프롬프트 카드·즐겨찾기는 유지">🗑️ Clear</button></div></div><div class="igal">${generatedImages.map((img, i) => {
+    card.innerHTML = `<div class="rhead"><h3>🎬 Gallery <b>${generatedImages.length}</b></h3><div style="display:flex;gap:4px"><button class="cpbtn" style="background:linear-gradient(135deg,#0891b2,#0e7490)" onclick="openMetaReader()" title="이미지 파일에 박힌 프롬프트·시드·모델 정보를 읽습니다 (NAI/ComfyUI/A1111)">🔍 메타 읽기</button><button class="cpbtn" onclick="dlAll()">💾 Save All</button><button class="cpbtn" style="background:linear-gradient(135deg,#ef4444,#b91c1c)" onclick="clearGalleryImages()" title="화면의 이미지만 비웁니다. 대화·지시·프롬프트 카드·즐겨찾기는 유지">🗑️ Clear</button></div></div><div class="igal">${generatedImages.map((img, i) => {
         const aiLabel = img.promptAi ? img.promptAi.split(' ')[0] : (img.imgAi || 'AI');
         const artistLabel = img.artist ? img.artist.split(',')[0].replace(/artist:/gi,'').trim() : '';
         const explainSnippet = img.explanation ? img.explanation.substring(0, 80) : '';
@@ -12338,7 +12611,7 @@ init();
 </script>
 <footer style="text-align:center;padding:8px;font-size:0.38rem;color:rgba(255,255,255,0.25);border-top:1px solid rgba(255,255,255,0.05);margin-top:10px">
     <p id="exchangeRateInfo" style="font-size:0.4rem;color:#fbbf24;margin-bottom:4px">💱 환율 로딩 중...</p>
-    <p>AIARTstudio v0610-1345 (20260610-1345) Personal Edition • Client-side multi-AI creative tool.</p>
+    <p>AIARTstudio v0610-1430 (20260610-1430) Personal Edition • Client-side multi-AI creative tool.</p>
     <p>Users are responsible for complying with each AI service's terms of service. No API keys are transmitted to or stored by AIARTstudio.</p>
     <p>Generated content ownership is subject to each AI provider's terms. © 2025 AIARTstudio</p>
 </footer>
